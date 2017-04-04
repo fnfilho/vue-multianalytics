@@ -10,39 +10,36 @@ export default class AnalyticsPlugin {
   }
 
 
-
+  /**
+   * Dispatch a view analytics event
+   *
+   * params object should contain
+   * @param viewName
+   */
   trackView (params = {}, excludedModules = []) {
     logDebug('Dispatching TrackView', { params })
     if (!params.viewName) {
       return
     }
 
-    // modules = [ types.GA, types.MIXPANEL   ]
-    // excluded = [ 'mixpanel' ]
-    // let modulesEnabledMinusExcluded = modules - exlcude
     this.modulesEnabled.forEach(module => {
       if (!excludedModules.includes(module.name)) {
         module.trackView(params.viewName)
       }
     })
 
-    // Object.keys(this.modulesEnabled).forEach(key => {
-    //   if (!excludedModules.includes(key)) {
-    //     this.modulesEnabled[key].trackEvent(params)
-    //   }
-    // })
   }
 
   /**
-   * Dispatch an analytics event
+   * Dispatch a tracking analytics event
    *
+   * params object should contain
    * @param category
    * @param action
    * @param label
    * @param value
    */
   trackEvent (params = {}, excludedModules = []) {
-    // TODO : FieldObject is full syntax, refactor this at one moment
     logDebug('Dispatching event', { params })
     this.modulesEnabled.forEach(module => {
       if (!excludedModules.includes(module.name)) {
@@ -54,95 +51,34 @@ export default class AnalyticsPlugin {
   /**
    * Track an exception that occurred in the application.
    *
+   * The params object should contain
    * @param {string} description - Something describing the error (max. 150 Bytes)
    * @param {boolean} isFatal - Specifies whether the exception was fatal
    */
-  trackException (description, isFatal = false) {
-    ga('send', 'exception', { 'exDescription': description, 'exFatal': isFatal });
+  trackException (params = {}, excludedModules = []) {
+    this.modulesEnabled.forEach(module => {
+      if (!excludedModules.includes(module.name)) {
+        module.trackException(params)
+      }
+    })
   }
 
   /**
    * Track an user timing to measure periods of time.
    *
+   *  The params object should contain
    * @param {string} timingCategory - A string for categorizing all user timing variables into logical groups (e.g. 'JS Dependencies').
    * @param {string} timingVar -  A string to identify the variable being recorded (e.g. 'load').
    * @param {number} timingValue - The number of milliseconds in elapsed time to report to Google Analytics (e.g. 20).
    * @param {string|null} timingLabel -  A string that can be used to add flexibility in visualizing user timings in the reports (e.g. 'Google CDN').
    */
-  trackTiming (timingCategory, timingVar, timingValue, timingLabel = null) {
-    let conf = {
-      hitType: 'timing',
-      timingCategory,
-      timingVar,
-      timingValue
-    }
-    if (timingLabel) {
-      conf.timingLabel = timingLabel;
-    }
+  trackTiming (params = {}, excludedModules = []) {
+    logDebug('Dispatching timing', params)
+    this.modulesEnabled.forEach(module => {
+      if (!excludedModules.includes(module.name)) {
+        module.trackTiming(params)
+      }
+    })
 
-    logDebug('Dispatching timing', conf)
-    ga('send', conf);
-  }
-
-  /**
-   * Inject a new GlobalDimension that will be sent every time.
-   *
-   * Prefer inject through plugin configuration.
-   *
-   * @param {int} dimensionNumber
-   * @param {string|int} value
-   *
-   * @throws Error - If already defined
-   */
-  injectGlobalDimension (dimensionNumber, value) {
-    logDebug('Trying dimension Injection...', { dimensionNumber, value })
-
-    // Test if dimension already registered
-    if (pluginConfig.globalDimensions.find(el => el.dimension === dimensionNumber)) {
-      throw new Error('VueAnalytics : Dimension already registered')
-    }
-
-    // Otherwise add dimension
-    const newDimension = { dimension: dimensionNumber, value }
-
-    pluginConfig.globalDimensions.push(newDimension)
-    ga('set', `dimension${newDimension.dimension}`, newDimension.value)
-    logDebug('Dimension injected')
-  }
-
-  /**
-   * Inject a new GlobalMetric that will be sent every time.
-   *
-   * Prefer inject through plugin configuration.
-   *
-   * @param {int} metricNumber
-   * @param {string|int} value
-   *
-   * @throws Error - If already defined
-   */
-  injectGlobalMetric (metricNumber, value) {
-    logDebug('Trying metric Injection...', { metricNumber, value })
-
-    // Test if dimension already registered
-    if (pluginConfig.globalMetrics.find(el => el.metric === metricNumber)) {
-      throw new Error('VueAnalytics : Metric already registered')
-    }
-
-    // Otherwise add dimension
-    const newMetric = { metric: metricNumber, value }
-
-    pluginConfig.globalMetrics.push(newMetric)
-    ga('set', `metric${newMetric.metric}`, newMetric.value)
-    logDebug('Metric injected')
-  }
-
-  /**
-   * Set the current session language, use this if you change lang in the application after initialization.
-   *
-   * @param {string} code - Must be like in that : http://www.lingoes.net/en/translator/langcode.htm
-   */
-  changeSessionLanguage (code) {
-    logDebug(`Changing application localisation & language to ${code}`);
-    ga('set', 'language', code);
   }
 }
