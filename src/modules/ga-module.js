@@ -51,12 +51,18 @@ export default class GAModule {
    * params object should contain
    * @param viewName
    */
-  trackView (params) {
+  trackView ({viewName}) {
     if (this.config.debug) {
-      logDebug(params)
+      logDebug(viewName)
     }
-    ga('set', 'screenName', params.viewName)
-    ga('send', 'screenview')
+
+    let fieldsObject = {
+      hitType: 'pageview',
+      page: viewName
+    }
+
+    // ga('set', 'screenName', params.viewName)
+    ga('send', fieldsObject)
   }
 
   /**
@@ -68,11 +74,29 @@ export default class GAModule {
    * @param label
    * @param value
    */
-  trackEvent (params) {
+  trackEvent ({category = "Event", action, label = null, value = null, callback = null }) {
     if (this.config.debug) {
-      logDebug(params)
+      logDebug(...arguments)
     }
-    ga('send', 'event', params.category, params.action, params.label, params.value)
+
+    // GA requires that eventValue be an integer, see:
+    // https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference#eventValue
+    // https://github.com/luisfarzati/angulartics/issues/81
+    if (value) {
+      var parsed = parseInt(value, 10);
+      value = isNaN(parsed) ? 0 : parsed;
+    }
+
+    let fieldsObject = {
+      hitType: 'event',
+      eventCategory: category,
+      eventAction: action,
+      eventLabel: label,
+      eventValue: value,
+      hitCallback: callback,
+    }
+
+    ga('send', fieldsObject)
   }
 
   /**
