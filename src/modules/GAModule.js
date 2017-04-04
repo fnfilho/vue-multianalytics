@@ -47,9 +47,10 @@ export default class GAModule {
 
   /**
    * Dispatch a view analytics event
+   * https://developers.google.com/analytics/devguides/collection/analyticsjs/pages
    *
    * params object should contain
-   * @param viewName
+   * @param {string} viewName - The name of the view
    */
   trackView ({viewName}) {
     if (this.config.debug) {
@@ -67,12 +68,13 @@ export default class GAModule {
 
   /**
    * Dispatch a tracking analytics event
+   * https://developers.google.com/analytics/devguides/collection/analyticsjs/events
    *
    * params object should contain
-   * @param category
-   * @param action
-   * @param label
-   * @param value
+   * @param {string} category - Typically the object that was interacted with (e.g. 'Video')
+   * @param {string} action - The type of interaction (e.g. 'play')
+   * @param {string} label - Useful for categorizing events (e.g. 'Fall Campaign')
+   * @param {integer} value - A numeric value associated with the event (e.g. 42)
    */
   trackEvent ({category = "Event", action, label = null, value = null, callback = null }) {
     if (this.config.debug) {
@@ -101,6 +103,7 @@ export default class GAModule {
 
   /**
    * Track an exception that occurred in the application.
+   * https://developers.google.com/analytics/devguides/collection/analyticsjs/exceptions
    *
    * @param {string} description - Something describing the error (max. 150 Bytes)
    * @param {boolean} isFatal - Specifies whether the exception was fatal
@@ -114,6 +117,7 @@ export default class GAModule {
 
   /**
    * Track an user timing to measure periods of time.
+   * https://developers.google.com/analytics/devguides/collection/analyticsjs/user-timings
    *
    * @param {string} timingCategory - A string for categorizing all user timing variables into logical groups (e.g. 'JS Dependencies').
    * @param {string} timingVar -  A string to identify the variable being recorded (e.g. 'load').
