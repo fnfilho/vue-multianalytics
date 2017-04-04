@@ -1,0 +1,44 @@
+{
+  "name": "vue-multianalytics",
+  "version": "0.1.0",
+  "description": "A vue multianalytics tool",
+  "main": "./dist/vue-multianalytics.min.js",
+  "author": "Glovoapp, Adrian Latorre, Francisco Zurita",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/Glovo/vue-multianalytics",
+  "scripts": {
+    "build": "webpack",
+    "demo": "webpack && webpack --config webpack.demo.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Glovo/vue-multianalytics.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Glovo/vue-multianalytics/issues"
+  },
+  "devDependencies": {
+    "babel-core": "^6.18.2",
+    "babel-loader": "^6.2.7",
+    "babel-preset-latest": "^6.16.0",
+    "babel-preset-stage-2": "^6.18.0",
+    "vue": "^2.2.6",
+    "webpack": "^1.14.0"
+  },
+  "keywords": [
+    "mixpanel",
+    "segments",
+    "multianalytics",
+    "glovo",
+    "analytics",
+    "universal analytics",
+    "google analytics",
+    "vue analytics",
+    "vue js analytics",
+    "vuejs",
+    "tracking",
+    "Vue2",
+    "vue",
+    "google"
+  ]
+}
