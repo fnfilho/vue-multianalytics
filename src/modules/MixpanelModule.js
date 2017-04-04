@@ -1,10 +1,10 @@
 import { MODULE_MIXPANEL } from '../analyticsTypes'
+import BasicModule from './BasicModule'
 import { logDebug } from '../utils'
-export default class GAModule {
+export default class GAModule extends BasicModule {
 
   constructor () {
-    this.name = MODULE_MIXPANEL
-    this.config = {}
+    super(MODULE_MIXPANEL)
   }
 
   init (initConf = {}) {
@@ -34,6 +34,7 @@ for(h=0;h<k.length;h++)e(d,k[h]);a._i.push([b,c,f])};a.__SV=1.2;b=e.createElemen
   // Methods
 
   /**
+   * https://mixpanel.com/help/reference/javascript#sending-events
    * Dispatch a view analytics event
    *
    * params object should contain
@@ -50,43 +51,16 @@ for(h=0;h<k.length;h++)e(d,k[h]);a._i.push([b,c,f])};a.__SV=1.2;b=e.createElemen
    * Dispatch a tracking analytics event
    *
    * params object should contain
-   * @param category
-   * @param action
-   * @param label
-   * @param value
+   * @param {string} action - Name of the event you are sending.
+   * @param {object} properties - An object of properties that are useful.
+   * @param {function} callback - if provided, the callback function will be called.
    */
-   trackEvent ({category = "Event", action, label = null, value = null, properties = {}, callback = null }) {
+   trackEvent ({action, properties = null, callback = null}) {
     if (this.config.debug) {
       logDebug(...arguments)
     }
     mixpanel.track(action, properties, callback)
 
   }
-
-  /**
-   * Track an exception that occurred in the application.
-   *
-   * @param {string} description - Something describing the error (max. 150 Bytes)
-   * @param {boolean} isFatal - Specifies whether the exception was fatal
-   */
-  trackException ({description = "", isFatal = false}) {
-    return
-  }
-
-  /**
-   * Track an user timing to measure periods of time.
-   *
-   * @param {string} timingCategory - A string for categorizing all user timing variables into logical groups (e.g. 'JS Dependencies').
-   * @param {string} timingVar -  A string to identify the variable being recorded (e.g. 'load').
-   * @param {number} timingValue - The number of milliseconds in elapsed time to report to Google Analytics (e.g. 20).
-   * @param {string|null} timingLabel -  A string that can be used to add flexibility in visualizing user timings in the reports (e.g. 'Google CDN').
-   */
-  trackTiming (timingCategory, timingVar, timingValue, timingLabel = null) {
-    return
-  }
-
-
-
-
 
 }
