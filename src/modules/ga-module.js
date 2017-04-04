@@ -30,8 +30,6 @@ export default class GAModule {
       })
 
       this.config.debug = initConf.debug
-      this.config.globalDimensions = initConf.globalDimensions
-      this.config.globalMetrics = initConf.globalMetrics
 
       // register tracker
       ga('create', initConf.trackingId, 'auto')
@@ -41,30 +39,65 @@ export default class GAModule {
       ga('set', 'appName', initConf.appName)
       ga('set', 'appVersion', initConf.appVersion)
 
-      // Inject global dimensions
-      if (initConf.globalDimensions) {
-        initConf.globalDimensions.forEach(dimension => {
-          ga('set', `dimension${dimension.dimension}`, dimension.value)
-        })
-      }
-
-      // Inject global metrics
-      if (initConf.globalMetrics) {
-        initConf.globalMetrics.forEach(metric => {
-          ga('set', `metric${metric.metric}`, metric.value)
-        })
-      }
   }
 
 
   // Methods
+
+  /**
+   * Dispatch a view analytics event
+   *
+   * params object should contain
+   * @param viewName
+   */
   trackView (view) {
-    ga('set', 'screenName', view)
+    ga('set', 'screenName', viewName)
     ga('send', 'screenview')
   }
 
+  /**
+   * Dispatch a tracking analytics event
+   *
+   * params object should contain
+   * @param category
+   * @param action
+   * @param label
+   * @param value
+   */
   trackEvent ({category, action = null, label = null, value = null}) {
     ga('send', 'event', category, action, label, value)
+  }
+
+  /**
+   * Track an exception that occurred in the application.
+   *
+   * @param {string} description - Something describing the error (max. 150 Bytes)
+   * @param {boolean} isFatal - Specifies whether the exception was fatal
+   */
+  trackException (description = "", isFatal = false) {
+    ga('send', 'exception', { 'exDescription': description, 'exFatal': isFatal });
+  }
+
+  /**
+   * Track an user timing to measure periods of time.
+   *
+   * @param {string} timingCategory - A string for categorizing all user timing variables into logical groups (e.g. 'JS Dependencies').
+   * @param {string} timingVar -  A string to identify the variable being recorded (e.g. 'load').
+   * @param {number} timingValue - The number of milliseconds in elapsed time to report to Google Analytics (e.g. 20).
+   * @param {string|null} timingLabel -  A string that can be used to add flexibility in visualizing user timings in the reports (e.g. 'Google CDN').
+   */
+  trackTiming (timingCategory, timingVar, timingValue, timingLabel = null) {
+    let conf = {
+      hitType: 'timing',
+      timingCategory,
+      timingVar,
+      timingValue
+    }
+    if (timingLabel) {
+      conf.timingLabel = timingLabel;
+    }
+
+    ga('send', conf);
   }
 
 
