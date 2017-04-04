@@ -18,8 +18,6 @@ To start using it, you need to add the plugin in your main .js entry
 
 ```
 import VueMultianalytics from 'vue-multianalytics'
-import VueRouter from 'vue-router'
-const router = new VueRouter(...)
 
 let gaConfig = {
   appName: 'Test', // Mandatory
@@ -37,6 +35,8 @@ Vue.use(VueMultianalytics, {
   modules: {
     ga: gaConfig,
     mixpanel: mixpanelConfig
+  },
+  params: {
   }
 })
 ```
@@ -64,6 +64,49 @@ this.$ma.trackEvent(params, ['mixpanel', 'ga'])
 this.$ma.trackEvent(params)
 
 ```
+
+## VueRouter integration
+
+vue-multianalytics can be integrated with [vue-router](https://github.com/vuejs/vue-router) to track each new screen view on router change.
+
+To use this feature, you just need to pass your `vue-router` instance in the params property as vueRouter.
+
+```
+
+import VueMultianalytics from 'vue-multianalytics'
+import VueRouter from 'vue-router'
+const router = new VueRouter(...)
+
+let mixpanelConfig = {
+  tracker: 'YOUR_TRACKER'
+}
+
+Vue.use(VueMultianalytics, {
+  modules: {
+    mixpanel: mixpanelConfig
+  },
+  params: {
+    vueRouter: router, //  Pass the router instance to automatically sync with router (optional)
+    preferredProperty: 'name', // By default 'path' and related with vueRouter (optional)
+    ingoredViews: ['homepage']
+  }
+})
+
+```
+This feature will generate the view name according to a priority rule:
+- If you have defined a meta field in your route named `analytics`
+```
+const homeRoute = {
+  path: '/home',
+  name: 'home',
+  meta: {analytics: 'ThisWillBeTheName'}
+}
+```
+- If you define a `preferredProperty` in your vue-multianalytics params, that params will be the used as screen name. Possible params are: `name`, `path`, `fullPath`.
+- If nothing is provided `path` will be used.
+
+If you want to ignore some routes, just specify then in the `ignoredViews` param. 
+
 
 ## API
 

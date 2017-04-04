@@ -21,7 +21,7 @@ export default class AnalyticsPlugin {
     }
 
     this.modulesEnabled.forEach(module => {
-      if (!excludedModules.includes(module.name)) {
+      if (excludedModules.indexOf(module.name) === -1) {
         module.trackView(params)
       }
     })
@@ -39,7 +39,7 @@ export default class AnalyticsPlugin {
    */
   trackEvent (params = {}, excludedModules = []) {
     this.modulesEnabled.forEach(module => {
-      if (!excludedModules.includes(module.name)) {
+      if (excludedModules.indexOf(module.name) === -1) {
         module.trackEvent(params)
       }
     })
@@ -54,7 +54,7 @@ export default class AnalyticsPlugin {
    */
   trackException (params = {}, excludedModules = []) {
     this.modulesEnabled.forEach(module => {
-      if (!excludedModules.includes(module.name)) {
+      if (excludedModules.indexOf(module.name) === -1) {
         module.trackException(params)
       }
     })
@@ -71,7 +71,7 @@ export default class AnalyticsPlugin {
    */
   trackTiming (params = {}, excludedModules = []) {
     this.modulesEnabled.forEach(module => {
-      if (!excludedModules.includes(module.name)) {
+      if (excludedModules.indexOf(module.name) === -1) {
         module.trackTiming(params)
       }
     })
