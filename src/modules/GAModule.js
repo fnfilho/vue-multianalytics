@@ -1,10 +1,11 @@
 import { MODULE_GA } from '../analyticsTypes'
+import BasicModule from './BasicModule'
 import { logDebug } from '../utils'
-export default class GAModule {
+
+export default class GAModule extends BasicModule {
 
   constructor () {
-    this.name = MODULE_GA
-    this.config = {}
+    super(MODULE_GA)
   }
 
   init (initConf = {}) {
