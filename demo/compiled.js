@@ -9452,27 +9452,27 @@
 	    return e && e.__esModule ? e : { default: e };
 	  }Object.defineProperty(t, "__esModule", { value: !0 });var o = n(2),
 	      r = i(o),
-	      c = n(3),
-	      l = i(c),
+	      l = n(3),
+	      c = i(l),
 	      u = n(6),
 	      s = i(u),
 	      p = n(5),
 	      f = (a(p), n(4)),
 	      d = a(f),
-	      g = function g(e) {
+	      v = function v(e) {
 	    var t = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {};e.modulesEnabled = [];for (var n in t.modules) {
 	      var a = void 0;switch (n) {case d.MODULE_GA:
-	          a = new l.default(), a.init(t.modules[n]);break;case d.MODULE_MIXPANEL:
+	          a = new c.default(), a.init(t.modules[n]);break;case d.MODULE_MIXPANEL:
 	          a = new s.default(), a.init(t.modules[n]);}a && e.modulesEnabled.push(a);
-	    }t.params && t.params.vueRouter && v(e, t.params.vueRouter, t.params.ignoredViews), e.prototype.$multianalytics = e.prototype.$ma = e.analytics = new r.default(e.modulesEnabled);
+	    }t.params && t.params.vueRouter && g(e, t.params.vueRouter, t.params.ignoredViews), e.prototype.$multianalytics = e.prototype.$ma = e.analytics = new r.default(e.modulesEnabled);
 	  },
-	      v = function v(e, t, n) {
+	      g = function g(e, t, n) {
 	    return n && (n = n.map(function (e) {
 	      return e.toLowerCase();
 	    })), t.afterEach(function (t) {
-	      n && n.indexOf(t.name.toLowerCase()) !== -1 || e.analytics.trackView(t.meta.analytics || t.name);
+	      n && n.indexOf(t.name.toLowerCase()) !== -1 || e.analytics.trackView({ viewName: t.meta.analytics || t.name });
 	    }), n;
-	  };t.default = { install: g };
+	  };t.default = { install: v };
 	}, function (e, t) {
 	  "use strict";
 	  function n(e, t) {
@@ -9526,7 +9526,7 @@
 	  }(),
 	      o = n(4),
 	      r = n(5),
-	      c = function () {
+	      l = function () {
 	    function e() {
 	      a(this, e), this.name = o.MODULE_GA, this.config = {};
 	    }return i(e, [{ key: "init", value: function value() {
@@ -9538,19 +9538,19 @@
 	          if (!e[t]) throw new Error('VueAnalytics : Please provide a "' + t + '" from the config.');
 	        }), this.config.debug = e.debug, ga("create", e.trackingId, "auto"), ga("set", "transport", "beacon"), ga("set", "appName", e.appName), ga("set", "appVersion", e.appVersion);
 	      } }, { key: "trackView", value: function value(e) {
-	        this.config.debug && (0, r.logDebug)(e), ga("set", "screenName", e.viewName), ga("send", "screenview");
+	        var t = e.viewName;this.config.debug && (0, r.logDebug)(t);var n = { hitType: "pageview", page: t };ga("send", n);
 	      } }, { key: "trackEvent", value: function value(e) {
 	        var t = e.category,
 	            n = void 0 === t ? "Event" : t,
 	            a = e.action,
 	            i = e.label,
 	            o = void 0 === i ? null : i,
-	            c = e.value,
-	            l = void 0 === c ? null : c,
+	            l = e.value,
+	            c = void 0 === l ? null : l,
 	            u = e.callback,
-	            s = void 0 === u ? null : u;if (this.config.debug && r.logDebug.apply(void 0, arguments), l) {
-	          var p = parseInt(l, 10);l = isNaN(p) ? 0 : p;
-	        }var f = { hitType: "event", eventCategory: n, eventAction: a, eventLabel: o, eventValue: l, hitCallback: s };ga("send", f);
+	            s = void 0 === u ? null : u;if (this.config.debug && r.logDebug.apply(void 0, arguments), c) {
+	          var p = parseInt(c, 10);c = isNaN(p) ? 0 : p;
+	        }var f = { hitType: "event", eventCategory: n, eventAction: a, eventLabel: o, eventValue: c, hitCallback: s };ga("send", f);
 	      } }, { key: "trackException", value: function value(e) {
 	        var t = e.description,
 	            n = void 0 === t ? "" : t,
@@ -9559,7 +9559,7 @@
 	      } }, { key: "trackTiming", value: function value(e, t, n) {
 	        var a = arguments.length > 3 && void 0 !== arguments[3] ? arguments[3] : null;this.config.debug && (0, r.logDebug)({ timingCategory: e, timingVar: t, timingValue: n, timingLabel: a });var i = { hitType: "timing", timingCategory: e, timingVar: t, timingValue: n };a && (i.timingLabel = a), ga("send", i);
 	      } }]), e;
-	  }();t.default = c;
+	  }();t.default = l;
 	}, function (e, t) {
 	  "use strict";
 	  Object.defineProperty(t, "__esModule", { value: !0 });t.MODULE_GA = "ga", t.MODULE_MIXPANEL = "mixpanel";
@@ -9585,7 +9585,7 @@
 	  }(),
 	      o = n(4),
 	      r = n(5),
-	      c = function () {
+	      l = function () {
 	    function e() {
 	      a(this, e), this.name = o.MODULE_MIXPANEL, this.config = {};
 	    }return i(e, [{ key: "init", value: function value() {
@@ -9596,10 +9596,10 @@
 	                  i,
 	                  o,
 	                  r = n.location,
-	                  c = r.hash;a = function a(e, t) {
+	                  l = r.hash;a = function a(e, t) {
 	                return (i = e.match(RegExp(t + "=([^&]*)"))) ? i[1] : null;
-	              }, c && a(c, "state") && (o = JSON.parse(decodeURIComponent(a(c, "state"))), "mpeditor" === o.action && (n.sessionStorage.setItem("_mpcehash", c), history.replaceState(o.desiredHash || "", e.title, r.pathname + r.search)));
-	            } catch (e) {}var l, u;window.mixpanel = t, t._i = [], t.init = function (e, n, a) {
+	              }, l && a(l, "state") && (o = JSON.parse(decodeURIComponent(a(l, "state"))), "mpeditor" === o.action && (n.sessionStorage.setItem("_mpcehash", l), history.replaceState(o.desiredHash || "", e.title, r.pathname + r.search)));
+	            } catch (e) {}var c, u;window.mixpanel = t, t._i = [], t.init = function (e, n, a) {
 	              function i(e, t) {
 	                var n = t.split(".");2 == n.length && (e = e[n[0]], t = n[1]), e[t] = function () {
 	                  e.push([t].concat(Array.prototype.slice.call(arguments, 0)));
@@ -9608,8 +9608,8 @@
 	                var t = "mixpanel";return "mixpanel" !== a && (t += "." + a), e || (t += " (stub)"), t;
 	              }, o.people.toString = function () {
 	                return o.toString(1) + ".people (stub)";
-	              }, l = "disable time_event track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config reset people.set people.set_once people.increment people.append people.union people.track_charge people.clear_charges people.delete_user".split(" "), u = 0; u < l.length; u++) {
-	                i(o, l[u]);
+	              }, c = "disable time_event track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config reset people.set people.set_once people.increment people.append people.union people.track_charge people.clear_charges people.delete_user".split(" "), u = 0; u < c.length; u++) {
+	                i(o, c[u]);
 	              }t._i.push([e, n, a]);
 	            }, t.__SV = 1.2, n = e.createElement("script"), n.type = "text/javascript", n.async = !0, n.src = "undefined" != typeof MIXPANEL_CUSTOM_LIB_URL ? MIXPANEL_CUSTOM_LIB_URL : "file:" === e.location.protocol && "//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//) ? "https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js" : "//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js", a = e.getElementsByTagName("script")[0], a.parentNode.insertBefore(n, a);
 	          }
@@ -9629,7 +9629,7 @@
 	      } }, { key: "trackTiming", value: function value(e, t, n) {
 	        arguments.length > 3 && void 0 !== arguments[3] ? arguments[3] : null;
 	      } }]), e;
-	  }();t.default = c;
+	  }();t.default = l;
 	}]);
 
 /***/ }
