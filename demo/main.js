@@ -11,11 +11,17 @@ let gaConfig = {
   debug: true
 }
 
+let mixpanelConfig = {
+  token: '933572e86a323c77cf71d8c2d376fc5e',
+  debug: true
+}
+
 
 
 Vue.use(VueMultianalytics, {
   modules: {
-    ga: gaConfig
+    ga: gaConfig,
+    mixpanel: mixpanelConfig
   }
 })
 let template = `
@@ -32,9 +38,12 @@ const app = new Vue({
   data: {
     message: 'Hello MultiAnalytics'
   },
+  mounted () {
+    console.log(this.$ma)
+  },
   methods: {
     trackEvent () {
-      this.$ma.trackEvent({category: 'test category'})
+      this.$ma.trackEvent({action: 'test category', category: 'clicks', properties: {interesting: true}})
     },
     trackView () {
       this.$ma.trackView({viewName: 'test view'})
