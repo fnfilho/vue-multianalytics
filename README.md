@@ -22,14 +22,14 @@ import VueRouter from 'vue-router'
 const router = new VueRouter(...)
 
 let gaConfig = {
-  appName: '{{Test}}', // Mandatory
-  appVersion: '{{appVersion}}', // Mandatory
-  trackingId: '{{your UA}}', // Mandatory
+  appName: 'Test', // Mandatory
+  appVersion: '0.1', // Mandatory
+  trackingId: 'YOUR_UA', // Mandatory
   debug: true, // Whether or not display console logs debugs (optional)
 }
 
 let mixpanelConfig = {
-
+  tracker: 'YOUR_TRACKER'
 }
 
 
@@ -78,7 +78,7 @@ this.$ma.trackEvent(params)
 this.$ma.trackView({screenName: 'Homepage'})  
 ```
 
-### trackEvent({category, action = null, label = null, value = null})
+### trackEvent({category = 'Event', action, label = null, value = null})
 ```
 /**
   * Dispatch a view using the screen name
@@ -90,7 +90,7 @@ this.$ma.trackView({screenName: 'Homepage'})
   * @param value
   */
 
-this.$ma.trackEvent({category: 'Homepage Click', action: 'Click', label: 'Great', value: ''})  
+this.$ma.trackEvent({category: 'Click', action: 'Homepage Click', label: 'Great', value: ''})  
 ```
 
 
@@ -103,9 +103,9 @@ Currently, supported modules are the following
 Name: `ga`
 Config:
 ```
-appName: '{{Test}}', // Mandatory
-appVersion: '{{appVersion}}', // Mandatory
-trackingId: '{{your UA}}', // Mandatory
+appName: 'Test', // Mandatory
+appVersion: '0.1', // Mandatory
+trackingId: 'YOUR_UA', // Mandatory
 debug: true, // Whether or not display console logs debugs (optional)
 ```
 Supported Events: `trackView`, `trackEvent`, `trackException`, `trackTiming`
@@ -115,9 +115,15 @@ Supported Events: `trackView`, `trackEvent`, `trackException`, `trackTiming`
 Name: `mixpanel`
 Config:
 ```
-appName: '{{Test}}', // Mandatory
-appVersion: '{{appVersion}}', // Mandatory
-trackingId: '{{your UA}}', // Mandatory
+tracker: 'YOUR_TRACKER'
 debug: true, // Whether or not display console logs debugs (optional)
 ```
-Supported Events: `trackView`, `trackEvent`, `trackException`, `trackTiming`
+Supported Events: `trackView`, `trackEvent`
+
+
+## Todo
+- ~~Demo~~ 👍
+- Further integration with mixpanel
+- New events: registerSuperproperties, alias, timedEvents
+- New modules: segment, appboy, kissmetrics?
+- Tests
