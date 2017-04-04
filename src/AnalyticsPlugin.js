@@ -1,5 +1,4 @@
-import { logDebug } from './utils'
-import pluginConfig from './config'
+
 /**
  * Plugin main class
  */
@@ -17,14 +16,13 @@ export default class AnalyticsPlugin {
    * @param viewName
    */
   trackView (params = {}, excludedModules = []) {
-    logDebug('Dispatching TrackView', { params })
     if (!params.viewName) {
       return
     }
 
     this.modulesEnabled.forEach(module => {
       if (!excludedModules.includes(module.name)) {
-        module.trackView(params.viewName)
+        module.trackView(params)
       }
     })
 
@@ -40,7 +38,6 @@ export default class AnalyticsPlugin {
    * @param value
    */
   trackEvent (params = {}, excludedModules = []) {
-    logDebug('Dispatching event', { params })
     this.modulesEnabled.forEach(module => {
       if (!excludedModules.includes(module.name)) {
         module.trackEvent(params)
@@ -73,7 +70,6 @@ export default class AnalyticsPlugin {
    * @param {string|null} timingLabel -  A string that can be used to add flexibility in visualizing user timings in the reports (e.g. 'Google CDN').
    */
   trackTiming (params = {}, excludedModules = []) {
-    logDebug('Dispatching timing', params)
     this.modulesEnabled.forEach(module => {
       if (!excludedModules.includes(module.name)) {
         module.trackTiming(params)

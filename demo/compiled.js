@@ -67,35 +67,32 @@
 	  appName: 'Test', // Mandatory
 	  appVersion: '0.1', // Mandatory
 	  trackingId: 'UA-96678006-1', // Mandatory
-	  debug: true, // Whether or not display console logs debugs (optional)
 	  globalDimensions: [],
-	  globalMetrics: []
+	  globalMetrics: [],
+	  debug: true
 	};
 
 	_vue2.default.use(_vueMultianalytics2.default, {
 	  modules: {
-	    'ga': gaConfig
+	    ga: gaConfig
 	  }
 	});
-
+	var template = '\n  <div>\n    <div>{{message}}</div>\n    <button @click="trackView()">Track View</button>\n    <button @click="trackEvent()">Track Event</button>\n    <button @click="trackException()">Track Exception</button>\n  </div>\n';
 	var app = new _vue2.default({
 	  el: '#app',
-	  template: '<div><div>message</div><button @click="TrackEvent()">Track Event</button></div>',
+	  template: template,
 	  data: {
 	    message: 'Hello MultiAnalytics'
 	  },
-	  mounted: function mounted() {
-	    this.$ma.trackEvent({ category: 'Test Click' });
-	    console.log('MOUNTED', this.$ma);
-	  },
-
 	  methods: {
-	    click: function click() {
-	      console.log(this);
+	    trackEvent: function trackEvent() {
+	      this.$ma.trackEvent({ category: 'test category' });
 	    },
-	    TrackEvent: function TrackEvent() {
-	      console.log('hey, im there');
-	      this.$ma.trackView({ viewName: 'pepito' });
+	    trackView: function trackView() {
+	      this.$ma.trackView({ viewName: 'test view' });
+	    },
+	    trackException: function trackException() {
+	      this.$ma.trackException({ description: 'test exception', isFatal: true });
 	    }
 	  }
 	});
@@ -9430,34 +9427,33 @@
 	"use strict";
 
 	module.exports = function (e) {
-	  function n(i) {
-	    if (t[i]) return t[i].exports;var a = t[i] = { exports: {}, id: i, loaded: !1 };return e[i].call(a.exports, a, a.exports, n), a.loaded = !0, a.exports;
+	  function n(a) {
+	    if (t[a]) return t[a].exports;var i = t[a] = { exports: {}, id: a, loaded: !1 };return e[a].call(i.exports, i, i.exports, n), i.loaded = !0, i.exports;
 	  }var t = {};return n.m = e, n.c = t, n.p = "", n(0);
 	}([function (e, n, t) {
 	  e.exports = t(1);
 	}, function (e, n, t) {
 	  "use strict";
-	  function i(e) {
+	  function a(e) {
 	    if (e && e.__esModule) return e;var n = {};if (null != e) for (var t in e) {
 	      Object.prototype.hasOwnProperty.call(e, t) && (n[t] = e[t]);
 	    }return n.default = e, n;
-	  }function a(e) {
+	  }function i(e) {
 	    return e && e.__esModule ? e : { default: e };
 	  }Object.defineProperty(n, "__esModule", { value: !0 });var o = t(2),
-	      r = (a(o), t(3)),
-	      l = a(r),
-	      u = t(5),
-	      c = a(u),
-	      s = t(4),
-	      f = (i(s), t(6)),
-	      g = i(f),
+	      r = i(o),
+	      c = t(3),
+	      u = i(c),
+	      l = t(5),
+	      s = (a(l), t(4)),
+	      f = a(s),
 	      d = function d(e) {
 	    var n = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {};e.modulesEnabled = [];for (var t in n.modules) {
-	      var i = void 0;switch (t) {case g.MODULE_GA:
-	          i = new c.default(), i.init(n.modules[t]);}i && e.modulesEnabled.push(i);
-	    }n.vueRouter && v(e, n.vueRouter, n.ignoredViews), e.prototype.$multianalytics = e.prototype.$ma = e.analytics = new l.default(e.modulesEnabled);
+	      var a = void 0;switch (t) {case f.MODULE_GA:
+	          a = new u.default(), a.init(n.modules[t]);}a && e.modulesEnabled.push(a);
+	    }n.params && n.params.vueRouter && g(e, n.params.vueRouter, n.params.ignoredViews), e.prototype.$multianalytics = e.prototype.$ma = e.analytics = new r.default(e.modulesEnabled);
 	  },
-	      v = function v(e, n, t) {
+	      g = function g(e, n, t) {
 	    return t && (t = t.map(function (e) {
 	      return e.toLowerCase();
 	    })), n.afterEach(function (n) {
@@ -9466,111 +9462,91 @@
 	  };n.default = { install: d };
 	}, function (e, n) {
 	  "use strict";
-	  Object.defineProperty(n, "__esModule", { value: !0 }), n.default = { ga: { debug: !1, globalDimensions: [], globalMetrics: [] } };
-	}, function (e, n, t) {
-	  "use strict";
-	  function i(e) {
-	    return e && e.__esModule ? e : { default: e };
-	  }function a(e, n) {
-	    if (!(e instanceof n)) throw new TypeError("Cannot call a class as a function");
-	  }Object.defineProperty(n, "__esModule", { value: !0 });var o = function () {
-	    function e(e, n) {
-	      for (var t = 0; t < n.length; t++) {
-	        var i = n[t];i.enumerable = i.enumerable || !1, i.configurable = !0, "value" in i && (i.writable = !0), Object.defineProperty(e, i.key, i);
-	      }
-	    }return function (n, t, i) {
-	      return t && e(n.prototype, t), i && e(n, i), n;
-	    };
-	  }(),
-	      r = t(4),
-	      l = t(2),
-	      u = i(l),
-	      c = function () {
-	    function e(n) {
-	      a(this, e), this.modulesEnabled = n;
-	    }return o(e, [{ key: "trackView", value: function value() {
-	        var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {},
-	            n = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : [];(0, r.logDebug)("Dispatching TrackView", { params: e }), e.viewName && this.modulesEnabled.forEach(function (t) {
-	          n.includes(t.name) || t.trackView(e.viewName);
-	        });
-	      } }, { key: "trackEvent", value: function value() {
-	        var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {},
-	            n = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : [];(0, r.logDebug)("Dispatching event", { params: e }), this.modulesEnabled.forEach(function (t) {
-	          n.includes(t.name) || t.trackEvent(e);
-	        });
-	      } }, { key: "trackException", value: function value(e) {
-	        var n = arguments.length > 1 && void 0 !== arguments[1] && arguments[1];ga("send", "exception", { exDescription: e, exFatal: n });
-	      } }, { key: "trackTiming", value: function value(e, n, t) {
-	        var i = arguments.length > 3 && void 0 !== arguments[3] ? arguments[3] : null,
-	            a = { hitType: "timing", timingCategory: e, timingVar: n, timingValue: t };i && (a.timingLabel = i), (0, r.logDebug)("Dispatching timing", a), ga("send", a);
-	      } }, { key: "injectGlobalDimension", value: function value(e, n) {
-	        if ((0, r.logDebug)("Trying dimension Injection...", { dimensionNumber: e, value: n }), u.default.globalDimensions.find(function (n) {
-	          return n.dimension === e;
-	        })) throw new Error("VueAnalytics : Dimension already registered");var t = { dimension: e, value: n };u.default.globalDimensions.push(t), ga("set", "dimension" + t.dimension, t.value), (0, r.logDebug)("Dimension injected");
-	      } }, { key: "injectGlobalMetric", value: function value(e, n) {
-	        if ((0, r.logDebug)("Trying metric Injection...", { metricNumber: e, value: n }), u.default.globalMetrics.find(function (n) {
-	          return n.metric === e;
-	        })) throw new Error("VueAnalytics : Metric already registered");var t = { metric: e, value: n };u.default.globalMetrics.push(t), ga("set", "metric" + t.metric, t.value), (0, r.logDebug)("Metric injected");
-	      } }, { key: "changeSessionLanguage", value: function value(e) {
-	        (0, r.logDebug)("Changing application localisation & language to " + e), ga("set", "language", e);
-	      } }]), e;
-	  }();n.default = c;
-	}, function (e, n, t) {
-	  "use strict";
-	  function i(e) {
-	    return e && e.__esModule ? e : { default: e };
-	  }Object.defineProperty(n, "__esModule", { value: !0 }), n.cordovaApp = n.logDebug = void 0;var a = t(2),
-	      o = i(a);n.logDebug = function (e) {
-	    if (o.default.debug) {
-	      var n;(n = console).log.apply(n, ["VueAnalytics :"].concat(Array.prototype.slice.call(arguments)));
-	    }
-	  }, n.cordovaApp = { bootstrapWindows: function bootstrapWindows() {
-	      window.ActiveXObject = void 0, ga("set", "checkProtocolTask", null);
-	    } };
-	}, function (e, n, t) {
-	  "use strict";
-	  function i(e, n) {
+	  function t(e, n) {
 	    if (!(e instanceof n)) throw new TypeError("Cannot call a class as a function");
 	  }Object.defineProperty(n, "__esModule", { value: !0 });var a = function () {
 	    function e(e, n) {
 	      for (var t = 0; t < n.length; t++) {
-	        var i = n[t];i.enumerable = i.enumerable || !1, i.configurable = !0, "value" in i && (i.writable = !0), Object.defineProperty(e, i.key, i);
+	        var a = n[t];a.enumerable = a.enumerable || !1, a.configurable = !0, "value" in a && (a.writable = !0), Object.defineProperty(e, a.key, a);
 	      }
-	    }return function (n, t, i) {
-	      return t && e(n.prototype, t), i && e(n, i), n;
+	    }return function (n, t, a) {
+	      return t && e(n.prototype, t), a && e(n, a), n;
 	    };
 	  }(),
-	      o = t(6),
-	      r = function () {
+	      i = function () {
+	    function e(n) {
+	      t(this, e), this.modulesEnabled = n;
+	    }return a(e, [{ key: "trackView", value: function value() {
+	        var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {},
+	            n = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : [];e.viewName && this.modulesEnabled.forEach(function (t) {
+	          n.includes(t.name) || t.trackView(e);
+	        });
+	      } }, { key: "trackEvent", value: function value() {
+	        var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {},
+	            n = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : [];this.modulesEnabled.forEach(function (t) {
+	          n.includes(t.name) || t.trackEvent(e);
+	        });
+	      } }, { key: "trackException", value: function value() {
+	        var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {},
+	            n = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : [];this.modulesEnabled.forEach(function (t) {
+	          n.includes(t.name) || t.trackException(e);
+	        });
+	      } }, { key: "trackTiming", value: function value() {
+	        var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {},
+	            n = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : [];this.modulesEnabled.forEach(function (t) {
+	          n.includes(t.name) || t.trackTiming(e);
+	        });
+	      } }]), e;
+	  }();n.default = i;
+	}, function (e, n, t) {
+	  "use strict";
+	  function a(e, n) {
+	    if (!(e instanceof n)) throw new TypeError("Cannot call a class as a function");
+	  }Object.defineProperty(n, "__esModule", { value: !0 });var i = function () {
+	    function e(e, n) {
+	      for (var t = 0; t < n.length; t++) {
+	        var a = n[t];a.enumerable = a.enumerable || !1, a.configurable = !0, "value" in a && (a.writable = !0), Object.defineProperty(e, a.key, a);
+	      }
+	    }return function (n, t, a) {
+	      return t && e(n.prototype, t), a && e(n, a), n;
+	    };
+	  }(),
+	      o = t(4),
+	      r = t(5),
+	      c = function () {
 	    function e() {
-	      i(this, e), this.name = o.MODULE_GA, this.config = {};
-	    }return a(e, [{ key: "init", value: function value() {
-	        var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {};!function (e, n, t, i, a, o, r) {
-	          e.GoogleAnalyticsObject = a, e[a] = e[a] || function () {
-	            (e[a].q = e[a].q || []).push(arguments);
-	          }, e[a].l = 1 * new Date(), o = n.createElement(t), r = n.getElementsByTagName(t)[0], o.async = 1, o.src = i, r.parentNode.insertBefore(o, r);
+	      a(this, e), this.name = o.MODULE_GA, this.config = {};
+	    }return i(e, [{ key: "init", value: function value() {
+	        var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {};!function (e, n, t, a, i, o, r) {
+	          e.GoogleAnalyticsObject = i, e[i] = e[i] || function () {
+	            (e[i].q = e[i].q || []).push(arguments);
+	          }, e[i].l = 1 * new Date(), o = n.createElement(t), r = n.getElementsByTagName(t)[0], o.async = 1, o.src = a, r.parentNode.insertBefore(o, r);
 	        }(window, document, "script", "https://www.google-analytics.com/analytics.js", "ga");var n = ["trackingId", "appName", "appVersion"];n.forEach(function (n) {
 	          if (!e[n]) throw new Error('VueAnalytics : Please provide a "' + n + '" from the config.');
-	        }), this.config.debug = e.debug, this.config.globalDimensions = e.globalDimensions, this.config.globalMetrics = e.globalMetrics, ga("create", e.trackingId, "auto"), ga("set", "transport", "beacon"), ga("set", "appName", e.appName), ga("set", "appVersion", e.appVersion), e.globalDimensions && e.globalDimensions.forEach(function (e) {
-	          ga("set", "dimension" + e.dimension, e.value);
-	        }), e.globalMetrics && e.globalMetrics.forEach(function (e) {
-	          ga("set", "metric" + e.metric, e.value);
-	        });
+	        }), this.config.debug = e.debug, ga("create", e.trackingId, "auto"), ga("set", "transport", "beacon"), ga("set", "appName", e.appName), ga("set", "appVersion", e.appVersion);
 	      } }, { key: "trackView", value: function value(e) {
-	        ga("set", "screenName", e), ga("send", "screenview");
+	        this.config.debug && (0, r.logDebug)(e), ga("set", "screenName", e.viewName), ga("send", "screenview");
 	      } }, { key: "trackEvent", value: function value(e) {
-	        var n = e.category,
-	            t = e.action,
-	            i = void 0 === t ? null : t,
-	            a = e.label,
-	            o = void 0 === a ? null : a,
-	            r = e.value,
-	            l = void 0 === r ? null : r;ga("send", "event", n, i, o, l);
+	        this.config.debug && (0, r.logDebug)(e), ga("send", "event", e.category, e.action, e.label, e.value);
+	      } }, { key: "trackException", value: function value(e) {
+	        var n = e.description,
+	            t = void 0 === n ? "" : n,
+	            a = e.isFatal,
+	            i = void 0 !== a && a;this.config.debug && (0, r.logDebug)({ description: t, isFatal: i }), ga("send", "exception", { exDescription: t, exFatal: i });
+	      } }, { key: "trackTiming", value: function value(e, n, t) {
+	        var a = arguments.length > 3 && void 0 !== arguments[3] ? arguments[3] : null;this.config.debug && (0, r.logDebug)({ timingCategory: e, timingVar: n, timingValue: t, timingLabel: a });var i = { hitType: "timing", timingCategory: e, timingVar: n, timingValue: t };a && (i.timingLabel = a), ga("send", i);
 	      } }]), e;
-	  }();n.default = r;
+	  }();n.default = c;
 	}, function (e, n) {
 	  "use strict";
 	  Object.defineProperty(n, "__esModule", { value: !0 });n.MODULE_GA = "ga";
+	}, function (e, n) {
+	  "use strict";
+	  Object.defineProperty(n, "__esModule", { value: !0 });n.logDebug = function (e) {
+	    var n;(n = console).log.apply(n, ["VueAnalytics :"].concat(Array.prototype.slice.call(arguments)));
+	  }, n.cordovaApp = { bootstrapWindows: function bootstrapWindows() {
+	      window.ActiveXObject = void 0, ga("set", "checkProtocolTask", null);
+	    } };
 	}]);
 
 /***/ }

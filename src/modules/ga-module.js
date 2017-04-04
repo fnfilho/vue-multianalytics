@@ -1,4 +1,5 @@
 import { MODULE_GA } from '../analytics_types'
+import { logDebug } from '../utils'
 export default class GAModule {
 
   constructor () {
@@ -50,8 +51,11 @@ export default class GAModule {
    * params object should contain
    * @param viewName
    */
-  trackView (view) {
-    ga('set', 'screenName', viewName)
+  trackView (params) {
+    if (this.config.debug) {
+      logDebug(params)
+    }
+    ga('set', 'screenName', params.viewName)
     ga('send', 'screenview')
   }
 
@@ -64,8 +68,11 @@ export default class GAModule {
    * @param label
    * @param value
    */
-  trackEvent ({category, action = null, label = null, value = null}) {
-    ga('send', 'event', category, action, label, value)
+  trackEvent (params) {
+    if (this.config.debug) {
+      logDebug(params)
+    }
+    ga('send', 'event', params.category, params.action, params.label, params.value)
   }
 
   /**
@@ -74,7 +81,10 @@ export default class GAModule {
    * @param {string} description - Something describing the error (max. 150 Bytes)
    * @param {boolean} isFatal - Specifies whether the exception was fatal
    */
-  trackException (description = "", isFatal = false) {
+  trackException ({description = "", isFatal = false}) {
+    if (this.config.debug) {
+      logDebug({description, isFatal})
+    }
     ga('send', 'exception', { 'exDescription': description, 'exFatal': isFatal });
   }
 
@@ -87,6 +97,9 @@ export default class GAModule {
    * @param {string|null} timingLabel -  A string that can be used to add flexibility in visualizing user timings in the reports (e.g. 'Google CDN').
    */
   trackTiming (timingCategory, timingVar, timingValue, timingLabel = null) {
+    if (this.config.debug) {
+      logDebug({timingCategory, timingVar, timingValue, timingLabel})
+    }
     let conf = {
       hitType: 'timing',
       timingCategory,

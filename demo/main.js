@@ -6,48 +6,41 @@ let gaConfig = {
   appName: 'Test', // Mandatory
   appVersion: '0.1', // Mandatory
   trackingId: 'UA-96678006-1', // Mandatory
-  debug: true, // Whether or not display console logs debugs (optional)
   globalDimensions: [],
-  globalMetrics: []
+  globalMetrics: [],
+  debug: true
 }
 
 
 
 Vue.use(VueMultianalytics, {
   modules: {
-    'ga': gaConfig
+    ga: gaConfig
   }
 })
 let template = `
   <div>
-    <div>message</div>
-    <button @click="TrackEvent()">Track Event</button>
-    <button @click="TrackView()">Track View</button>
+    <div>{{message}}</div>
+    <button @click="trackView()">Track View</button>
+    <button @click="trackEvent()">Track Event</button>
     <button @click="trackException()">Track Exception</button>
   </div>
 `
 const app = new Vue({
   el: '#app',
-  template: '',
+  template: template,
   data: {
     message: 'Hello MultiAnalytics'
   },
-  mounted () {
-    this.$ma.trackEvent({category: 'Test Click'})
-    console.log('MOUNTED', this.$ma )
-  },
   methods: {
-    click() {
-      console.log(this)
-    },
-    TrackEvent () {
-      this.$ma.trackView({viewName: 'pepito'})
+    trackEvent () {
+      this.$ma.trackEvent({category: 'test category'})
     },
     trackView () {
-      this.$ma.trackEvent({: 'pepito'})
+      this.$ma.trackView({viewName: 'test view'})
     },
     trackException () {
-      this.$ma.trackException({viewName: 'pepito'})
+      this.$ma.trackException({description: 'test exception', isFatal: true})
     }
   }
 })

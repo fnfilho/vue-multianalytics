@@ -1,4 +1,3 @@
-import pluginConfig from './config'
 import AnalyticsPlugin from './AnalyticsPlugin'
 import GAModule from './modules/ga-module'
 import * as Utils from './utils'
@@ -29,8 +28,8 @@ const install = function (Vue, initConf = {}) {
     }
   }
   // Handle vue-router if defined
-  if (initConf.vueRouter) {
-    initVueRouterGuard(Vue, initConf.vueRouter, initConf.ignoredViews)
+  if (initConf.params && initConf.params.vueRouter) {
+    initVueRouterGuard(Vue, initConf.params.vueRouter, initConf.params.ignoredViews)
   }
 
   // Add to vue prototype and also from globals
