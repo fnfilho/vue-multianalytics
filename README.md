@@ -16,7 +16,7 @@ A typical `npm install vue-multianalytics -s` will be enough to download it.
 
 To start using it, you need to add the plugin in your main .js entry
 
-```
+```javascript
 import VueMultianalytics from 'vue-multianalytics'
 
 let gaConfig = {
@@ -51,8 +51,7 @@ Once the configuration is completed, you can access vue analytics instance in yo
 
 You can easily exclude modules from being fired by an event adding them to the excludedModules array. This is per-event based, so feel free to use them as you want
 
-```
-
+```javascript
 // this will exclude mixpanel from being fired
 let excludedModules = ['mixpanel']
 this.$ma.trackEvent(params, excludedModules)
@@ -62,7 +61,6 @@ this.$ma.trackEvent(params, ['mixpanel', 'ga'])
 
 // this will exclude nothing from beign fired, all the modules will be triggered
 this.$ma.trackEvent(params)
-
 ```
 
 ## VueRouter integration
@@ -71,7 +69,7 @@ vue-multianalytics can be integrated with [vue-router](https://github.com/vuejs/
 
 To use this feature, you just need to pass your `vue-router` instance in the params property as vueRouter.
 
-```
+```javascript
 
 import VueMultianalytics from 'vue-multianalytics'
 import VueRouter from 'vue-router'
@@ -95,7 +93,7 @@ Vue.use(VueMultianalytics, {
 ```
 This feature will generate the view name according to a priority rule:
 - If you have defined a meta field in your route named `analytics`
-```
+```javascript
 const homeRoute = {
   path: '/home',
   name: 'home',
@@ -111,7 +109,7 @@ If you want to ignore some routes, just specify then in the `ignoredViews` param
 ## API
 
 ### trackView({viewName})
-```
+```javascript
 /**
   * Dispatch a view using the screen name
   * params should contain
@@ -122,7 +120,7 @@ this.$ma.trackView({screenName: 'Homepage'})
 ```
 
 ### trackEvent({category = 'Event', action, label = null, value = null})
-```
+```javascript
 /**
   * Dispatch a view using the screen name
   * params object should contain
@@ -145,11 +143,11 @@ Currently, supported modules are the following
 
 Name: `ga`
 Config:
-```
+```javascript
 appName: 'Test', // Mandatory
 appVersion: '0.1', // Mandatory
 trackingId: 'YOUR_UA', // Mandatory
-debug: true, // Whether or not display console logs debugs (optional)
+debug: true // Whether or not display console logs debugs (optional)
 ```
 Supported Events: `trackView`, `trackEvent`, `trackException`, `trackTiming`
 
@@ -157,9 +155,9 @@ Supported Events: `trackView`, `trackEvent`, `trackException`, `trackTiming`
 
 Name: `mixpanel`
 Config:
-```
+```javascript
 tracker: 'YOUR_TRACKER'
-debug: true, // Whether or not display console logs debugs (optional)
+debug: true // Whether or not display console logs debugs (optional)
 ```
 Supported Events: `trackView`, `trackEvent`
 
