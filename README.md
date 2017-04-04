@@ -67,12 +67,12 @@ this.$ma.trackEvent(params)
 
 ## API
 
-### trackView({screenName})
+### trackView({viewName})
 ```
 /**
   * Dispatch a view using the screen name
   * params should contain
-  * @param screenName
+  * @param viewName
   */
 
 this.$ma.trackView({screenName: 'Homepage'})  
