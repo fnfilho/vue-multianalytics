@@ -18,12 +18,19 @@ Vue.use(VueMultianalytics, {
     'ga': gaConfig
   }
 })
-
+let template = `
+  <div>
+    <div>message</div>
+    <button @click="TrackEvent()">Track Event</button>
+    <button @click="TrackView()">Track View</button>
+    <button @click="trackException()">Track Exception</button>
+  </div>
+`
 const app = new Vue({
   el: '#app',
-  template: '<div>{{message}}</div>',
+  template: '',
   data: {
-    message: 'Hello Vue'
+    message: 'Hello MultiAnalytics'
   },
   mounted () {
     this.$ma.trackEvent({category: 'Test Click'})
@@ -32,6 +39,15 @@ const app = new Vue({
   methods: {
     click() {
       console.log(this)
+    },
+    TrackEvent () {
+      this.$ma.trackView({viewName: 'pepito'})
+    },
+    trackView () {
+      this.$ma.trackEvent({: 'pepito'})
+    },
+    trackException () {
+      this.$ma.trackException({viewName: 'pepito'})
     }
   }
 })

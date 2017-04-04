@@ -80,9 +80,9 @@
 
 	var app = new _vue2.default({
 	  el: '#app',
-	  template: '<div>{{message}}</div>',
+	  template: '<div><div>message</div><button @click="TrackEvent()">Track Event</button></div>',
 	  data: {
-	    message: 'Hello Vue'
+	    message: 'Hello MultiAnalytics'
 	  },
 	  mounted: function mounted() {
 	    this.$ma.trackEvent({ category: 'Test Click' });
@@ -92,6 +92,10 @@
 	  methods: {
 	    click: function click() {
 	      console.log(this);
+	    },
+	    TrackEvent: function TrackEvent() {
+	      console.log('hey, im there');
+	      this.$ma.trackView({ viewName: 'pepito' });
 	    }
 	  }
 	});
