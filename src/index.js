@@ -1,5 +1,6 @@
 import AnalyticsPlugin from './AnalyticsPlugin'
 import GAModule from './modules/ga-module'
+import MixpanelModule from './modules/mixpanel-module'
 import * as Utils from './utils'
 import * as types from './analytics_types'
 
@@ -20,6 +21,9 @@ const install = function (Vue, initConf = {}) {
         module = new GAModule()
         module.init(initConf.modules[key])
         break;
+      case types.MODULE_MIXPANEL:
+        module = new MixpanelModule()
+        module.init(initConf.modules[key])
       default:
         break;
     }
