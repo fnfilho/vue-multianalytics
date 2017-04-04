@@ -1,8 +1,8 @@
 import AnalyticsPlugin from './AnalyticsPlugin'
-import GAModule from './modules/ga-module'
-import MixpanelModule from './modules/mixpanel-module'
+import GAModule from './modules/GAModule'
+import MixpanelModule from './modules/MixpanelModule'
 import * as Utils from './utils'
-import * as types from './analytics_types'
+import * as types from './analyticsTypes'
 
 /**
  * Installation procedure

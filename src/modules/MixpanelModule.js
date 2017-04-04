@@ -1,4 +1,4 @@
-import { MODULE_MIXPANEL } from '../analytics_types'
+import { MODULE_MIXPANEL } from '../analyticsTypes'
 import { logDebug } from '../utils'
 export default class GAModule {
 

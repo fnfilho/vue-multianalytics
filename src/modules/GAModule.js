@@ -1,4 +1,4 @@
-import { MODULE_GA } from '../analytics_types'
+import { MODULE_GA } from '../analyticsTypes'
 import { logDebug } from '../utils'
 export default class GAModule {
 
