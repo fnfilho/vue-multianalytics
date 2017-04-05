@@ -5,11 +5,15 @@ export default class BasicModule {
     this.config = config
   }
 
-  trackView() { /* Overriden by modules */ }
+  trackView () { /* Overriden by modules */ }
 
-  trackEvent() { /* Overriden by modules */ }
+  trackEvent () { /* Overriden by modules */ }
 
-  trackException() { /* Overriden by modules */ }
+  trackException () { /* Overriden by modules */ }
 
-  trackTiming() { /* Overriden by modules */ }
+  trackTiming () { /* Overriden by modules */ }
+
+  set () { /* Overriden by modules */ }
+
+  identify () { /* Overriden by modules */ }
 }
