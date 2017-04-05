@@ -116,7 +116,7 @@ Usually you don't want to call directly the library, but call an interface first
 if (a === condition1) {
   this.$ma.trackEvent({action: 'User click'})
 } else {
-  this.$ma.trackError({...})
+  this.$ma.trackError({description: 'Fatal error'})
 }
 
 //component2
@@ -142,8 +142,12 @@ Just create a module that exports a function accepting as a parameter the analyt
 export default function (multianalytics) {
 
   return {
-    test () {
-      multianalytics.trackView({viewName: 'MySuperView'})
+    onUserClick (input) {
+      if (input === true) {
+        multianalytics.trackEvent({action: 'User click'})
+      } else {
+        multianalytics.trackError({description: 'Fatal error'})
+      }
     }
   }
 }
@@ -170,14 +174,14 @@ Vue.use(VueMultianalytics, {
 Everything is already set, you can now call your mixin methods from anywhere in your vue application using `this.$mam` (instead of `this.$ma`).
 
 ```javascript
-
+//Component1
 export default {
   data () {
 
   },
   methods: {
-    bannerClick () {
-      this.$mam.test()
+    bannerClick (input) {
+      this.$mam.onUserClick(input)
     }
   }
 }
