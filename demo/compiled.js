@@ -61,6 +61,10 @@
 
 	var _vueMultianalytics2 = _interopRequireDefault(_vueMultianalytics);
 
+	var _analyticsMixin = __webpack_require__(4);
+
+	var _analyticsMixin2 = _interopRequireDefault(_analyticsMixin);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var gaConfig = {
@@ -82,8 +86,8 @@
 	    ga: gaConfig,
 	    mixpanel: mixpanelConfig
 	  }
-	});
-	var template = '\n  <div>\n    <div>{{message}}</div>\n    <button @click="trackView()">Track View</button>\n    <button @click="trackEvent()">Track Event</button>\n    <button @click="trackException()">Track Exception</button>\n  </div>\n';
+	}, _analyticsMixin2.default);
+	var template = '\n  <div>\n    <div>{{message}}</div>\n    <button @click="trackView()">Track View</button>\n    <button @click="trackEvent()">Track Event</button>\n    <button @click="trackException()">Track Exception</button>\n    <button @click="testMixin()">Test Mixin</button>\n  </div>\n';
 	var app = new _vue2.default({
 	  el: '#app',
 	  template: template,
@@ -103,6 +107,9 @@
 	    },
 	    trackException: function trackException() {
 	      this.$ma.trackException({ description: 'test exception', isFatal: true });
+	    },
+	    testMixin: function testMixin() {
+	      this.$mam.test();
 	    }
 	  }
 	});
@@ -9462,11 +9469,12 @@
 	      p = (o(f), n(4)),
 	      d = o(p),
 	      v = function v(e) {
-	    var t = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {};e.modulesEnabled = [];for (var n in t.modules) {
-	      var o = void 0;switch (n) {case d.MODULE_GA:
-	          o = new l.default(), o.init(t.modules[n]);break;case d.MODULE_MIXPANEL:
-	          o = new s.default(), o.init(t.modules[n]);}o && e.modulesEnabled.push(o);
-	    }t.params && t.params.vueRouter && g(e, t.params.vueRouter, t.params.ignoredViews, t.params.preferredProperty), e.prototype.$multianalytics = e.prototype.$ma = e.analytics = new r.default(e.modulesEnabled);
+	    var t = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {},
+	        n = arguments[2];e.modulesEnabled = [];for (var o in t.modules) {
+	      var i = void 0;switch (o) {case d.MODULE_GA:
+	          i = new l.default(), i.init(t.modules[o]);break;case d.MODULE_MIXPANEL:
+	          i = new s.default(), i.init(t.modules[o]);}i && e.modulesEnabled.push(i);
+	    }t.params && t.params.vueRouter && g(e, t.params.vueRouter, t.params.ignoredViews, t.params.preferredProperty);var a = new r.default(e.modulesEnabled);e.prototype.$multianalytics = e.prototype.$ma = e.ma = a, n && (e.prototype.$multianalyticsm = e.prototype.$mam = e.mam = n(a));
 	  },
 	      g = function g(e, t, n) {
 	    var o = arguments.length > 3 && void 0 !== arguments[3] ? arguments[3] : "path";return n && (n = n.map(function (e) {
@@ -9663,6 +9671,25 @@
 	      } }]), t;
 	  }(s.default);t.default = p;
 	}]);
+
+/***/ },
+/* 4 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	exports.default = function (context) {
+
+	  return {
+	    test: function test() {
+	      context.trackView({ viewName: 'MySuperView' });
+	    }
+	  };
+	};
 
 /***/ }
 /******/ ]);

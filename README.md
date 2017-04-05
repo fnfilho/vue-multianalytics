@@ -100,10 +100,46 @@ const homeRoute = {
   meta: {analytics: 'ThisWillBeTheName'}
 }
 ```
-- If you define a `preferredProperty` in your vue-multianalytics params, that params will be the used as screen name. Possible params are: `name`, `path`, `fullPath`.
+- If you define a `preferredProperty` in your **vue-multianalytics** params, that params will be the used as screen name. Possible params are: `name`, `path`, `fullPath`.
 - If nothing is provided `path` will be used.
 
-If you want to ignore some routes, just specify then in the `ignoredViews` param. 
+If you want to ignore some routes, just specify then in the `ignoredViews` param.
+
+## Custom Mixin
+
+If you want to create a mixin to act as an interfacte with the library, you can do it very easily.
+
+### Mixin
+
+Just create a module that exports a module accepting as a parameter the analytics library:
+
+```javascript
+export default function (multianalytics) {
+
+  return {
+    test () {
+      multianalytics.trackView({viewName: 'MySuperView'})
+    }
+  }
+}
+```
+You can define inside all the methods that you want and call all the library api from the parameter received.
+
+### Bind the mixin with the library
+
+You just need to pass the mixin as the third parameter when you initialize the module
+
+```javascript
+import VueMultianalytics from 'vue-multianalytics'
+import analyticsMixin from './analyticsMixin.js'
+
+Vue.use(VueMultianalytics, {
+  modules: {
+    ga: gaConfig
+  }
+}, analyticsMixin)
+```
+and everything is already set. Just use your mixin to track everything.
 
 
 ## API

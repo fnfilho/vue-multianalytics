@@ -10,7 +10,9 @@ import * as types from './analyticsTypes'
  * @param Vue
  * @param initConf
  */
-const install = function (Vue, initConf = {}) {
+
+
+const install = function (Vue, initConf = {}, mixin) {
   // init Google Analytics
   // We created all the modules that app will use
   Vue.modulesEnabled = []
@@ -37,7 +39,14 @@ const install = function (Vue, initConf = {}) {
   }
 
   // Add to vue prototype and also from globals
-  Vue.prototype.$multianalytics = Vue.prototype.$ma = Vue.analytics = new AnalyticsPlugin(Vue.modulesEnabled)
+  const analyticsPlugin = new AnalyticsPlugin(Vue.modulesEnabled)
+  Vue.prototype.$multianalytics = Vue.prototype.$ma = Vue.ma = analyticsPlugin
+
+
+  // User can add its own implementation of an interface
+  if (mixin) {
+    Vue.prototype.$multianalyticsm =  Vue.prototype.$mam = Vue.mam =  mixin(analyticsPlugin)
+  }
 
 }
 

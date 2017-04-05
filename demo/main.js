@@ -1,5 +1,6 @@
 import Vue from 'vue/dist/vue.js'
 import VueMultianalytics from '../dist/vue-multianalytics.min'
+import analyticsMixin from './analytics-mixin'
 
 
 let gaConfig = {
@@ -23,13 +24,14 @@ Vue.use(VueMultianalytics, {
     ga: gaConfig,
     mixpanel: mixpanelConfig
   }
-})
+}, analyticsMixin)
 let template = `
   <div>
     <div>{{message}}</div>
     <button @click="trackView()">Track View</button>
     <button @click="trackEvent()">Track Event</button>
     <button @click="trackException()">Track Exception</button>
+    <button @click="testMixin()">Test Mixin</button>
   </div>
 `
 const app = new Vue({
@@ -50,6 +52,9 @@ const app = new Vue({
     },
     trackException () {
       this.$ma.trackException({description: 'test exception', isFatal: true})
+    },
+    testMixin () {
+      this.$mam.test()
     }
   }
 })
