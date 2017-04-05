@@ -260,6 +260,14 @@ debug: true // Whether or not display console logs debugs (optional)
 ```
 Supported Events: `trackView`, `trackEvent`
 
+### Facebook
+Name: `facebook`
+Config:
+```javascript
+token: 'YOUR_TOKEN'
+debug: true // Whether or not display console logs debugs (optional)
+```
+Supported Events: `trackView`, `trackEvent`
 
 ## Todo
 - ~~Demo~~ 👍
