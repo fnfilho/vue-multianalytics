@@ -13,11 +13,10 @@ A [VueJS](http://vuejs.org) multianalytics tool
   - [Binding](#binding)
   - [Usage](#usage)
 - [API](#api)
-  - [trackView](#trackview)
-  - [trackEvent](#trackevent)
 - [Modules](#modules)
   - [Google Analytics](#google-analytics)
   - [Mixpanel](#mixpanel)
+  - [Facebook Pixel](#facebook-pixel)
 - [Todo](#todo)  
 
 
@@ -260,7 +259,7 @@ debug: true // Whether or not display console logs debugs (optional)
 ```
 Supported Events: `trackView`, `trackEvent`
 
-### Facebook
+### Facebook Pixel
 Name: `facebook`
 Config:
 ```javascript
