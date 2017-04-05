@@ -3,6 +3,24 @@
 
 A [VueJS](http://vuejs.org) multianalytics tool
 
+- [About](#about)
+- [Configuration](#configuration)
+- [Tracking](#tracking)
+  - [ExludedModules](#excludedModules)
+- [VueRouter integration](#vuerouter-integration)
+- [Custom plugin](#custom-plugin)
+  - [Mixin](#mixin)
+  - [Binding](#binding)
+  - [Usage](#usage)
+- [API](#api)
+  -[trackView](#trackView)
+  -[trackEvent](#trackEvent)
+- [Modules](#modules)
+  - [Google Analytics](#google-analytics)
+  - [Mixpanel](#mixpanel)
+- [Todo](#todo)  
+
+
 
 ## About
 
@@ -43,7 +61,7 @@ Vue.use(VueMultianalytics, {
 
 ## Tracking
 
-Once the configuration is completed, you can access vue analytics instance in your components like that :
+Once the configuration is completed, you can access the **vue-multianalytics** instance in your components like that :
 
 `this.$ma.trackEvent(params, excludedModules)`
 
@@ -65,7 +83,7 @@ this.$ma.trackEvent(params)
 
 ## VueRouter integration
 
-vue-multianalytics can be integrated with [vue-router](https://github.com/vuejs/vue-router) to track each new screen view on router change.
+**vue-multianalytics** can be integrated with [vue-router](https://github.com/vuejs/vue-router) to track each new screen view on router change.
 
 To use this feature, you just need to pass your `vue-router` instance in the params property as vueRouter.
 
@@ -154,7 +172,7 @@ export default function (multianalytics) {
 ```
 You can define inside all the methods that you want and call all the library api from the parameter received.
 
-### Bind the mixin with the vue-multianalytics
+### Binding
 
 You just need to pass the mixin as the third parameter when you initialize the plugin
 
