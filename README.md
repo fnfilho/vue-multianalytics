@@ -105,13 +105,38 @@ const homeRoute = {
 
 If you want to ignore some routes, just specify then in the `ignoredViews` param.
 
-## Custom Mixin
+## Custom Plugin
 
-If you want to create a mixin to act as an interfacte with the library, you can do it very easily.
+Usually you don't want to call directly the library, but call an interface first to manipulate the data before.
+
+```javascript
+// Not a very good practice
+
+//component1
+if (a === condition1) {
+  this.$ma.trackEvent({action: 'User click'})
+} else {
+  this.$ma.trackError({...})
+}
+
+//component2
+if (b === condition1) {
+  this.$ma.trackEvent({action: 'User click'})
+}
+
+// Much better using an interface and handle the logic there. No code repeated, better understanding of the flow
+
+// component1
+this.$mam.onUserClick(a)
+// componen2
+this.$mam.onUserClick(b)
+```
+
+To do it so, you just need to create a mixin to act as an interface with the **vue-multianalytics**.
 
 ### Mixin
 
-Just create a module that exports a module accepting as a parameter the analytics library:
+Just create a module that exports a function accepting as a parameter the analytics library:
 
 ```javascript
 export default function (multianalytics) {
@@ -125,9 +150,9 @@ export default function (multianalytics) {
 ```
 You can define inside all the methods that you want and call all the library api from the parameter received.
 
-### Bind the mixin with the library
+### Bind the mixin with the vue-multianalytics
 
-You just need to pass the mixin as the third parameter when you initialize the module
+You just need to pass the mixin as the third parameter when you initialize the plugin
 
 ```javascript
 import VueMultianalytics from 'vue-multianalytics'
@@ -139,8 +164,24 @@ Vue.use(VueMultianalytics, {
   }
 }, analyticsMixin)
 ```
-and everything is already set. Just use your mixin to track everything.
 
+### Usage
+
+Everything is already set, you can now call your mixin methods from anywhere in your vue application using `this.$mam` (instead of `this.$ma`).
+
+```javascript
+
+export default {
+  data () {
+
+  },
+  methods: {
+    bannerClick () {
+      this.$mam.test()
+    }
+  }
+}
+```
 
 ## API
 
