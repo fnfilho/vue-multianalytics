@@ -74,6 +74,20 @@ export default class AnalyticsPlugin {
         module.trackTiming(params)
       }
     })
+  }
 
+  /**
+   * Track an user timing to measure periods of time.
+   *
+   *  The params object should contain
+   * @param {object} params - A set of user data in order to set it in the analytics platform
+   * @param {array} excludedModules - Modules this event doesn't need
+   */
+  set (params = {}, excludedModules = []) {
+    this.modulesEnabled.forEach(module => {
+      if (excludedModules.indexOf(module.name) === -1) {
+        module.set(params)
+      }
+    })
   }
 }

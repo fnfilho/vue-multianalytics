@@ -63,4 +63,33 @@ for(h=0;h<k.length;h++)e(d,k[h]);a._i.push([b,c,f])};a.__SV=1.2;b=e.createElemen
 
   }
 
+  /**
+  * Dispatch a tracking analytics event
+  *
+  * params object should contain
+  * @param {string} action - Name of the event you are sending.
+  * @param {object} properties - An object of properties that are useful.
+  * @param {function} callback - if provided, the callback function will be called.
+  */
+  set ({
+        userUrn = null,
+        userId = null,
+        name = null,
+        email  = null,
+        os = null,
+        appVersion  = null,
+        phone = null}) {
+
+          let data = {
+        'User Urn': userUrn,
+        'User Id': userId,
+        '$name': name,
+        '$email': email,
+        '$os': os,
+        'Webapp Version': appVersion,
+        '$phone': phone
+      }
+          mixpanel.set(data)
+  }
+
 }
