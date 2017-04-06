@@ -23,6 +23,12 @@ Vue.use(VueMultianalytics, {
   modules: {
     ga: gaConfig,
     mixpanel: mixpanelConfig
+  },
+  routing: {
+    vueRouter: router,
+    ignoredViews: [],
+    preferredProperty: 'path',
+    ignoredModules: ['mixpanel']
   }
 }, analyticsMixin)
 let template = `
