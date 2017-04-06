@@ -88,18 +88,4 @@ export default class SegmentModule extends BasicModule {
       }
     }
   }
-
-  /**
-   * Track an exception that occurred in the application.
-   * https://developers.google.com/analytics/devguides/collection/analyticsjs/exceptions
-   *
-   * @param {string} description - Something describing the error (max. 150 Bytes)
-   * @param {boolean} isFatal - Specifies whether the exception was fatal
-   */
-  trackException ({description = "", isFatal = false}) {
-    if (this.config.debug) {
-      logDebug({description, isFatal})
-    }
-    ga('send', 'exception', { 'exDescription': description, 'exFatal': isFatal });
-  }
 }
