@@ -344,7 +344,7 @@ Supported Events: `trackView`, `trackEvent`, `setAlias`, `setUserProperties`, `s
 
 ## Todo
 - ~~Demo~~ 👍
-- Further integration with mixpanel
-- New events: registerSuperproperties, alias, timedEvents
-- New modules: segment, appboy, kissmetrics?
+- ~~Further integration with mixpanel~~ 👍
+- New events: ~~registerSuperproperties~~, ~~alias~~, timedEvents
+- New modules: ~~segment~~, appboy, kissmetrics?
 - Tests
