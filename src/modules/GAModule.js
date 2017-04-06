@@ -6,6 +6,10 @@ export default class GAModule extends BasicModule {
 
   constructor () {
     super(MODULE_GA)
+    this.settings = {
+      additionalAccountNames: [],  // array of additional account names (only works for analyticsjs)
+      userId: null
+    }
   }
 
   init (initConf = {}) {
@@ -63,6 +67,10 @@ export default class GAModule extends BasicModule {
       page: viewName
     }
 
+    if (this.settings.userId) {
+      ga('set', '&uid', this.settings.userId)
+    }
+
     // ga('set', 'screenName', params.viewName)
     ga('send', fieldsObject)
   }
@@ -97,6 +105,7 @@ export default class GAModule extends BasicModule {
       eventLabel: label,
       eventValue: value,
       hitCallback: callback,
+      userId: this.settings.userId
     }
 
     ga('send', fieldsObject)
@@ -143,6 +152,26 @@ export default class GAModule extends BasicModule {
   }
 
 
+  setUsername ({name}) {
+    this.settings.userId = name
+  }
+
+  setUserProperties({properties}) {
+    this.setDimensionsAndMetrics(properties)
+  }
+
+  setDimensionsAndMetrics(properties) {
+    if (ga) {
+      for (var idx = 1; idx <= 200; idx++) {
+        if (properties['dimension' + idx.toString()]) {
+          ga('set', 'dimension' + idx.toString(), properties['dimension' + idx.toString()]);
+        }
+        if (properties['metric' + idx.toString()]) {
+          ga('set', 'metric' + idx.toString(), properties['metric' + idx.toString()]);
+        }
+      }
+    }
+  }
 
 
 

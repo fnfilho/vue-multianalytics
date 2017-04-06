@@ -13,7 +13,18 @@ export default class BasicModule {
 
   trackTiming () { /* Overriden by modules */ }
 
-  set () { /* Overriden by modules */ }
+  setAlias () { /* Overriden by modules */ }
 
   identify () { /* Overriden by modules */ }
+
+  setUsername () { /* Overriden by modules */ }
+
+  setUserProperties () { /* Overriden by modules */ }
+
+  setUserPropertiesOnce () { /* Overriden by modules */ }
+
+  setSuperProperties () { /* Overriden by modules */ }
+
+  setSuperPropertiesOnce () { /* Overriden by modules */ }
+
 }

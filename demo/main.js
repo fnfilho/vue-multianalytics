@@ -14,6 +14,7 @@ let gaConfig = {
 
 let mixpanelConfig = {
   token: '933572e86a323c77cf71d8c2d376fc5e',
+  config: {},
   debug: true
 }
 

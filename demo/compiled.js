@@ -78,6 +78,7 @@
 
 	var mixpanelConfig = {
 	  token: '933572e86a323c77cf71d8c2d376fc5e',
+	  config: {},
 	  debug: true
 	};
 
@@ -9519,10 +9520,35 @@
 	            t = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : [];this.modulesEnabled.forEach(function (n) {
 	          t.indexOf(n.name) === -1 && n.trackTiming(e);
 	        });
-	      } }, { key: "set", value: function value() {
+	      } }, { key: "setUsername", value: function value() {
 	        var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {},
 	            t = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : [];this.modulesEnabled.forEach(function (n) {
-	          t.indexOf(n.name) === -1 && n.set(e);
+	          t.indexOf(n.name) === -1 && n.setUsername(e);
+	        });
+	      } }, { key: "setUserProperties", value: function value() {
+	        var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {},
+	            t = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : [];this.modulesEnabled.forEach(function (n) {
+	          t.indexOf(n.name) === -1 && n.setUserProperties(e);
+	        });
+	      } }, { key: "setUserPropertiesOnce", value: function value() {
+	        var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {},
+	            t = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : [];this.modulesEnabled.forEach(function (n) {
+	          t.indexOf(n.name) === -1 && n.setUserPropertiesOnce(e);
+	        });
+	      } }, { key: "setSuperProperties", value: function value() {
+	        var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {},
+	            t = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : [];this.modulesEnabled.forEach(function (n) {
+	          t.indexOf(n.name) === -1 && n.setSuperProperties(e);
+	        });
+	      } }, { key: "setSuperPropertiesOnce", value: function value() {
+	        var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {},
+	            t = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : [];this.modulesEnabled.forEach(function (n) {
+	          t.indexOf(n.name) === -1 && n.setSuperPropertiesOnce(e);
+	        });
+	      } }, { key: "setAlias", value: function value() {
+	        var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {},
+	            t = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : [];this.modulesEnabled.forEach(function (n) {
+	          t.indexOf(n.name) === -1 && n.setAlias(e);
 	        });
 	      } }]), e;
 	  }();t.default = i;
@@ -9602,12 +9628,18 @@
 	      i = function () {
 	    function e(t) {
 	      var o = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {};n(this, e), this.name = t, this.config = o;
-	    }return o(e, [{ key: "trackView", value: function value() {} }, { key: "trackEvent", value: function value() {} }, { key: "trackException", value: function value() {} }, { key: "trackTiming", value: function value() {} }, { key: "set", value: function value() {} }, { key: "identify", value: function value() {} }]), e;
+	    }return o(e, [{ key: "trackView", value: function value() {} }, { key: "trackEvent", value: function value() {} }, { key: "trackException", value: function value() {} }, { key: "trackTiming", value: function value() {} }, { key: "setAlias", value: function value() {} }, { key: "identify", value: function value() {} }, { key: "setUsername", value: function value() {} }, { key: "setUserProperties", value: function value() {} }, { key: "setUserPropertiesOnce", value: function value() {} }, { key: "setSuperProperties", value: function value() {} }, { key: "setSuperPropertiesOnce", value: function value() {} }]), e;
 	  }();t.default = i;
 	}, function (e, t) {
 	  "use strict";
 	  Object.defineProperty(t, "__esModule", { value: !0 });t.logDebug = function (e) {
 	    var t;(t = console).log.apply(t, ["VueAnalytics :"].concat(Array.prototype.slice.call(arguments)));
+	  }, t.maybe = function (e) {
+	    try {
+	      e.apply(this, arguments);
+	    } catch (e) {
+	      throw new Error(e);
+	    }
 	  }, t.cordovaApp = { bootstrapWindows: function bootstrapWindows() {
 	      window.ActiveXObject = void 0, ga("set", "checkProtocolTask", null);
 	    } };
@@ -9664,15 +9696,17 @@
 	          }
 	        }(document, window.mixpanel || []);var t = ["token"];t.forEach(function (t) {
 	          if (!e[t]) throw new Error('VueMultianalytics : Please provide a "' + t + '" from the config.');
-	        }), this.config.debug = e.debug, mixpanel.init(e.token);
+	        }), this.config.debug = e.debug, mixpanel.init(e.token, e.config);
 	      } }, { key: "trackView", value: function value(e) {
-	        this.config.debug && (0, f.logDebug)(e), mixpanel.track("Page Viewed", { page: e.viewName });
+	        var t = e.viewName;this.config.debug && (0, f.logDebug)(t);var n = (0, f.maybe)(mixpanel.track);console.log(n), n("Page Viewed", { page: t });
 	      } }, { key: "trackEvent", value: function value(e) {
 	        var t = e.action,
 	            n = e.properties,
 	            o = void 0 === n ? null : n,
 	            i = e.callback,
-	            a = void 0 === i ? null : i;this.config.debug && f.logDebug.apply(void 0, arguments), mixpanel.track(t, o, a);
+	            a = void 0 === i ? null : i;this.config.debug && f.logDebug.apply(void 0, arguments), (0, f.maybe)(mixpanel.track(t, o, a));
+	      } }, { key: "setUsername", value: function value(e) {
+	        var t = e.name;this.config.debug && (0, f.logDebug)(t), (0, f.maybe)(mixpanel.identify(userId));
 	      } }, { key: "set", value: function value(e) {
 	        var t = e.userUrn,
 	            n = void 0 === t ? null : t,
