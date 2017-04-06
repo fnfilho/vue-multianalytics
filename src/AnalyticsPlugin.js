@@ -79,13 +79,12 @@ export default class AnalyticsPlugin {
   /**
    * Set the username.
    *
-   *  The params object should contain
-   * @param {strubg} name - The username
+   * @param {string} name - The username
    */
-  setUsername (params = {}, excludedModules = []) {
+  setUsername (name, excludedModules = []) {
     this.modulesEnabled.forEach(module => {
       if (excludedModules.indexOf(module.name) === -1) {
-        module.setUsername(params)
+        module.setUsername(name)
       }
     })
   }
@@ -93,13 +92,12 @@ export default class AnalyticsPlugin {
   /**
    * Set some user properties.
    *
-   *  The params object should contain
    * @param {any} properties - The user properties
    */
-  setUserProperties (params = {}, excludedModules = []) {
+  setUserProperties (properties = {}, excludedModules = []) {
     this.modulesEnabled.forEach(module => {
       if (excludedModules.indexOf(module.name) === -1) {
-        module.setUserProperties(params)
+        module.setUserProperties(properties)
       }
     })
   }
@@ -107,13 +105,12 @@ export default class AnalyticsPlugin {
   /**
    * Set some user properties once.
    *
-   *  The params object should contain
    * @param {any} properties - The user properties once
    */
-  setUserPropertiesOnce (params = {}, excludedModules = []) {
+  setUserPropertiesOnce (properties = {}, excludedModules = []) {
     this.modulesEnabled.forEach(module => {
       if (excludedModules.indexOf(module.name) === -1) {
-        module.setUserPropertiesOnce(params)
+        module.setUserPropertiesOnce(properties)
       }
     })
   }
@@ -121,13 +118,12 @@ export default class AnalyticsPlugin {
   /**
    * Set some user properties once.
    *
-   *  The params object should contain
    * @param {any} properties - The some properties that will be sent in all the events if supported
    */
-  setSuperProperties (params = {}, excludedModules = []) {
+  setSuperProperties (properties = {}, excludedModules = []) {
     this.modulesEnabled.forEach(module => {
       if (excludedModules.indexOf(module.name) === -1) {
-        module.setSuperProperties(params)
+        module.setSuperProperties(properties)
       }
     })
   }
@@ -135,13 +131,12 @@ export default class AnalyticsPlugin {
   /**
    * Set some user properties.
    *
-   *  The params object should contain
    * @param {any} properties - The some properties that will be sent in the next event
    */
-  setSuperPropertiesOnce (params = {}, excludedModules = []) {
+  setSuperPropertiesOnce (properties = {}, excludedModules = []) {
     this.modulesEnabled.forEach(module => {
       if (excludedModules.indexOf(module.name) === -1) {
-        module.setSuperPropertiesOnce(params)
+        module.setSuperPropertiesOnce(properties)
       }
     })
   }
@@ -150,13 +145,12 @@ export default class AnalyticsPlugin {
   /**
    * Set an alias for the current instance
    *
-   *  The params object should contain
    * @param {string} alias - The alias to be set
    */
-  setAlias (params = {}, excludedModules = []) {
+  setAlias (alias, excludedModules = []) {
     this.modulesEnabled.forEach(module => {
       if (excludedModules.indexOf(module.name) === -1) {
-        module.setAlias(params)
+        module.setAlias(alias)
       }
     })
   }

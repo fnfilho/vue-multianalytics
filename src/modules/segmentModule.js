@@ -6,6 +6,7 @@ export default class SegmentModule extends BasicModule {
 
   constructor () {
     super(MODULE_SEGMENT)
+    this.superProperties = {}
   }
 
   init (initConf = {}) {
@@ -55,9 +56,12 @@ export default class SegmentModule extends BasicModule {
    * @param {string} label - Useful for categorizing events (e.g. 'Fall Campaign')
    * @param {integer} value - A numeric value associated with the event (e.g. 42)
    */
-  trackEvent ({category = "Event", action, label = null, value = null, properties, callback = null }) {
+  trackEvent ({category = "Event", action, label = null, value = null, properties = {}, callback = null }) {
     try {
-      analytics.track(action, properties);
+      console.log('my super properties are, ', this.superProperties)
+      let fullProperties = Object.assign(this.superProperties, properties)
+      console.log(fullProperties)
+      analytics.track(action, fullProperties);
     } catch (e) {
       if (!(e instanceof ReferenceError)) {
         throw e;
@@ -65,7 +69,7 @@ export default class SegmentModule extends BasicModule {
     }
   }
 
-  setUserProperties({properties}) {
+  setUserProperties(properties) {
     try {
       if (properties.userId) {
         analytics.identify(properties.userId, properties);
@@ -79,7 +83,11 @@ export default class SegmentModule extends BasicModule {
     }
   }
 
-  setAlias({alias}) {
+  setSuperProperties (properties) {
+    this.superProperties = properties
+  }
+
+  setAlias(alias) {
     try {
       analytics.alias(alias);
     } catch (e) {

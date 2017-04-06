@@ -157,21 +157,22 @@ export default class GAModule extends BasicModule {
   }
 
   setUserProperties({properties}) {
-    this.setDimensionsAndMetrics(properties)
+    // this.setDimensionsAndMetrics(properties)
   }
+  // TODO: Not working right now
 
-  setDimensionsAndMetrics(properties) {
-    if (ga) {
-      for (var idx = 1; idx <= 200; idx++) {
-        if (properties['dimension' + idx.toString()]) {
-          ga('set', 'dimension' + idx.toString(), properties['dimension' + idx.toString()]);
-        }
-        if (properties['metric' + idx.toString()]) {
-          ga('set', 'metric' + idx.toString(), properties['metric' + idx.toString()]);
-        }
-      }
-    }
-  }
+  // setDimensionsAndMetrics(properties) {
+  //   if (ga) {
+  //     for (var idx = 1; idx <= 200; idx++) {
+  //       if (properties['dimension' + idx.toString()]) {
+  //         ga('set', 'dimension' + idx.toString(), properties['dimension' + idx.toString()]);
+  //       }
+  //       if (properties['metric' + idx.toString()]) {
+  //         ga('set', 'metric' + idx.toString(), properties['metric' + idx.toString()]);
+  //       }
+  //     }
+  //   }
+  // }
 
 
 

@@ -64,42 +64,42 @@ for(h=0;h<k.length;h++)e(d,k[h]);a._i.push([b,c,f])};a.__SV=1.2;b=e.createElemen
 
   }
 
-  setAlias ({alias}) {
+  setAlias (alias) {
     if (this.config.debug) {
       logDebug(alias)
     }
     mixpanel.alias(alias)
   }
 
-  setUsername ({name}) {
+  setUsername (name) {
     if (this.config.debug) {
       logDebug(name)
     }
     mixpanel.identify(name)
   }
 
-  setUserProperties ({properties}) {
+  setUserProperties (properties) {
     if (this.config.debug) {
       logDebug(properties)
     }
     mixpanel.people.set(properties)
   }
 
-  setUserPropertiesOnce ({properties}) {
+  setUserPropertiesOnce (properties) {
     if (this.config.debug) {
       logDebug(properties)
     }
      mixpanel.people.set_once(properties)
   }
 
-  setSuperProperties ({properties}) {
+  setSuperProperties (properties) {
     if (this.config.debug) {
       logDebug(properties)
     }
      mixpanel.register(properties)
   }
 
-  setSuperPropertiesOnce ({properties}) {
+  setSuperPropertiesOnce (properties) {
     if (this.config.debug) {
       logDebug(properties)
     }
