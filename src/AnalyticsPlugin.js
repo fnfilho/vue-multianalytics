@@ -77,16 +77,86 @@ export default class AnalyticsPlugin {
   }
 
   /**
-   * Track an user timing to measure periods of time.
+   * Set the username.
    *
    *  The params object should contain
-   * @param {object} params - A set of user data in order to set it in the analytics platform
-   * @param {array} excludedModules - Modules this event doesn't need
+   * @param {strubg} name - The username
    */
-  set (params = {}, excludedModules = []) {
+  setUsername (params = {}, excludedModules = []) {
     this.modulesEnabled.forEach(module => {
       if (excludedModules.indexOf(module.name) === -1) {
-        module.set(params)
+        module.setUsername(params)
+      }
+    })
+  }
+
+  /**
+   * Set some user properties.
+   *
+   *  The params object should contain
+   * @param {any} properties - The user properties
+   */
+  setUserProperties (params = {}, excludedModules = []) {
+    this.modulesEnabled.forEach(module => {
+      if (excludedModules.indexOf(module.name) === -1) {
+        module.setUserProperties(params)
+      }
+    })
+  }
+
+  /**
+   * Set some user properties once.
+   *
+   *  The params object should contain
+   * @param {any} properties - The user properties once
+   */
+  setUserPropertiesOnce (params = {}, excludedModules = []) {
+    this.modulesEnabled.forEach(module => {
+      if (excludedModules.indexOf(module.name) === -1) {
+        module.setUserPropertiesOnce(params)
+      }
+    })
+  }
+
+  /**
+   * Set some user properties once.
+   *
+   *  The params object should contain
+   * @param {any} properties - The some properties that will be sent in all the events if supported
+   */
+  setSuperProperties (params = {}, excludedModules = []) {
+    this.modulesEnabled.forEach(module => {
+      if (excludedModules.indexOf(module.name) === -1) {
+        module.setSuperProperties(params)
+      }
+    })
+  }
+
+  /**
+   * Set some user properties.
+   *
+   *  The params object should contain
+   * @param {any} properties - The some properties that will be sent in the next event
+   */
+  setSuperPropertiesOnce (params = {}, excludedModules = []) {
+    this.modulesEnabled.forEach(module => {
+      if (excludedModules.indexOf(module.name) === -1) {
+        module.setSuperPropertiesOnce(params)
+      }
+    })
+  }
+
+
+  /**
+   * Set an alias for the current instance
+   *
+   *  The params object should contain
+   * @param {string} alias - The alias to be set
+   */
+  setAlias (params = {}, excludedModules = []) {
+    this.modulesEnabled.forEach(module => {
+      if (excludedModules.indexOf(module.name) === -1) {
+        module.setAlias(params)
       }
     })
   }

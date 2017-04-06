@@ -27,7 +27,7 @@ for(h=0;h<k.length;h++)e(d,k[h]);a._i.push([b,c,f])};a.__SV=1.2;b=e.createElemen
       this.config.debug = initConf.debug
 
       // init
-      mixpanel.init(initConf.token);
+      mixpanel.init(initConf.token, initConf.config);
   }
 
 
@@ -40,11 +40,11 @@ for(h=0;h<k.length;h++)e(d,k[h]);a._i.push([b,c,f])};a.__SV=1.2;b=e.createElemen
    * params object should contain
    * @param viewName
    */
-  trackView (params) {
+  trackView ({viewName}) {
     if (this.config.debug) {
-      logDebug(params)
+      logDebug(viewName)
     }
-    mixpanel.track( "Page Viewed", { "page": params.viewName } );
+    mixpanel.track("Page Viewed", { "page": viewName })
   }
 
   /**
@@ -59,37 +59,52 @@ for(h=0;h<k.length;h++)e(d,k[h]);a._i.push([b,c,f])};a.__SV=1.2;b=e.createElemen
     if (this.config.debug) {
       logDebug(...arguments)
     }
+
     mixpanel.track(action, properties, callback)
 
   }
 
-  /**
-  * Dispatch a tracking analytics event
-  *
-  * params object should contain
-  * @param {string} action - Name of the event you are sending.
-  * @param {object} properties - An object of properties that are useful.
-  * @param {function} callback - if provided, the callback function will be called.
-  */
-  set ({
-        userUrn = null,
-        userId = null,
-        name = null,
-        email  = null,
-        os = null,
-        appVersion  = null,
-        phone = null}) {
-
-      let data = {
-        'User Urn': userUrn,
-        'User Id': userId,
-        '$name': name,
-        '$email': email,
-        '$os': os,
-        'Webapp Version': appVersion,
-        '$phone': phone
-      }
-          mixpanel.set(data)
+  setAlias ({alias}) {
+    if (this.config.debug) {
+      logDebug(alias)
+    }
+    mixpanel.alias(alias)
   }
+
+  setUsername ({name}) {
+    if (this.config.debug) {
+      logDebug(name)
+    }
+    mixpanel.identify(name)
+  }
+
+  setUserProperties ({properties}) {
+    if (this.config.debug) {
+      logDebug(properties)
+    }
+    mixpanel.people.set(properties)
+  }
+
+  setUserPropertiesOnce ({properties}) {
+    if (this.config.debug) {
+      logDebug(properties)
+    }
+     mixpanel.people.set_once(properties)
+  }
+
+  setSuperProperties ({properties}) {
+    if (this.config.debug) {
+      logDebug(properties)
+    }
+     mixpanel.register(properties)
+  }
+
+  setSuperPropertiesOnce ({properties}) {
+    if (this.config.debug) {
+      logDebug(properties)
+    }
+    mixpanel.register_once(properties)
+  }
+
 
 }
