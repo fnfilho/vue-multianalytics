@@ -31,8 +31,8 @@ export default class SegmentModule extends BasicModule {
   }
 
   /**
-   * https://mixpanel.com/help/reference/javascript#sending-events
-   * Dispatch a view analytics event
+   * https://segment.com/docs/sources/website/analytics.js/#page
+   * Dispatch a page event
    *
    * params object should contain
    * @param {string} viewName
@@ -48,7 +48,7 @@ export default class SegmentModule extends BasicModule {
   }
   /**
    * Dispatch a tracking analytics event
-   * https://developers.google.com/analytics/devguides/collection/analyticsjs/events
+   * https://segment.com/docs/sources/website/analytics.js/#track
    *
    * params object should contain
    * @param {string} category - Typically the object that was interacted with (e.g. 'Video')
@@ -67,6 +67,12 @@ export default class SegmentModule extends BasicModule {
     }
   }
 
+  /**
+   * associate your users and their actions to a recognizable userId
+   * https://segment.com/docs/sources/website/analytics.js/#identify
+   *
+   * @param {any} properties - traits of your user. If you specify a properties.userId, then a userId will be set
+   */
   setUserProperties(properties) {
     try {
       if (properties.userId) {
@@ -81,9 +87,22 @@ export default class SegmentModule extends BasicModule {
     }
   }
 
+  /**
+   * Define a property that will be sent across all the events
+   *
+   * @param {any} properties
+   */
   setSuperProperties (properties) {
     this.superProperties = properties
   }
+
+  /**
+  *  Alias is necessary for properly implementing KISSmetrics and Mixpanel.
+  *  https://segment.com/docs/sources/website/analytics.js/#alias
+  *  Note: Aliasing is generally handled automatically when you identify a user
+  *
+  *  @param {string} alias
+  */
 
   setAlias(alias) {
     try {
