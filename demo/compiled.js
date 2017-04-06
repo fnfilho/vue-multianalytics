@@ -101,10 +101,6 @@
 	  data: {
 	    message: 'Hello MultiAnalytics'
 	  },
-	  mounted: function mounted() {
-	    console.log(this.$ma);
-	  },
-
 	  methods: {
 	    trackEvent: function trackEvent() {
 	      this.$ma.trackEvent({ action: 'test category', category: 'clicks', properties: { interesting: true } });
@@ -122,7 +118,6 @@
 	      this.$ma.setUserProperties({ userId: 'userTest', platform: 'web' });
 	    },
 	    setSuperProperties: function setSuperProperties() {
-	      console.log(this.$mam);
 	      this.$ma.setSuperProperties({ platform: 'web' });
 	    }
 	  }

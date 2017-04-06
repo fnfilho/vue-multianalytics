@@ -58,9 +58,7 @@ export default class SegmentModule extends BasicModule {
    */
   trackEvent ({category = "Event", action, label = null, value = null, properties = {}, callback = null }) {
     try {
-      console.log('my super properties are, ', this.superProperties)
       let fullProperties = Object.assign(this.superProperties, properties)
-      console.log(fullProperties)
       analytics.track(action, fullProperties);
     } catch (e) {
       if (!(e instanceof ReferenceError)) {
