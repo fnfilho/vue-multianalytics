@@ -65,13 +65,23 @@ export default class SegmentModule extends BasicModule {
     }
   }
 
-  setUserProperties(properties) {
+  setUserProperties({properties}) {
     try {
       if (properties.userId) {
         analytics.identify(properties.userId, properties);
       } else {
         analytics.identify(properties);
       }
+    } catch (e) {
+      if (!(e instanceof ReferenceError)) {
+        throw e;
+      }
+    }
+  }
+
+  setAlias({alias}) {
+    try {
+      analytics.alias(alias);
     } catch (e) {
       if (!(e instanceof ReferenceError)) {
         throw e;
