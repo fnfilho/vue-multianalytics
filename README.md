@@ -17,6 +17,7 @@ A [VueJS](http://vuejs.org) multianalytics tool
   - [Google Analytics](#google-analytics)
   - [Mixpanel](#mixpanel)
   - [Facebook Pixel](#facebook-pixel)
+  - [Segment](#segment)
 - [Todo](#todo)  
 
 
@@ -52,8 +53,6 @@ Vue.use(VueMultianalytics, {
   modules: {
     ga: gaConfig,
     mixpanel: mixpanelConfig
-  },
-  params: {
   }
 })
 ```
@@ -100,10 +99,11 @@ Vue.use(VueMultianalytics, {
   modules: {
     mixpanel: mixpanelConfig
   },
-  params: {
+  routing: {
     vueRouter: router, //  Pass the router instance to automatically sync with router (optional)
     preferredProperty: 'name', // By default 'path' and related with vueRouter (optional)
-    ingoredViews: ['homepage']
+    ingoredViews: ['homepage'], // Views that will not be tracked
+    ignoredModules: ['ga'] // Modules that will not send route change events. The event sent will be this.$ma.trackView({viewName: 'homepage'}, ['ga'])
   }
 })
 
@@ -232,6 +232,70 @@ this.$ma.trackView({screenName: 'Homepage'})
 this.$ma.trackEvent({category: 'Click', action: 'Homepage Click', label: 'Great', value: ''})  
 ```
 
+### setAlias(alias)
+```javascript
+/**
+  * Set an alias
+  *
+  * @param alias
+  */
+
+this.$ma.setAlias('user1234@test.com')  
+```
+
+### setUsername(name)
+```javascript
+/**
+  * Set a username
+  *
+  * @param name
+  */
+
+this.$ma.setUsername('user1234@test.com')  
+```
+### setUserProperties(properties)
+```javascript
+/**
+  * Set some user properties
+  *
+  * @param properties
+  */
+
+this.$ma.setUserProperties({userId: '12345', name: 'John'})  
+```
+
+### setUserPropertiesOnce(properties)
+```javascript
+/**
+  * Set some user properties, but only once
+  *
+  * @param properties
+  */
+
+this.$ma.setUserPropertiesOnce({userId: '12345', name: 'John'})  
+```
+
+### setSuperProperties(properties)
+```javascript
+/**
+  * Set some properties to be sent in every event
+  *
+  * @param properties
+  */
+
+this.$ma.setSuperProperties({platform: 'Mobile'})  
+```
+
+### setSuperPropertiesOnce(properties)
+```javascript
+/**
+  * Set some properties to be sent in every event
+  *
+  * @param properties
+  */
+
+this.$ma.setSuperPropertiesOnce({platform: 'Mobile'})  
+```
 
 ## Modules
 
@@ -247,7 +311,7 @@ appVersion: '0.1', // Mandatory
 trackingId: 'YOUR_UA', // Mandatory
 debug: true // Whether or not display console logs debugs (optional)
 ```
-Supported Events: `trackView`, `trackEvent`, `trackException`, `trackTiming`
+Supported Events: `trackView`, `trackEvent`, `trackException`, `setUsername`, `trackTiming`
 
 ### Mixpanel
 
@@ -255,9 +319,10 @@ Name: `mixpanel`
 Config:
 ```javascript
 tracker: 'YOUR_TRACKER'
+config: {} // Initial mixpanel config
 debug: true // Whether or not display console logs debugs (optional)
 ```
-Supported Events: `trackView`, `trackEvent`
+Supported Events: `trackView`, `trackEvent`, `setAlias`, `setUsername`, `setUserProperties`, `setSuperPropertiesOnce`, `setSuperProperties`, `setSuperPropertiesOnce`
 
 ### Facebook Pixel
 Name: `facebook`
@@ -267,6 +332,15 @@ token: 'YOUR_TOKEN'
 debug: true // Whether or not display console logs debugs (optional)
 ```
 Supported Events: `trackView`, `trackEvent`
+
+### Segment
+Name: `segment`
+Config:
+```javascript
+token: 'YOUR_TOKEN'
+debug: true // Whether or not display console logs debugs (optional)
+```
+Supported Events: `trackView`, `trackEvent`, `setAlias`, `setUserProperties`, `setSuperProperties`
 
 ## Todo
 - ~~Demo~~ 👍
