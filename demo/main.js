@@ -17,18 +17,18 @@ let mixpanelConfig = {
   debug: true
 }
 
+let segment = {
+  token: 'p2IWqRIZ2yEiAv63lA1nHVx1PUFch1l4',
+  debug: true
+}
+
 
 
 Vue.use(VueMultianalytics, {
   modules: {
     ga: gaConfig,
-    mixpanel: mixpanelConfig
-  },
-  routing: {
-    vueRouter: router,
-    ignoredViews: [],
-    preferredProperty: 'path',
-    ignoredModules: ['mixpanel']
+    mixpanel: mixpanelConfig,
+    segment: segment
   }
 }, analyticsMixin)
 let template = `

@@ -1,6 +1,8 @@
 import AnalyticsPlugin from './AnalyticsPlugin'
 import GAModule from './modules/GAModule'
 import MixpanelModule from './modules/MixpanelModule'
+import SegmentModule from './modules/SegmentModule'
+import FacebookModule from './modules/FacebookModule'
 import * as Utils from './utils'
 import * as types from './analyticsTypes'
 
@@ -26,6 +28,15 @@ const install = function (Vue, initConf = {}, mixin) {
       case types.MODULE_MIXPANEL:
         module = new MixpanelModule()
         module.init(initConf.modules[key])
+        break;
+      case types.MODULE_SEGMENT:
+        module = new SegmentModule()
+        module.init(initConf.modules[key])
+        break;
+      case types.MODULE_FACEBOOK:
+        module = new FacebookModule()
+        module.init(initConf.modules[key])
+        break;
       default:
         break;
     }
