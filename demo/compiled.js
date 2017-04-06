@@ -86,6 +86,12 @@
 	  modules: {
 	    ga: gaConfig,
 	    mixpanel: mixpanelConfig
+	  },
+	  routing: {
+	    vueRouter: router,
+	    ignoredViews: [],
+	    preferredProperty: 'path',
+	    ignoredModules: ['mixpanel']
 	  }
 	}, _analyticsMixin2.default);
 	var template = '\n  <div>\n    <div>{{message}}</div>\n    <button @click="trackView()">Track View</button>\n    <button @click="trackEvent()">Track Event</button>\n    <button @click="trackException()">Track Exception</button>\n    <button @click="testMixin()">Test Mixin</button>\n  </div>\n';
@@ -9447,60 +9453,60 @@
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	module.exports = function (e) {
-	  function t(o) {
-	    if (n[o]) return n[o].exports;var i = n[o] = { exports: {}, id: o, loaded: !1 };return e[o].call(i.exports, i, i.exports, t), i.loaded = !0, i.exports;
+	  function t(i) {
+	    if (n[i]) return n[i].exports;var o = n[i] = { exports: {}, id: i, loaded: !1 };return e[i].call(o.exports, o, o.exports, t), o.loaded = !0, o.exports;
 	  }var n = {};return t.m = e, t.c = n, t.p = "", t(0);
 	}([function (e, t, n) {
 	  e.exports = n(1);
 	}, function (e, t, n) {
 	  "use strict";
-	  function o(e) {
+	  function i(e) {
 	    if (e && e.__esModule) return e;var t = {};if (null != e) for (var n in e) {
 	      Object.prototype.hasOwnProperty.call(e, n) && (t[n] = e[n]);
 	    }return t.default = e, t;
-	  }function i(e) {
+	  }function o(e) {
 	    return e && e.__esModule ? e : { default: e };
-	  }Object.defineProperty(t, "__esModule", { value: !0 });var a = n(2),
-	      r = i(a),
-	      l = n(3),
-	      u = i(l),
+	  }Object.defineProperty(t, "__esModule", { value: !0 });var r = n(2),
+	      a = o(r),
+	      u = n(3),
+	      l = o(u),
 	      c = n(7),
-	      s = i(c),
+	      s = o(c),
 	      f = n(6),
-	      p = (o(f), n(4)),
-	      d = o(p),
-	      v = function v(e) {
+	      p = (i(f), n(4)),
+	      d = i(p),
+	      g = function g(e) {
 	    var t = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {},
-	        n = arguments[2];e.modulesEnabled = [];for (var o in t.modules) {
-	      var i = void 0;switch (o) {case d.MODULE_GA:
-	          i = new u.default(), i.init(t.modules[o]);break;case d.MODULE_MIXPANEL:
-	          i = new s.default(), i.init(t.modules[o]);}i && e.modulesEnabled.push(i);
-	    }t.params && t.params.vueRouter && g(e, t.params.vueRouter, t.params.ignoredViews, t.params.preferredProperty);var a = new r.default(e.modulesEnabled);e.prototype.$multianalytics = e.prototype.$ma = e.ma = a, n && (e.prototype.$multianalyticsm = e.prototype.$mam = e.mam = n(a));
+	        n = arguments[2];e.modulesEnabled = [];for (var i in t.modules) {
+	      var o = void 0;switch (i) {case d.MODULE_GA:
+	          o = new l.default(), o.init(t.modules[i]);break;case d.MODULE_MIXPANEL:
+	          o = new s.default(), o.init(t.modules[i]);}o && e.modulesEnabled.push(o);
+	    }t.routing && t.routing.vueRouter && v(e, t.routing);var r = new a.default(e.modulesEnabled);e.prototype.$multianalytics = e.prototype.$ma = e.ma = r, n && (e.prototype.$multianalyticsm = e.prototype.$mam = e.mam = n(r));
 	  },
-	      g = function g(e, t, n) {
-	    var o = arguments.length > 3 && void 0 !== arguments[3] ? arguments[3] : "path";return n && (n = n.map(function (e) {
+	      v = function v(e, t) {
+	    return t.ignoredViews && (t.ignoredViews = ignoredViews.map(function (e) {
 	      return e.toLowerCase();
-	    })), t.afterEach(function (t) {
-	      n && n.indexOf(t[o].toLowerCase()) !== -1 || e.analytics.trackView({ viewName: t.meta.analytics || t[o] });
-	    }), n;
-	  };t.default = { install: v };
+	    })), vueRouter.afterEach(function (n) {
+	      t.ignoredViews && t.ignoredViews.indexOf(n[t.preferredProperty].toLowerCase()) !== -1 || e.analytics.trackView({ viewName: n.meta.analytics || n[preferredProperty] }, t.ignoredModules);
+	    }), ignoredViews;
+	  };t.default = { install: g };
 	}, function (e, t) {
 	  "use strict";
 	  function n(e, t) {
 	    if (!(e instanceof t)) throw new TypeError("Cannot call a class as a function");
-	  }Object.defineProperty(t, "__esModule", { value: !0 });var o = function () {
+	  }Object.defineProperty(t, "__esModule", { value: !0 });var i = function () {
 	    function e(e, t) {
 	      for (var n = 0; n < t.length; n++) {
-	        var o = t[n];o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, o.key, o);
+	        var i = t[n];i.enumerable = i.enumerable || !1, i.configurable = !0, "value" in i && (i.writable = !0), Object.defineProperty(e, i.key, i);
 	      }
-	    }return function (t, n, o) {
-	      return n && e(t.prototype, n), o && e(t, o), t;
+	    }return function (t, n, i) {
+	      return n && e(t.prototype, n), i && e(t, i), t;
 	    };
 	  }(),
-	      i = function () {
+	      o = function () {
 	    function e(t) {
 	      n(this, e), this.modulesEnabled = t;
-	    }return o(e, [{ key: "trackView", value: function value() {
+	    }return i(e, [{ key: "trackView", value: function value() {
 	        var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {},
 	            t = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : [];e.viewName && this.modulesEnabled.forEach(function (n) {
 	          t.indexOf(n.name) === -1 && n.trackView(e);
@@ -9551,62 +9557,70 @@
 	          t.indexOf(n.name) === -1 && n.setAlias(e);
 	        });
 	      } }]), e;
-	  }();t.default = i;
+	  }();t.default = o;
 	}, function (e, t, n) {
 	  "use strict";
-	  function o(e) {
+	  function i(e) {
 	    return e && e.__esModule ? e : { default: e };
-	  }function i(e, t) {
+	  }function o(e, t) {
 	    if (!(e instanceof t)) throw new TypeError("Cannot call a class as a function");
-	  }function a(e, t) {
-	    if (!e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return !t || "object" != (typeof t === "undefined" ? "undefined" : _typeof(t)) && "function" != typeof t ? e : t;
 	  }function r(e, t) {
+	    if (!e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return !t || "object" != (typeof t === "undefined" ? "undefined" : _typeof(t)) && "function" != typeof t ? e : t;
+	  }function a(e, t) {
 	    if ("function" != typeof t && null !== t) throw new TypeError("Super expression must either be null or a function, not " + (typeof t === "undefined" ? "undefined" : _typeof(t)));e.prototype = Object.create(t && t.prototype, { constructor: { value: e, enumerable: !1, writable: !0, configurable: !0 } }), t && (Object.setPrototypeOf ? Object.setPrototypeOf(e, t) : e.__proto__ = t);
-	  }Object.defineProperty(t, "__esModule", { value: !0 });var l = function () {
+	  }Object.defineProperty(t, "__esModule", { value: !0 });var u = function () {
 	    function e(e, t) {
 	      for (var n = 0; n < t.length; n++) {
-	        var o = t[n];o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, o.key, o);
+	        var i = t[n];i.enumerable = i.enumerable || !1, i.configurable = !0, "value" in i && (i.writable = !0), Object.defineProperty(e, i.key, i);
 	      }
-	    }return function (t, n, o) {
-	      return n && e(t.prototype, n), o && e(t, o), t;
+	    }return function (t, n, i) {
+	      return n && e(t.prototype, n), i && e(t, i), t;
 	    };
 	  }(),
-	      u = n(4),
+	      l = n(4),
 	      c = n(5),
-	      s = o(c),
+	      s = i(c),
 	      f = n(6),
 	      p = function (e) {
 	    function t() {
-	      return i(this, t), a(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, u.MODULE_GA));
-	    }return r(t, e), l(t, [{ key: "init", value: function value() {
-	        var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {};!function (e, t, n, o, i, a, r) {
-	          e.GoogleAnalyticsObject = i, e[i] = e[i] || function () {
-	            (e[i].q = e[i].q || []).push(arguments);
-	          }, e[i].l = 1 * new Date(), a = t.createElement(n), r = t.getElementsByTagName(n)[0], a.async = 1, a.src = o, r.parentNode.insertBefore(a, r);
+	      o(this, t);var e = r(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, l.MODULE_GA));return e.settings = { additionalAccountNames: [], userId: null }, e;
+	    }return a(t, e), u(t, [{ key: "init", value: function value() {
+	        var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {};!function (e, t, n, i, o, r, a) {
+	          e.GoogleAnalyticsObject = o, e[o] = e[o] || function () {
+	            (e[o].q = e[o].q || []).push(arguments);
+	          }, e[o].l = 1 * new Date(), r = t.createElement(n), a = t.getElementsByTagName(n)[0], r.async = 1, r.src = i, a.parentNode.insertBefore(r, a);
 	        }(window, document, "script", "https://www.google-analytics.com/analytics.js", "ga");var t = ["trackingId", "appName", "appVersion"];t.forEach(function (t) {
 	          if (!e[t]) throw new Error('VueAnalytics : Please provide a "' + t + '" from the config.');
 	        }), this.config.debug = e.debug, ga("create", e.trackingId, "auto"), ga("set", "transport", "beacon"), ga("set", "appName", e.appName), ga("set", "appVersion", e.appVersion);
 	      } }, { key: "trackView", value: function value(e) {
-	        var t = e.viewName;this.config.debug && (0, f.logDebug)(t);var n = { hitType: "pageview", page: t };ga("send", n);
+	        var t = e.viewName;this.config.debug && (0, f.logDebug)(t);var n = { hitType: "pageview", page: t };this.settings.userId && ga("set", "&uid", this.settings.userId), ga("send", n);
 	      } }, { key: "trackEvent", value: function value(e) {
 	        var t = e.category,
 	            n = void 0 === t ? "Event" : t,
-	            o = e.action,
-	            i = e.label,
-	            a = void 0 === i ? null : i,
-	            r = e.value,
-	            l = void 0 === r ? null : r,
-	            u = e.callback,
-	            c = void 0 === u ? null : u;if (this.config.debug && f.logDebug.apply(void 0, arguments), l) {
-	          var s = parseInt(l, 10);l = isNaN(s) ? 0 : s;
-	        }var p = { hitType: "event", eventCategory: n, eventAction: o, eventLabel: a, eventValue: l, hitCallback: c };ga("send", p);
+	            i = e.action,
+	            o = e.label,
+	            r = void 0 === o ? null : o,
+	            a = e.value,
+	            u = void 0 === a ? null : a,
+	            l = e.callback,
+	            c = void 0 === l ? null : l;if (this.config.debug && f.logDebug.apply(void 0, arguments), u) {
+	          var s = parseInt(u, 10);u = isNaN(s) ? 0 : s;
+	        }var p = { hitType: "event", eventCategory: n, eventAction: i, eventLabel: r, eventValue: u, hitCallback: c, userId: this.settings.userId };ga("send", p);
 	      } }, { key: "trackException", value: function value(e) {
 	        var t = e.description,
 	            n = void 0 === t ? "" : t,
-	            o = e.isFatal,
-	            i = void 0 !== o && o;this.config.debug && (0, f.logDebug)({ description: n, isFatal: i }), ga("send", "exception", { exDescription: n, exFatal: i });
+	            i = e.isFatal,
+	            o = void 0 !== i && i;this.config.debug && (0, f.logDebug)({ description: n, isFatal: o }), ga("send", "exception", { exDescription: n, exFatal: o });
 	      } }, { key: "trackTiming", value: function value(e, t, n) {
-	        var o = arguments.length > 3 && void 0 !== arguments[3] ? arguments[3] : null;this.config.debug && (0, f.logDebug)({ timingCategory: e, timingVar: t, timingValue: n, timingLabel: o });var i = { hitType: "timing", timingCategory: e, timingVar: t, timingValue: n };o && (i.timingLabel = o), ga("send", i);
+	        var i = arguments.length > 3 && void 0 !== arguments[3] ? arguments[3] : null;this.config.debug && (0, f.logDebug)({ timingCategory: e, timingVar: t, timingValue: n, timingLabel: i });var o = { hitType: "timing", timingCategory: e, timingVar: t, timingValue: n };i && (o.timingLabel = i), ga("send", o);
+	      } }, { key: "setUsername", value: function value(e) {
+	        var t = e.name;this.settings.userId = t;
+	      } }, { key: "setUserProperties", value: function value(e) {
+	        var t = e.properties;this.setDimensionsAndMetrics(t);
+	      } }, { key: "setDimensionsAndMetrics", value: function value(e) {
+	        if (ga) for (var t = 1; t <= 200; t++) {
+	          e["dimension" + t.toString()] && ga("set", "dimension" + t.toString(), e["dimension" + t.toString()]), e["metric" + t.toString()] && ga("set", "metric" + t.toString(), e["metric" + t.toString()]);
+	        }
 	      } }]), t;
 	  }(s.default);t.default = p;
 	}, function (e, t) {
@@ -9616,113 +9630,101 @@
 	  "use strict";
 	  function n(e, t) {
 	    if (!(e instanceof t)) throw new TypeError("Cannot call a class as a function");
-	  }Object.defineProperty(t, "__esModule", { value: !0 });var o = function () {
+	  }Object.defineProperty(t, "__esModule", { value: !0 });var i = function () {
 	    function e(e, t) {
 	      for (var n = 0; n < t.length; n++) {
-	        var o = t[n];o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, o.key, o);
+	        var i = t[n];i.enumerable = i.enumerable || !1, i.configurable = !0, "value" in i && (i.writable = !0), Object.defineProperty(e, i.key, i);
 	      }
-	    }return function (t, n, o) {
-	      return n && e(t.prototype, n), o && e(t, o), t;
+	    }return function (t, n, i) {
+	      return n && e(t.prototype, n), i && e(t, i), t;
 	    };
 	  }(),
-	      i = function () {
+	      o = function () {
 	    function e(t) {
-	      var o = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {};n(this, e), this.name = t, this.config = o;
-	    }return o(e, [{ key: "trackView", value: function value() {} }, { key: "trackEvent", value: function value() {} }, { key: "trackException", value: function value() {} }, { key: "trackTiming", value: function value() {} }, { key: "setAlias", value: function value() {} }, { key: "identify", value: function value() {} }, { key: "setUsername", value: function value() {} }, { key: "setUserProperties", value: function value() {} }, { key: "setUserPropertiesOnce", value: function value() {} }, { key: "setSuperProperties", value: function value() {} }, { key: "setSuperPropertiesOnce", value: function value() {} }]), e;
-	  }();t.default = i;
+	      var i = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {};n(this, e), this.name = t, this.config = i;
+	    }return i(e, [{ key: "trackView", value: function value() {} }, { key: "trackEvent", value: function value() {} }, { key: "trackException", value: function value() {} }, { key: "trackTiming", value: function value() {} }, { key: "setAlias", value: function value() {} }, { key: "identify", value: function value() {} }, { key: "setUsername", value: function value() {} }, { key: "setUserProperties", value: function value() {} }, { key: "setUserPropertiesOnce", value: function value() {} }, { key: "setSuperProperties", value: function value() {} }, { key: "setSuperPropertiesOnce", value: function value() {} }]), e;
+	  }();t.default = o;
 	}, function (e, t) {
 	  "use strict";
 	  Object.defineProperty(t, "__esModule", { value: !0 });t.logDebug = function (e) {
 	    var t;(t = console).log.apply(t, ["VueAnalytics :"].concat(Array.prototype.slice.call(arguments)));
-	  }, t.maybe = function (e) {
-	    try {
-	      e.apply(this, arguments);
-	    } catch (e) {
-	      throw new Error(e);
-	    }
 	  }, t.cordovaApp = { bootstrapWindows: function bootstrapWindows() {
 	      window.ActiveXObject = void 0, ga("set", "checkProtocolTask", null);
 	    } };
 	}, function (e, t, n) {
 	  "use strict";
-	  function o(e) {
+	  function i(e) {
 	    return e && e.__esModule ? e : { default: e };
-	  }function i(e, t) {
+	  }function o(e, t) {
 	    if (!(e instanceof t)) throw new TypeError("Cannot call a class as a function");
-	  }function a(e, t) {
-	    if (!e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return !t || "object" != (typeof t === "undefined" ? "undefined" : _typeof(t)) && "function" != typeof t ? e : t;
 	  }function r(e, t) {
+	    if (!e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return !t || "object" != (typeof t === "undefined" ? "undefined" : _typeof(t)) && "function" != typeof t ? e : t;
+	  }function a(e, t) {
 	    if ("function" != typeof t && null !== t) throw new TypeError("Super expression must either be null or a function, not " + (typeof t === "undefined" ? "undefined" : _typeof(t)));e.prototype = Object.create(t && t.prototype, { constructor: { value: e, enumerable: !1, writable: !0, configurable: !0 } }), t && (Object.setPrototypeOf ? Object.setPrototypeOf(e, t) : e.__proto__ = t);
-	  }Object.defineProperty(t, "__esModule", { value: !0 });var l = function () {
+	  }Object.defineProperty(t, "__esModule", { value: !0 });var u = function () {
 	    function e(e, t) {
 	      for (var n = 0; n < t.length; n++) {
-	        var o = t[n];o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, o.key, o);
+	        var i = t[n];i.enumerable = i.enumerable || !1, i.configurable = !0, "value" in i && (i.writable = !0), Object.defineProperty(e, i.key, i);
 	      }
-	    }return function (t, n, o) {
-	      return n && e(t.prototype, n), o && e(t, o), t;
+	    }return function (t, n, i) {
+	      return n && e(t.prototype, n), i && e(t, i), t;
 	    };
 	  }(),
-	      u = n(4),
+	      l = n(4),
 	      c = n(5),
-	      s = o(c),
+	      s = i(c),
 	      f = n(6),
 	      p = function (e) {
 	    function t() {
-	      return i(this, t), a(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, u.MODULE_MIXPANEL));
-	    }return r(t, e), l(t, [{ key: "init", value: function value() {
+	      return o(this, t), r(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, l.MODULE_MIXPANEL));
+	    }return a(t, e), u(t, [{ key: "init", value: function value() {
 	        var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {};!function (e, t) {
 	          if (!t.__SV) {
 	            var n = window;try {
-	              var o,
-	                  i,
-	                  a,
-	                  r = n.location,
-	                  l = r.hash;o = function o(e, t) {
-	                return (i = e.match(RegExp(t + "=([^&]*)"))) ? i[1] : null;
-	              }, l && o(l, "state") && (a = JSON.parse(decodeURIComponent(o(l, "state"))), "mpeditor" === a.action && (n.sessionStorage.setItem("_mpcehash", l), history.replaceState(a.desiredHash || "", e.title, r.pathname + r.search)));
-	            } catch (e) {}var u, c;window.mixpanel = t, t._i = [], t.init = function (e, n, o) {
-	              function i(e, t) {
+	              var i,
+	                  o,
+	                  r,
+	                  a = n.location,
+	                  u = a.hash;i = function i(e, t) {
+	                return (o = e.match(RegExp(t + "=([^&]*)"))) ? o[1] : null;
+	              }, u && i(u, "state") && (r = JSON.parse(decodeURIComponent(i(u, "state"))), "mpeditor" === r.action && (n.sessionStorage.setItem("_mpcehash", u), history.replaceState(r.desiredHash || "", e.title, a.pathname + a.search)));
+	            } catch (e) {}var l, c;window.mixpanel = t, t._i = [], t.init = function (e, n, i) {
+	              function o(e, t) {
 	                var n = t.split(".");2 == n.length && (e = e[n[0]], t = n[1]), e[t] = function () {
 	                  e.push([t].concat(Array.prototype.slice.call(arguments, 0)));
 	                };
-	              }var a = t;for ("undefined" != typeof o ? a = t[o] = [] : o = "mixpanel", a.people = a.people || [], a.toString = function (e) {
-	                var t = "mixpanel";return "mixpanel" !== o && (t += "." + o), e || (t += " (stub)"), t;
-	              }, a.people.toString = function () {
-	                return a.toString(1) + ".people (stub)";
-	              }, u = "disable time_event track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config reset people.set people.set_once people.increment people.append people.union people.track_charge people.clear_charges people.delete_user".split(" "), c = 0; c < u.length; c++) {
-	                i(a, u[c]);
-	              }t._i.push([e, n, o]);
-	            }, t.__SV = 1.2, n = e.createElement("script"), n.type = "text/javascript", n.async = !0, n.src = "undefined" != typeof MIXPANEL_CUSTOM_LIB_URL ? MIXPANEL_CUSTOM_LIB_URL : "file:" === e.location.protocol && "//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//) ? "https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js" : "//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js", o = e.getElementsByTagName("script")[0], o.parentNode.insertBefore(n, o);
+	              }var r = t;for ("undefined" != typeof i ? r = t[i] = [] : i = "mixpanel", r.people = r.people || [], r.toString = function (e) {
+	                var t = "mixpanel";return "mixpanel" !== i && (t += "." + i), e || (t += " (stub)"), t;
+	              }, r.people.toString = function () {
+	                return r.toString(1) + ".people (stub)";
+	              }, l = "disable time_event track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config reset people.set people.set_once people.increment people.append people.union people.track_charge people.clear_charges people.delete_user".split(" "), c = 0; c < l.length; c++) {
+	                o(r, l[c]);
+	              }t._i.push([e, n, i]);
+	            }, t.__SV = 1.2, n = e.createElement("script"), n.type = "text/javascript", n.async = !0, n.src = "undefined" != typeof MIXPANEL_CUSTOM_LIB_URL ? MIXPANEL_CUSTOM_LIB_URL : "file:" === e.location.protocol && "//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//) ? "https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js" : "//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js", i = e.getElementsByTagName("script")[0], i.parentNode.insertBefore(n, i);
 	          }
 	        }(document, window.mixpanel || []);var t = ["token"];t.forEach(function (t) {
 	          if (!e[t]) throw new Error('VueMultianalytics : Please provide a "' + t + '" from the config.');
 	        }), this.config.debug = e.debug, mixpanel.init(e.token, e.config);
 	      } }, { key: "trackView", value: function value(e) {
-	        var t = e.viewName;this.config.debug && (0, f.logDebug)(t);var n = (0, f.maybe)(mixpanel.track);console.log(n), n("Page Viewed", { page: t });
+	        var t = e.viewName;this.config.debug && (0, f.logDebug)(t), mixpanel.track("Page Viewed", { page: t });
 	      } }, { key: "trackEvent", value: function value(e) {
 	        var t = e.action,
 	            n = e.properties,
-	            o = void 0 === n ? null : n,
-	            i = e.callback,
-	            a = void 0 === i ? null : i;this.config.debug && f.logDebug.apply(void 0, arguments), (0, f.maybe)(mixpanel.track(t, o, a));
+	            i = void 0 === n ? null : n,
+	            o = e.callback,
+	            r = void 0 === o ? null : o;this.config.debug && f.logDebug.apply(void 0, arguments), mixpanel.track(t, i, r);
+	      } }, { key: "setAlias", value: function value(e) {
+	        var t = e.alias;this.config.debug && (0, f.logDebug)(t), mixpanel.alias(t);
 	      } }, { key: "setUsername", value: function value(e) {
-	        var t = e.name;this.config.debug && (0, f.logDebug)(t), (0, f.maybe)(mixpanel.identify(userId));
-	      } }, { key: "set", value: function value(e) {
-	        var t = e.userUrn,
-	            n = void 0 === t ? null : t,
-	            o = e.userId,
-	            i = void 0 === o ? null : o,
-	            a = e.name,
-	            r = void 0 === a ? null : a,
-	            l = e.email,
-	            u = void 0 === l ? null : l,
-	            c = e.os,
-	            s = void 0 === c ? null : c,
-	            f = e.appVersion,
-	            p = void 0 === f ? null : f,
-	            d = e.phone,
-	            v = void 0 === d ? null : d,
-	            g = { "User Urn": n, "User Id": i, $name: r, $email: u, $os: s, "Webapp Version": p, $phone: v };mixpanel.set(g);
+	        var t = e.name;this.config.debug && (0, f.logDebug)(t), mixpanel.identify(t);
+	      } }, { key: "setUserProperties", value: function value(e) {
+	        var t = e.properties;this.config.debug && (0, f.logDebug)(t), mixpanel.people.set(t);
+	      } }, { key: "setUserPropertiesOnce", value: function value(e) {
+	        var t = e.properties;this.config.debug && (0, f.logDebug)(t), mixpanel.people.set_once(t);
+	      } }, { key: "setSuperProperties", value: function value(e) {
+	        var t = e.properties;this.config.debug && (0, f.logDebug)(t), mixpanel.register(t);
+	      } }, { key: "setSuperPropertiesOnce", value: function value(e) {
+	        var t = e.properties;this.config.debug && (0, f.logDebug)(t), mixpanel.register_once(t);
 	      } }]), t;
 	  }(s.default);t.default = p;
 	}]);
