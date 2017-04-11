@@ -318,7 +318,7 @@ Supported Events: `trackView`, `trackEvent`, `trackException`, `setUsername`, `t
 Name: `mixpanel`
 Config:
 ```javascript
-token: 'YOUR_TRACKER'
+tracker: 'YOUR_TRACKER'
 config: {} // Initial mixpanel config
 debug: true // Whether or not display console logs debugs (optional)
 ```
