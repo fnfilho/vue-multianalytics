@@ -82,16 +82,10 @@
 	  debug: true
 	};
 
-	var segment = {
-	  token: 'p2IWqRIZ2yEiAv63lA1nHVx1PUFch1l4',
-	  debug: true
-	};
-
 	_vue2.default.use(_vueMultianalytics2.default, {
 	  modules: {
 	    ga: gaConfig,
-	    mixpanel: mixpanelConfig,
-	    segment: segment
+	    mixpanel: mixpanelConfig
 	  }
 	}, _analyticsMixin2.default);
 	var template = '\n  <div>\n    <div>{{message}}</div>\n    <button @click="trackView()">Track View</button>\n    <button @click="trackEvent()">Track Event</button>\n    <button @click="trackException()">Track Exception</button>\n    <button @click="testMixin()">Test Mixin</button>\n    <button @click="setUserProperties()">User properties</button>\n    <button @click="setSuperProperties()">Super properties</button>\n  </div>\n';
@@ -101,6 +95,10 @@
 	  data: {
 	    message: 'Hello MultiAnalytics'
 	  },
+	  mounted: function mounted() {
+	    console.log(this.$ma);
+	  },
+
 	  methods: {
 	    trackEvent: function trackEvent() {
 	      this.$ma.trackEvent({ action: 'test category', category: 'clicks', properties: { interesting: true } });
@@ -118,6 +116,7 @@
 	      this.$ma.setUserProperties({ userId: 'userTest', platform: 'web' });
 	    },
 	    setSuperProperties: function setSuperProperties() {
+	      console.log(this.$mam);
 	      this.$ma.setSuperProperties({ platform: 'web' });
 	    }
 	  }
@@ -9492,11 +9491,11 @@
 	    }t.routing && t.routing.vueRouter && m(e, t.routing);var i = new a.default(e.modulesEnabled);e.prototype.$multianalytics = e.prototype.$ma = e.ma = i, n && (e.prototype.$multianalyticsm = e.prototype.$mam = e.mam = n(i));
 	  },
 	      m = function m(e, t) {
-	    return t.ignoredViews && (t.ignoredViews = ignoredViews.map(function (e) {
+	    return t.ignoredViews && (t.ignoredViews = t.ignoredViews.map(function (e) {
 	      return e.toLowerCase();
-	    })), vueRouter.afterEach(function (n) {
+	    })), t.vueRouter.afterEach(function (n) {
 	      t.ignoredViews && t.ignoredViews.indexOf(n[t.preferredProperty].toLowerCase()) !== -1 || e.analytics.trackView({ viewName: n.meta.analytics || n[preferredProperty] }, t.ignoredModules);
-	    }), ignoredViews;
+	    }), t.ignoredViews;
 	  };t.default = { install: b };
 	}, function (e, t) {
 	  "use strict";
@@ -9716,17 +9715,17 @@
 	            r = e.callback,
 	            i = void 0 === r ? null : r;this.config.debug && f.logDebug.apply(void 0, arguments), mixpanel.track(t, o, i);
 	      } }, { key: "setAlias", value: function value(e) {
-	        var t = e.alias;this.config.debug && (0, f.logDebug)(t), mixpanel.alias(t);
+	        this.config.debug && (0, f.logDebug)(e), mixpanel.alias(e);
 	      } }, { key: "setUsername", value: function value(e) {
-	        var t = e.name;this.config.debug && (0, f.logDebug)(t), mixpanel.identify(t);
+	        this.config.debug && (0, f.logDebug)(e), mixpanel.identify(e);
 	      } }, { key: "setUserProperties", value: function value(e) {
-	        var t = e.properties;this.config.debug && (0, f.logDebug)(t), mixpanel.people.set(t);
+	        this.config.debug && (0, f.logDebug)(e), mixpanel.people.set(e);
 	      } }, { key: "setUserPropertiesOnce", value: function value(e) {
-	        var t = e.properties;this.config.debug && (0, f.logDebug)(t), mixpanel.people.set_once(t);
+	        this.config.debug && (0, f.logDebug)(e), mixpanel.people.set_once(e);
 	      } }, { key: "setSuperProperties", value: function value(e) {
-	        var t = e.properties;this.config.debug && (0, f.logDebug)(t), mixpanel.register(t);
+	        this.config.debug && (0, f.logDebug)(e), mixpanel.register(e);
 	      } }, { key: "setSuperPropertiesOnce", value: function value(e) {
-	        var t = e.properties;this.config.debug && (0, f.logDebug)(t), mixpanel.register_once(t);
+	        this.config.debug && (0, f.logDebug)(e), mixpanel.register_once(e);
 	      } }]), t;
 	  }(s.default);t.default = p;
 	}, function (e, t, n) {
@@ -9780,7 +9779,7 @@
 	        var t = (e.category, e.action),
 	            n = (e.label, e.value, e.properties),
 	            o = void 0 === n ? {} : n;e.callback;try {
-	          console.log("my super properties are, ", this.superProperties);var r = Object.assign(this.superProperties, o);console.log(r), analytics.track(t, r);
+	          var r = Object.assign(this.superProperties, o);analytics.track(t, r);
 	        } catch (e) {
 	          if (!(e instanceof ReferenceError)) throw e;
 	        }

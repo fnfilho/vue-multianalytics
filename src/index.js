@@ -71,12 +71,12 @@ const install = function (Vue, initConf = {}, mixin) {
 const initVueRouterGuard = function (Vue, routing) {
   // Flatten routes name
   if (routing.ignoredViews) {
-    routing.ignoredViews = ignoredViews.map(view => view.toLowerCase())
+    routing.ignoredViews = routing.ignoredViews.map(view => view.toLowerCase())
   }
 
 
 
-  vueRouter.afterEach(to => {
+  routing.vueRouter.afterEach(to => {
     // Ignore some routes
     if (routing.ignoredViews && routing.ignoredViews.indexOf(to[routing.preferredProperty].toLowerCase()) !== -1) {
       return
@@ -85,7 +85,7 @@ const initVueRouterGuard = function (Vue, routing) {
     Vue.analytics.trackView({viewName: to.meta.analytics || to[preferredProperty]}, routing.ignoredModules)
   })
 
-  return ignoredViews;
+  return routing.ignoredViews;
 }
 
 // Export module
