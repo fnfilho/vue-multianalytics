@@ -64,10 +64,8 @@ const install = function (Vue, initConf = {}, mixin) {
 /**
  * Init the router guard.
  *
- * @param Vue - The Vue instance
- * @param vueRouter - The Vue router instance to attach guard
- * @param {string[]} ignoredViews - An array of route name to ignore
- *
+ * @param {any} Vue - The Vue instance
+ * @param {any} routing - an object with some properties to be used by the vueRouterGuard. Possible params are 'vueRouter', 'ignoredView', 'preferredProperty', 'ignoredModules'
  * @returns {string[]} The ignored routes names formalized.
  */
 const initVueRouterGuard = function (Vue, routing) {
