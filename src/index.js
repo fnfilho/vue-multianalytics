@@ -82,7 +82,7 @@ const initVueRouterGuard = function (Vue, routing) {
       return
     }
     // Dispatch vue event using meta analytics value if defined otherwise fallback to route name
-    Vue.analytics.trackView({viewName: to.meta.analytics || to[preferredProperty]}, routing.ignoredModules)
+    Vue.ma.trackView({viewName: to.meta.analytics || to[preferredProperty]}, routing.ignoredModules)
   })
 
   return routing.ignoredViews;
