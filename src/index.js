@@ -74,6 +74,9 @@ const initVueRouterGuard = function (Vue, routing) {
     routing.ignoredViews = routing.ignoredViews.map(view => view.toLowerCase())
   }
 
+  if (!routing.preferredProperty) {
+    routing.preferredProperty = 'path'
+  }
 
 
   routing.vueRouter.afterEach(to => {
@@ -82,7 +85,7 @@ const initVueRouterGuard = function (Vue, routing) {
       return
     }
     // Dispatch vue event using meta analytics value if defined otherwise fallback to route name
-    Vue.analytics.trackView({viewName: to.meta.analytics || to[preferredProperty]}, routing.ignoredModules)
+    Vue.ma.trackView({viewName: to.meta.analytics || to[routing.preferredProperty]}, routing.ignoredModules)
   })
 
   return routing.ignoredViews;

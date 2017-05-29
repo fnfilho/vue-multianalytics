@@ -45,7 +45,7 @@ export default class FacebookModule extends BasicModule {
    * https://developers.facebook.com/docs/ads-for-websites/pixel-events/v2.8
    *
    * params object should contain
-   * @param {string} fb_event - Name of the specific event, it will be viewContent by default
+   * @param {string} fb_event - Name of the specific event, it will be ViewContent by default
    * @param {string} category - Typically the object that was interacted with (e.g. 'Video')
    * @param {string} action - The type of interaction (e.g. 'play')
    * @param {string} label - Useful for categorizing events (e.g. 'Fall Campaign')
@@ -54,7 +54,7 @@ export default class FacebookModule extends BasicModule {
    * @param {string} type - What kind of contente we are reffered with this event
    * @param {string} currency - Currency the event will use
    */
-  trackEvent ({ fb_event = 'viewContent', category = "Event", action, label = null, value = null, callback = null, ids = [], type = null, currency = null }) {
+  trackEvent ({ fb_event = 'ViewContent', category = "Event", action, label = null, value = null, callback = null, ids = [], type = null, currency = null }) {
     if (this.config.debug) {
       logDebug(...arguments)
     }
