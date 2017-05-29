@@ -3,10 +3,10 @@ var webpack = require('webpack')
 
 module.exports = {
   entry: [
-    './demo/simple/main.js'
+    './demo/router/main.js'
   ],
   output: {
-    filename: 'demo/simple/compiled.js'
+    filename: 'demo/router/compiled.js'
   },
   plugins: [],
   resolve: {
@@ -14,6 +14,10 @@ module.exports = {
   },
   module: {
     loaders: [
+      {
+        test: /\.vue$/,
+        loader: 'vue'
+      },
       {
         test: /\.js$/,
         loader: 'babel-loader',

@@ -1,32 +1,10 @@
-import Vue from 'vue/dist/vue.js'
-import VueMultianalytics from '../dist/vue-multianalytics.min'
-import analyticsMixin from './analytics-mixin'
-
-
-let gaConfig = {
-  appName: 'Test', // Mandatory
-  appVersion: '0.1', // Mandatory
-  trackingId: 'UA-96678006-1', // Mandatory
-  globalDimensions: [],
-  globalMetrics: [],
-  debug: true
-}
-
-let mixpanelConfig = {
-  token: '933572e86a323c77cf71d8c2d376fc5e',
-  config: {},
-  debug: true
-}
-
-Vue.use(VueMultianalytics, {
-  modules: {
-    ga: gaConfig,
-    mixpanel: mixpanelConfig
-  }
-}, analyticsMixin)
-let template = `
+<template>
+<div>
+  Hello {{message}}
+  <router-view></router-view>
   <div>
-    <div>{{message}}</div>
+    <button ><router-link to="/">Change Comp 1</router-link></button>
+    <button ><router-link to="/comp2">Change Comp 2</router-link></button>
     <button @click="trackView()">Track View</button>
     <button @click="trackEvent()">Track Event</button>
     <button @click="trackException()">Track Exception</button>
@@ -34,12 +12,16 @@ let template = `
     <button @click="setUserProperties()">User properties</button>
     <button @click="setSuperProperties()">Super properties</button>
   </div>
-`
-const app = new Vue({
-  el: '#app',
-  template: template,
-  data: {
-    message: 'Hello MultiAnalytics'
+</div>
+</template>
+
+<script>
+export default {
+  name: 'App',
+  data () {
+    return {
+      message: 'MultiAnalytics'
+    }
   },
   mounted () {
     console.log(this.$ma)
@@ -65,4 +47,6 @@ const app = new Vue({
       this.$ma.setSuperProperties({platform: 'web'})
     }
   }
-})
+}
+</script>
+<stlye></stlye>
