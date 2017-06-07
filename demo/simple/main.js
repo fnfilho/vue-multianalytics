@@ -9,7 +9,8 @@ let gaConfig = {
   trackingId: 'UA-96678006-1', // Mandatory
   globalDimensions: [],
   globalMetrics: [],
-  debug: true
+  debug: true,
+  ecommerce: true
 }
 
 let mixpanelConfig = {

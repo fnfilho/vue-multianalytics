@@ -232,6 +232,70 @@ this.$ma.trackView({screenName: 'Homepage'})
 this.$ma.trackEvent({category: 'Click', action: 'Homepage Click', label: 'Great', value: ''})  
 ```
 
+### addTransaction({id, affiliation = '', revenue = 0, shipping = 0, tax = 0, currency = 'USD'})
+```javascript
+/**
+* Ecommerce transactions.
+* ecommerce needs to be enabled in the module options (ecommerce = true)
+* More info at https://developers.google.com/analytics/devguides/collection/analyticsjs/ecommerce
+* @param {long} id - Transaction ID. Required
+* @param {string} affiliation -  Affiliation or store name
+* @param {float} revenue - Grand Total
+* @param {flat} shipping -  Shipping
+* @param {float} tax - Tax
+* @param {string} currency - Currency - https://developers.google.com/analytics/devguides/platform/features/currencies
+*/
+this.$ma.addTransaction({
+  id: 1234,                     // Transaction ID. Required.
+  affiliation: 'Acme Clothing',   // Affiliation or store name.
+  revenue: 11.99,               // Grand Total.
+  shipping: 5,                  // Shipping.
+  tax: 1.29                     // Tax.
+})
+```
+
+### addItem({id, name, sku, category, price = 0, quantity = 1})
+```javascript
+/**
+* Ecommerce transactions.
+* ecommerce needs to be enabled in the module options (ecommerce = true)
+* More info at https://developers.google.com/analytics/devguides/collection/analyticsjs/ecommerce
+* @param {long} id - Transaction ID. Required
+* @param {string} name -  Product name. Required.
+* @param {string} sku - SKU/code.
+* @param {string} category -  Category or variation.
+* @param {float} price - Unit price.
+*/
+this.$ma.addItem({
+  id: 123,
+  name: 'Fluffy Pink Bunnies',    // Product name. Required.
+  sku: 'DD23444',                 // SKU/code.
+  category: 'Party Toys',         // Category or variation.
+  price: '11.99',                 // Unit price.
+  quantity: '1'  
+})
+```
+
+### trackTransaction()
+```javascript
+/**
+* Ecommerce transactions.
+* ecommerce needs to be enabled in the module options (ecommerce = true)
+* Sends the transaction
+*/
+this.$ma.trackTransaction()
+```
+
+### clearTransactions()
+```javascript
+/**
+* Ecommerce transactions.
+* ecommerce needs to be enabled in the module options (ecommerce = true)
+* Clears the transaction
+*/
+this.$ma.clearTransactions()
+```
+
 ### setAlias(alias)
 ```javascript
 /**
@@ -309,9 +373,10 @@ Config:
 appName: 'Test', // Mandatory
 appVersion: '0.1', // Mandatory
 trackingId: 'YOUR_UA', // Mandatory
+ecommerce: true, // Enables ecommerce support (optional)
 debug: true // Whether or not display console logs debugs (optional)
 ```
-Supported Events: `trackView`, `trackEvent`, `trackException`, `setUsername`, `trackTiming`
+Supported Events: `trackView`, `trackEvent`, `trackException`, `addTransaction`, `addItem`, `trackTransaction`, `clearTransactions`, `setUsername`, `trackTiming`
 
 ### Mixpanel
 
@@ -345,6 +410,7 @@ Supported Events: `trackView`, `trackEvent`, `setAlias`, `setUserProperties`, `s
 ## Todo
 - ~~Demo~~ 👍
 - ~~Further integration with mixpanel~~ 👍
+- ~~Ecommerce support~~ 👍
 - New events: ~~registerSuperproperties~~, ~~alias~~, timedEvents
 - New modules: ~~segment~~, appboy, kissmetrics?
 - Tests
