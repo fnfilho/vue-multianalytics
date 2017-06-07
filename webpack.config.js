@@ -2,15 +2,18 @@ var path = require('path')
 var webpack = require('webpack')
 
 module.exports = {
-  entry: [
-    './src/index.js'
-  ],
+  entry: {
+    'vue-multianalytics': './src/index.js',
+    'vue-multianalytics.min': './src/index.js'
+  },
   output: {
-    filename: 'dist/vue-multianalytics.min.js',
+    path: "./dist",
+    filename: "[name].js",
     libraryTarget: 'commonjs2'
   },
   plugins: [
     new webpack.optimize.UglifyJsPlugin({
+      include: /\.min\.js$/,
       compress: {
         warnings: false
       }
