@@ -77,6 +77,63 @@ export default class AnalyticsPlugin {
   }
 
   /**
+  * Ecommerce transactions.
+  * @param {long} id - Transaction ID. Required
+  * @param {string} affiliation -  Affiliation or store name
+  * @param {float} revenue - Grand Total
+  * @param {flat} shipping -  Shipping
+  * @param {float} tax - Tax
+  * @param {string} currency - Currency - https://developers.google.com/analytics/devguides/platform/features/currencies
+  */
+  addTransaction (params = {}, excludedModules = []) {
+    this.modulesEnabled.forEach(module => {
+      if (excludedModules.indexOf(module.name) === -1) {
+        module.addTransaction(params)
+      }
+    })
+  }
+
+  /**
+  * Ecommerce transactions.
+  * @param {long} id - Transaction ID. Required
+  * @param {string} name -  Product name. Required.
+  * @param {string} sku - SKU/code.
+  * @param {string} category -  Category or variation.
+  * @param {float} price - Unit price.
+  * @param {int} quantity - Quantity
+  */
+  addItem (params = {}, excludedModules = []) {
+    this.modulesEnabled.forEach(module => {
+      if (excludedModules.indexOf(module.name) === -1) {
+        module.addItem(params)
+      }
+    })
+  }
+
+  /**
+  * Ecommerce track a transaction.
+  */
+  trackTransaction (excludedModules = []) {
+    this.modulesEnabled.forEach(module => {
+      if (excludedModules.indexOf(module.name) === -1) {
+        module.trackTransaction()
+      }
+    })
+  }
+
+  /**
+  * Ecommerce clear a transaction.
+  */
+  clearTransactions (excludedModules = []) {
+    this.modulesEnabled.forEach(module => {
+      if (excludedModules.indexOf(module.name) === -1) {
+        module.clearTransactions()
+      }
+    })
+  }
+
+
+  /**
    * Set the username.
    *
    * @param {string} name - The username
