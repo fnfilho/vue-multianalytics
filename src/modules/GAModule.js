@@ -200,7 +200,7 @@ export default class GAModule extends BasicModule {
   * @param {int} quantity - Quantity
   */
   addItem ({id, name, sku, category, price = 0, quantity = 1}) {
-    ga('ecommerce:addTransaction', {
+    ga('ecommerce:addItem', {
       id,
       name,
       sku,

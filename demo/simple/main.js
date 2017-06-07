@@ -34,6 +34,7 @@ let template = `
     <button @click="testMixin()">Test Mixin</button>
     <button @click="setUserProperties()">User properties</button>
     <button @click="setSuperProperties()">Super properties</button>
+    <button @click="testEcommerce()"> Test Ecommerce </button>
   </div>
 `
 const app = new Vue({
@@ -62,8 +63,25 @@ const app = new Vue({
       this.$ma.setUserProperties({userId: 'userTest', platform: 'web'})
     },
     setSuperProperties () {
-      console.log(this.$mam)
       this.$ma.setSuperProperties({platform: 'web'})
+    },
+    testEcommerce () {
+      this.$ma.addTransaction({
+        'id': '1234',                     // Transaction ID. Required.
+        'affiliation': 'Acme Clothing',   // Affiliation or store name.
+        'revenue': '11.99',               // Grand Total.
+        'shipping': '5',                  // Shipping.
+        'tax': '1.29'
+      })
+      this.$ma.addItem({
+        'id': '1234',                     // Transaction ID. Required.
+        'name': 'Fluffy Pink Bunnies',    // Product name. Required.
+        'sku': 'DD23444',                 // SKU/code.
+        'category': 'Party Toys',         // Category or variation.
+        'price': '11.99',                 // Unit price.
+        'quantity': '1'
+      })
+      this.$ma.trackTransaction()
     }
   }
 })
