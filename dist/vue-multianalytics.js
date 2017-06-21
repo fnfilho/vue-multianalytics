@@ -1315,7 +1315,7 @@ module.exports =
 
 	      var params = {};
 
-	      if (properties.hasAttribute('userId')) {
+	      if (properties.hasOwnProperty('userId')) {
 	        var id = properties.userId;
 	        properties.delete('userId');
 	        params.userId = id;
