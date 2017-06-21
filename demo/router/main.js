@@ -7,7 +7,6 @@ import App from './App.vue'
 import Component1 from './Component1.vue'
 import Component2 from './Component2.vue'
 
-
 // Router configurations
 // -------
 const router = new VueRouter({

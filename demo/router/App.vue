@@ -9,6 +9,7 @@
     <button @click="trackEvent()">Track Event</button>
     <button @click="trackException()">Track Exception</button>
     <button @click="testMixin()">Test Mixin</button>
+    <button @click="identify()">Identify</button>
     <button @click="setUserProperties()">User properties</button>
     <button @click="setSuperProperties()">Super properties</button>
   </div>
@@ -39,11 +40,13 @@ export default {
     testMixin () {
       this.$mam.test()
     },
+    identify () {
+      this.$ma.identify({userId: 12345})
+    },
     setUserProperties () {
-      this.$ma.setUserProperties({userId: 'userTest', platform: 'web'})
+      this.$ma.setUserProperties({userId: 'userTest', options: {platform: 'web'}})
     },
     setSuperProperties () {
-      console.log(this.$mam)
       this.$ma.setSuperProperties({platform: 'web'})
     }
   }
