@@ -158,13 +158,13 @@ export default class GAModule extends BasicModule {
   }
 
 
-  setUsername (name) {
-    this.settings.userId = name
+  setUsername (userId) {
+    this.settings.userId = userId
   }
 
   // Same as setUsername
-  identify (name) {
-    this.setUsername(name)
+  identify ({userId}) {
+    this.setUsername(userId)
   }
 
   setUserProperties({properties}) {

@@ -71,21 +71,24 @@ for(h=0;h<k.length;h++)e(d,k[h]);a._i.push([b,c,f])};a.__SV=1.2;b=e.createElemen
     mixpanel.alias(alias)
   }
 
-  identify (name) {
+  identify ({userId}) {
     if (this.config.debug) {
-      logDebug(name)
+      logDebug(userId)
     }
-    mixpanel.identify(name)
+    if (!userId) {
+      return
+    }
+    mixpanel.identify(userId)
   }
 
-  setUsername (name) {
+  setUsername (userId) {
     if (this.config.debug) {
-      logDebug(name)
+      logDebug(userId)
     }
-    mixpanel.identify(name)
+    mixpanel.identify(userId)
   }
 
-  setUserProperties (properties) {
+  setUserProperties (properties = {}) {
     if (this.config.debug) {
       logDebug(properties)
     }

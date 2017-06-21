@@ -198,6 +198,20 @@ export default class AnalyticsPlugin {
     })
   }
 
+  /**
+   * Identify the user
+   *
+   * @param {string} userId - The unique ID of the user
+   * @param {object} options - Options to add
+   */
+  identify (params = {}, excludedModules = []) {
+    this.modulesEnabled.forEach(module => {
+      if (excludedModules.indexOf(module.name) === -1) {
+        module.identify(params)
+      }
+    })
+  }
+
 
   /**
    * Set an alias for the current instance

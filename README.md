@@ -296,6 +296,18 @@ this.$ma.trackTransaction()
 this.$ma.clearTransactions()
 ```
 
+### identify(alias)
+```javascript
+/**
+  * Identify
+  *
+  * @param userId - The userId to identify with
+  * @param options - 
+  */
+
+this.$ma.setAlias('user1234@test.com')  
+```
+
 ### setAlias(alias)
 ```javascript
 /**

@@ -76,7 +76,11 @@ export default class SegmentModule extends BasicModule {
    * @param {any} properties - traits of your user. If you specify a properties.userId, then a userId will be set
    */
   setUserProperties(properties = {}) {
-    this.identify(properties)
+    let params = {
+      userId: properties.userId
+      options: properties
+    }
+    this.identify(params)
   }
 
   /**
@@ -93,14 +97,14 @@ export default class SegmentModule extends BasicModule {
    * associate your users and their actions to a recognizable userId
    * https://segment.com/docs/sources/website/analytics.js/#identify
    *
-   * @param {any} properties - traits of your user. If you specify a properties.userId, then a userId will be set
+   * @param {any} params - traits of your user. If you specify a params.userId, then a userId will be set
    */
-  identify (properties = {}) {
+  identify (params = {}) {
     try {
-      if (properties.userId) {
-        analytics.identify(properties.userId, properties);
+      if (params.userId) {
+        analytics.identify(params.userId, params.options);
       } else {
-        analytics.identify(properties);
+        analytics.identify(params.options);
       }
     } catch (e) {
       if (!(e instanceof ReferenceError)) {
@@ -116,8 +120,8 @@ export default class SegmentModule extends BasicModule {
    *
    * @param {any} name - userId
    */
-  setUsername (name) {
-    this.identify({userId: name})
+  setUsername (userId) {
+    this.identify({userId})
   }
 
   /**
