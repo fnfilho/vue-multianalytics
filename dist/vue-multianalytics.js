@@ -1208,10 +1208,13 @@ module.exports =
 	  }, {
 	    key: 'trackView',
 	    value: function trackView(_ref) {
-	      var viewName = _ref.viewName;
+	      var viewName = _ref.viewName,
+	          _ref$properties = _ref.properties,
+	          properties = _ref$properties === undefined ? {} : _ref$properties;
 
 	      try {
-	        analytics.page(viewName);
+	        var fullProperties = Object.assign(properties, this.superProperties);
+	        analytics.page(viewName, properties);
 	      } catch (e) {
 	        if (!(e instanceof ReferenceError)) {
 	          throw e;
