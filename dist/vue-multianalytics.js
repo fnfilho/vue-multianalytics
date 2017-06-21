@@ -43,7 +43,7 @@ module.exports =
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -172,9 +172,9 @@ module.exports =
 	// Export module
 	exports.default = { install: install };
 
-/***/ },
+/***/ }),
 /* 1 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	"use strict";
 
@@ -504,9 +504,9 @@ module.exports =
 
 	exports.default = AnalyticsPlugin;
 
-/***/ },
+/***/ }),
 /* 2 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -844,9 +844,9 @@ module.exports =
 
 	exports.default = GAModule;
 
-/***/ },
+/***/ }),
 /* 3 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	'use strict';
 
@@ -858,9 +858,9 @@ module.exports =
 	var MODULE_SEGMENT = exports.MODULE_SEGMENT = 'segment';
 	var MODULE_FACEBOOK = exports.MODULE_FACEBOOK = 'facebook';
 
-/***/ },
+/***/ }),
 /* 4 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	"use strict";
 
@@ -934,9 +934,9 @@ module.exports =
 
 	exports.default = BasicModule;
 
-/***/ },
+/***/ }),
 /* 5 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	'use strict';
 
@@ -965,9 +965,9 @@ module.exports =
 	  }
 	};
 
-/***/ },
+/***/ }),
 /* 6 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -1164,9 +1164,9 @@ module.exports =
 
 	exports.default = GAModule;
 
-/***/ },
+/***/ }),
 /* 7 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -1313,10 +1313,15 @@ module.exports =
 	    value: function setUserProperties() {
 	      var properties = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
-	      var params = {
-	        userId: properties.userId,
-	        options: properties
-	      };
+	      var params = {};
+
+	      if (properties.hasAttribute('userId')) {
+	        var id = properties.userId;
+	        properties.delete('userId');
+	        params.userId = id;
+	      }
+
+	      params.options = properties;
 	      this.identify(params);
 	    }
 
@@ -1397,9 +1402,9 @@ module.exports =
 
 	exports.default = SegmentModule;
 
-/***/ },
+/***/ }),
 /* 8 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -1539,5 +1544,5 @@ module.exports =
 
 	exports.default = FacebookModule;
 
-/***/ }
+/***/ })
 /******/ ]);

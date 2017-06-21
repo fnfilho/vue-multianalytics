@@ -76,10 +76,15 @@ export default class SegmentModule extends BasicModule {
    * @param {any} properties - traits of your user. If you specify a properties.userId, then a userId will be set
    */
   setUserProperties(properties = {}) {
-    let params = {
-      userId: properties.userId,
-      options: properties
+    let params = {}
+
+    if (properties.hasAttribute('userId')) {
+      let id = properties.userId
+      properties.delete('userId')
+      params.userId = id
     }
+
+    params.options = properties
     this.identify(params)
   }
 
