@@ -704,15 +704,21 @@ module.exports =
 	    }
 	  }, {
 	    key: 'setUsername',
-	    value: function setUsername(_ref4) {
-	      var name = _ref4.name;
-
+	    value: function setUsername(name) {
 	      this.settings.userId = name;
+	    }
+
+	    // Same as setUsername
+
+	  }, {
+	    key: 'identify',
+	    value: function identify(name) {
+	      this.setUsername(name);
 	    }
 	  }, {
 	    key: 'setUserProperties',
-	    value: function setUserProperties(_ref5) {
-	      var properties = _ref5.properties;
+	    value: function setUserProperties(_ref4) {
+	      var properties = _ref4.properties;
 	    }
 	    // this.setDimensionsAndMetrics(properties)
 
@@ -731,18 +737,18 @@ module.exports =
 
 	  }, {
 	    key: 'addTransaction',
-	    value: function addTransaction(_ref6) {
-	      var id = _ref6.id,
-	          _ref6$affiliation = _ref6.affiliation,
-	          affiliation = _ref6$affiliation === undefined ? '' : _ref6$affiliation,
-	          _ref6$revenue = _ref6.revenue,
-	          revenue = _ref6$revenue === undefined ? 0 : _ref6$revenue,
-	          _ref6$shipping = _ref6.shipping,
-	          shipping = _ref6$shipping === undefined ? 0 : _ref6$shipping,
-	          _ref6$tax = _ref6.tax,
-	          tax = _ref6$tax === undefined ? 0 : _ref6$tax,
-	          _ref6$currency = _ref6.currency,
-	          currency = _ref6$currency === undefined ? 'USD' : _ref6$currency;
+	    value: function addTransaction(_ref5) {
+	      var id = _ref5.id,
+	          _ref5$affiliation = _ref5.affiliation,
+	          affiliation = _ref5$affiliation === undefined ? '' : _ref5$affiliation,
+	          _ref5$revenue = _ref5.revenue,
+	          revenue = _ref5$revenue === undefined ? 0 : _ref5$revenue,
+	          _ref5$shipping = _ref5.shipping,
+	          shipping = _ref5$shipping === undefined ? 0 : _ref5$shipping,
+	          _ref5$tax = _ref5.tax,
+	          tax = _ref5$tax === undefined ? 0 : _ref5$tax,
+	          _ref5$currency = _ref5.currency,
+	          currency = _ref5$currency === undefined ? 'USD' : _ref5$currency;
 
 	      ga('ecommerce:addTransaction', {
 	        id: id,
@@ -768,15 +774,15 @@ module.exports =
 
 	  }, {
 	    key: 'addItem',
-	    value: function addItem(_ref7) {
-	      var id = _ref7.id,
-	          name = _ref7.name,
-	          sku = _ref7.sku,
-	          category = _ref7.category,
-	          _ref7$price = _ref7.price,
-	          price = _ref7$price === undefined ? 0 : _ref7$price,
-	          _ref7$quantity = _ref7.quantity,
-	          quantity = _ref7$quantity === undefined ? 1 : _ref7$quantity;
+	    value: function addItem(_ref6) {
+	      var id = _ref6.id,
+	          name = _ref6.name,
+	          sku = _ref6.sku,
+	          category = _ref6.category,
+	          _ref6$price = _ref6.price,
+	          price = _ref6$price === undefined ? 0 : _ref6$price,
+	          _ref6$quantity = _ref6.quantity,
+	          quantity = _ref6$quantity === undefined ? 1 : _ref6$quantity;
 
 	      ga('ecommerce:addItem', {
 	        id: id,
@@ -1075,6 +1081,14 @@ module.exports =
 	      mixpanel.alias(alias);
 	    }
 	  }, {
+	    key: 'identify',
+	    value: function identify(name) {
+	      if (this.config.debug) {
+	        (0, _utils.logDebug)(name);
+	      }
+	      mixpanel.identify(name);
+	    }
+	  }, {
 	    key: 'setUsername',
 	    value: function setUsername(name) {
 	      if (this.config.debug) {
@@ -1258,6 +1272,7 @@ module.exports =
 	    }
 
 	    /**
+	     * Same as identify
 	     * associate your users and their actions to a recognizable userId
 	     * https://segment.com/docs/sources/website/analytics.js/#identify
 	     *
@@ -1266,7 +1281,36 @@ module.exports =
 
 	  }, {
 	    key: 'setUserProperties',
-	    value: function setUserProperties(properties) {
+	    value: function setUserProperties() {
+	      var properties = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+	      this.identify(properties);
+	    }
+
+	    /**
+	     * Define a property that will be sent across all the events
+	     *
+	     * @param {any} properties
+	     */
+
+	  }, {
+	    key: 'setSuperProperties',
+	    value: function setSuperProperties(properties) {
+	      this.superProperties = properties;
+	    }
+
+	    /**
+	     * associate your users and their actions to a recognizable userId
+	     * https://segment.com/docs/sources/website/analytics.js/#identify
+	     *
+	     * @param {any} properties - traits of your user. If you specify a properties.userId, then a userId will be set
+	     */
+
+	  }, {
+	    key: 'identify',
+	    value: function identify() {
+	      var properties = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
 	      try {
 	        if (properties.userId) {
 	          analytics.identify(properties.userId, properties);
@@ -1281,15 +1325,17 @@ module.exports =
 	    }
 
 	    /**
-	     * Define a property that will be sent across all the events
+	     * Same as identify
+	     * associate your users and their actions to a recognizable userId
+	     * https://segment.com/docs/sources/website/analytics.js/#identify
 	     *
-	     * @param {any} properties
+	     * @param {any} name - userId
 	     */
 
 	  }, {
-	    key: 'setSuperProperties',
-	    value: function setSuperProperties(properties) {
-	      this.superProperties = properties;
+	    key: 'setUsername',
+	    value: function setUsername(name) {
+	      this.identify({ userId: name });
 	    }
 
 	    /**

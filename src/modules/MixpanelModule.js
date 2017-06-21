@@ -71,6 +71,13 @@ for(h=0;h<k.length;h++)e(d,k[h]);a._i.push([b,c,f])};a.__SV=1.2;b=e.createElemen
     mixpanel.alias(alias)
   }
 
+  identify (name) {
+    if (this.config.debug) {
+      logDebug(name)
+    }
+    mixpanel.identify(name)
+  }
+
   setUsername (name) {
     if (this.config.debug) {
       logDebug(name)

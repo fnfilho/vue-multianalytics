@@ -69,12 +69,33 @@ export default class SegmentModule extends BasicModule {
   }
 
   /**
+   * Same as identify
    * associate your users and their actions to a recognizable userId
    * https://segment.com/docs/sources/website/analytics.js/#identify
    *
    * @param {any} properties - traits of your user. If you specify a properties.userId, then a userId will be set
    */
-  setUserProperties(properties) {
+  setUserProperties(properties = {}) {
+    this.identify(properties)
+  }
+
+  /**
+   * Define a property that will be sent across all the events
+   *
+   * @param {any} properties
+   */
+  setSuperProperties (properties) {
+    this.superProperties = properties
+  }
+
+
+  /**
+   * associate your users and their actions to a recognizable userId
+   * https://segment.com/docs/sources/website/analytics.js/#identify
+   *
+   * @param {any} properties - traits of your user. If you specify a properties.userId, then a userId will be set
+   */
+  identify (properties = {}) {
     try {
       if (properties.userId) {
         analytics.identify(properties.userId, properties);
@@ -89,12 +110,14 @@ export default class SegmentModule extends BasicModule {
   }
 
   /**
-   * Define a property that will be sent across all the events
+   * Same as identify
+   * associate your users and their actions to a recognizable userId
+   * https://segment.com/docs/sources/website/analytics.js/#identify
    *
-   * @param {any} properties
+   * @param {any} name - userId
    */
-  setSuperProperties (properties) {
-    this.superProperties = properties
+  setUsername (name) {
+    this.identify({userId: name})
   }
 
   /**
