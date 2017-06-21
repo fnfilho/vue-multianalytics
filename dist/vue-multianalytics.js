@@ -461,6 +461,26 @@ module.exports =
 	    }
 
 	    /**
+	     * Identify the user
+	     *
+	     * @param {string} userId - The unique ID of the user
+	     * @param {object} options - Options to add
+	     */
+
+	  }, {
+	    key: "identify",
+	    value: function identify() {
+	      var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+	      var excludedModules = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+
+	      this.modulesEnabled.forEach(function (module) {
+	        if (excludedModules.indexOf(module.name) === -1) {
+	          module.identify(params);
+	        }
+	      });
+	    }
+
+	    /**
 	     * Set an alias for the current instance
 	     *
 	     * @param {string} alias - The alias to be set
@@ -1105,7 +1125,9 @@ module.exports =
 	    }
 	  }, {
 	    key: 'setUserProperties',
-	    value: function setUserProperties(properties) {
+	    value: function setUserProperties() {
+	      var properties = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
 	      if (this.config.debug) {
 	        (0, _utils.logDebug)(properties);
 	      }
@@ -1291,7 +1313,11 @@ module.exports =
 	    value: function setUserProperties() {
 	      var properties = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
-	      this.identify(properties);
+	      var params = {
+	        userId: properties.userId,
+	        options: properties
+	      };
+	      this.identify(params);
 	    }
 
 	    /**
@@ -1310,19 +1336,19 @@ module.exports =
 	     * associate your users and their actions to a recognizable userId
 	     * https://segment.com/docs/sources/website/analytics.js/#identify
 	     *
-	     * @param {any} properties - traits of your user. If you specify a properties.userId, then a userId will be set
+	     * @param {any} params - traits of your user. If you specify a params.userId, then a userId will be set
 	     */
 
 	  }, {
 	    key: 'identify',
 	    value: function identify() {
-	      var properties = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+	      var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
 	      try {
-	        if (properties.userId) {
-	          analytics.identify(properties.userId, properties);
+	        if (params.userId) {
+	          analytics.identify(params.userId, params.options);
 	        } else {
-	          analytics.identify(properties);
+	          analytics.identify(params.options);
 	        }
 	      } catch (e) {
 	        if (!(e instanceof ReferenceError)) {

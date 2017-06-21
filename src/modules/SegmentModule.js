@@ -77,7 +77,7 @@ export default class SegmentModule extends BasicModule {
    */
   setUserProperties(properties = {}) {
     let params = {
-      userId: properties.userId
+      userId: properties.userId,
       options: properties
     }
     this.identify(params)
