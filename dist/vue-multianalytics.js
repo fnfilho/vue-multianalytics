@@ -1245,7 +1245,7 @@ module.exports =
 	          callback = _ref2$callback === undefined ? null : _ref2$callback;
 
 	      try {
-	        var fullProperties = Object.assign(this.superProperties, properties);
+	        var fullProperties = Object.assign(properties, this.superProperties);
 	        analytics.track(action, fullProperties);
 	      } catch (e) {
 	        if (!(e instanceof ReferenceError)) {
