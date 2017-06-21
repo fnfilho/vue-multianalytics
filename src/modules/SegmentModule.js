@@ -37,9 +37,10 @@ export default class SegmentModule extends BasicModule {
    * params object should contain
    * @param {string} viewName
    */
-  trackView({viewName}) {
+  trackView({viewName, properties = {}}) {
     try {
-      analytics.page(viewName)
+      let fullProperties = Object.assign(properties, this.superProperties)
+      analytics.page(viewName, properties)
     } catch (e) {
       if (!(e instanceof ReferenceError)) {
         throw e;
