@@ -225,4 +225,16 @@ export default class AnalyticsPlugin {
       }
     })
   }
+
+  /**
+   * Resets the id & clears cache
+   *
+   */
+  reset (excludedModules = []) {
+    this.modulesEnabled.forEach(module => {
+      if (excludedModules.indexOf(module.name) === -1) {
+        module.reset()
+      }
+    })
+  }
 }

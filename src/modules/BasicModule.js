@@ -35,4 +35,6 @@ export default class BasicModule {
 
   clearTransactions () { /* Overriden by modules */}
 
+  reset () { /* Overriden by modules */}
+
 }

@@ -95,7 +95,7 @@ module.exports =
 	  var mixin = arguments[2];
 
 	  // init Google Analytics
-	  // We created all the modules that app will use
+	  // We create all the modules that app will use
 	  Vue.modulesEnabled = [];
 	  for (var key in initConf.modules) {
 	    var module = void 0;
@@ -494,6 +494,23 @@ module.exports =
 	      this.modulesEnabled.forEach(function (module) {
 	        if (excludedModules.indexOf(module.name) === -1) {
 	          module.setAlias(alias);
+	        }
+	      });
+	    }
+
+	    /**
+	     * Resets the id & clears cache
+	     *
+	     */
+
+	  }, {
+	    key: "reset",
+	    value: function reset() {
+	      var excludedModules = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+
+	      this.modulesEnabled.forEach(function (module) {
+	        if (excludedModules.indexOf(module.name) === -1) {
+	          module.reset();
 	        }
 	      });
 	    }
@@ -927,6 +944,9 @@ module.exports =
 	  }, {
 	    key: "clearTransactions",
 	    value: function clearTransactions() {/* Overriden by modules */}
+	  }, {
+	    key: "reset",
+	    value: function reset() {/* Overriden by modules */}
 	  }]);
 
 	  return BasicModule;
@@ -1156,6 +1176,11 @@ module.exports =
 	        (0, _utils.logDebug)(properties);
 	      }
 	      mixpanel.register_once(properties);
+	    }
+	  }, {
+	    key: 'reset',
+	    value: function reset() {
+	      mixpanel.reset();
 	    }
 	  }]);
 
@@ -1389,6 +1414,17 @@ module.exports =
 	    value: function setAlias(alias) {
 	      try {
 	        analytics.alias(alias);
+	      } catch (e) {
+	        if (!(e instanceof ReferenceError)) {
+	          throw e;
+	        }
+	      }
+	    }
+	  }, {
+	    key: 'reset',
+	    value: function reset() {
+	      try {
+	        analytics.reset();
 	      } catch (e) {
 	        if (!(e instanceof ReferenceError)) {
 	          throw e;

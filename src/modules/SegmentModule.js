@@ -146,4 +146,14 @@ export default class SegmentModule extends BasicModule {
       }
     }
   }
+
+  reset () {
+    try {
+      analytics.reset();
+    } catch (e) {
+      if (!(e instanceof ReferenceError)) {
+        throw e;
+      }
+    }
+  }
 }

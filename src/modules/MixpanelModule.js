@@ -116,5 +116,9 @@ for(h=0;h<k.length;h++)e(d,k[h]);a._i.push([b,c,f])};a.__SV=1.2;b=e.createElemen
     mixpanel.register_once(properties)
   }
 
+  reset () {
+    mixpanel.reset();
+  }
+
 
 }
