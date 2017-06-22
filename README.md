@@ -296,16 +296,26 @@ this.$ma.trackTransaction()
 this.$ma.clearTransactions()
 ```
 
-### identify(alias)
+### identify()
 ```javascript
 /**
   * Identify
   *
   * @param userId - The userId to identify with
-  * @param options - 
+  * @param options -
   */
 
-this.$ma.setAlias('user1234@test.com')  
+this.$ma.identify({userId: 12345, options: {newUser: true}})  
+```
+
+### reset()
+```javascript
+/**
+  * Reset the user & clears storage
+  *
+  */
+
+this.$ma.reset()  
 ```
 
 ### setAlias(alias)

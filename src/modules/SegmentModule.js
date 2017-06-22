@@ -38,6 +38,9 @@ export default class SegmentModule extends BasicModule {
    * @param {string} viewName
    */
   trackView({viewName, properties = {}}) {
+    if (this.config.debug) {
+      logDebug(...arguments)
+    }
     try {
       let fullProperties = Object.assign(properties, this.superProperties)
       analytics.page(viewName, properties)
@@ -58,6 +61,9 @@ export default class SegmentModule extends BasicModule {
    * @param {integer} value - A numeric value associated with the event (e.g. 42)
    */
   trackEvent ({category = "Event", action, label = null, value = null, properties = {}, callback = null }) {
+    if (this.config.debug) {
+      logDebug(...arguments)
+    }
     try {
       let fullProperties = Object.assign(properties, this.superProperties)
       analytics.track(action, fullProperties);
@@ -76,6 +82,9 @@ export default class SegmentModule extends BasicModule {
    * @param {any} properties - traits of your user. If you specify a properties.userId, then a userId will be set
    */
   setUserProperties(properties = {}) {
+    if (this.config.debug) {
+      logDebug(properties)
+    }
     let params = {}
 
     if (properties.hasOwnProperty('userId')) {
@@ -94,6 +103,9 @@ export default class SegmentModule extends BasicModule {
    * @param {any} properties
    */
   setSuperProperties (properties) {
+    if (this.config.debug) {
+      logDebug(properties)
+    }
     this.superProperties = properties
   }
 
@@ -105,6 +117,9 @@ export default class SegmentModule extends BasicModule {
    * @param {any} params - traits of your user. If you specify a params.userId, then a userId will be set
    */
   identify (params = {}) {
+    if (this.config.debug) {
+      logDebug(params)
+    }
     try {
       if (params.userId) {
         analytics.identify(params.userId, params.options);
@@ -126,6 +141,9 @@ export default class SegmentModule extends BasicModule {
    * @param {any} name - userId
    */
   setUsername (userId) {
+    if (this.config.debug) {
+      logDebug(userId)
+    }
     this.identify({userId})
   }
 
@@ -138,6 +156,9 @@ export default class SegmentModule extends BasicModule {
   */
 
   setAlias(alias) {
+    if (this.config.debug) {
+      logDebug(alias)
+    }
     try {
       analytics.alias(alias);
     } catch (e) {
@@ -148,6 +169,9 @@ export default class SegmentModule extends BasicModule {
   }
 
   reset () {
+    if (this.config.debug) {
+      logDebug('reset')
+    }
     try {
       analytics.reset();
     } catch (e) {

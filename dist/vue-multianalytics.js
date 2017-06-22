@@ -1013,16 +1013,16 @@ module.exports =
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var GAModule = function (_BasicModule) {
-	  _inherits(GAModule, _BasicModule);
+	var MixpanelModule = function (_BasicModule) {
+	  _inherits(MixpanelModule, _BasicModule);
 
-	  function GAModule() {
-	    _classCallCheck(this, GAModule);
+	  function MixpanelModule() {
+	    _classCallCheck(this, MixpanelModule);
 
-	    return _possibleConstructorReturn(this, (GAModule.__proto__ || Object.getPrototypeOf(GAModule)).call(this, _analyticsTypes.MODULE_MIXPANEL));
+	    return _possibleConstructorReturn(this, (MixpanelModule.__proto__ || Object.getPrototypeOf(MixpanelModule)).call(this, _analyticsTypes.MODULE_MIXPANEL));
 	  }
 
-	  _createClass(GAModule, [{
+	  _createClass(MixpanelModule, [{
 	    key: 'init',
 	    value: function init() {
 	      var initConf = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
@@ -1184,14 +1184,17 @@ module.exports =
 	  }, {
 	    key: 'reset',
 	    value: function reset() {
+	      if (this.config.debug) {
+	        (0, _utils.logDebug)('reset');
+	      }
 	      mixpanel.reset();
 	    }
 	  }]);
 
-	  return GAModule;
+	  return MixpanelModule;
 	}(_BasicModule3.default);
 
-	exports.default = GAModule;
+	exports.default = MixpanelModule;
 
 /***/ }),
 /* 7 */
@@ -1284,6 +1287,9 @@ module.exports =
 	          _ref$properties = _ref.properties,
 	          properties = _ref$properties === undefined ? {} : _ref$properties;
 
+	      if (this.config.debug) {
+	        _utils.logDebug.apply(undefined, arguments);
+	      }
 	      try {
 	        var fullProperties = Object.assign(properties, this.superProperties);
 	        analytics.page(viewName, properties);
@@ -1319,6 +1325,9 @@ module.exports =
 	          _ref2$callback = _ref2.callback,
 	          callback = _ref2$callback === undefined ? null : _ref2$callback;
 
+	      if (this.config.debug) {
+	        _utils.logDebug.apply(undefined, arguments);
+	      }
 	      try {
 	        var fullProperties = Object.assign(properties, this.superProperties);
 	        analytics.track(action, fullProperties);
@@ -1342,6 +1351,9 @@ module.exports =
 	    value: function setUserProperties() {
 	      var properties = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
+	      if (this.config.debug) {
+	        (0, _utils.logDebug)(properties);
+	      }
 	      var params = {};
 
 	      if (properties.hasOwnProperty('userId')) {
@@ -1363,6 +1375,9 @@ module.exports =
 	  }, {
 	    key: 'setSuperProperties',
 	    value: function setSuperProperties(properties) {
+	      if (this.config.debug) {
+	        (0, _utils.logDebug)(properties);
+	      }
 	      this.superProperties = properties;
 	    }
 
@@ -1378,6 +1393,9 @@ module.exports =
 	    value: function identify() {
 	      var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
+	      if (this.config.debug) {
+	        (0, _utils.logDebug)(params);
+	      }
 	      try {
 	        if (params.userId) {
 	          analytics.identify(params.userId, params.options);
@@ -1402,6 +1420,9 @@ module.exports =
 	  }, {
 	    key: 'setUsername',
 	    value: function setUsername(userId) {
+	      if (this.config.debug) {
+	        (0, _utils.logDebug)(userId);
+	      }
 	      this.identify({ userId: userId });
 	    }
 
@@ -1416,6 +1437,9 @@ module.exports =
 	  }, {
 	    key: 'setAlias',
 	    value: function setAlias(alias) {
+	      if (this.config.debug) {
+	        (0, _utils.logDebug)(alias);
+	      }
 	      try {
 	        analytics.alias(alias);
 	      } catch (e) {
@@ -1427,6 +1451,9 @@ module.exports =
 	  }, {
 	    key: 'reset',
 	    value: function reset() {
+	      if (this.config.debug) {
+	        (0, _utils.logDebug)('reset');
+	      }
 	      try {
 	        analytics.reset();
 	      } catch (e) {

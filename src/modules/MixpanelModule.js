@@ -1,7 +1,7 @@
 import { MODULE_MIXPANEL } from '../analyticsTypes'
 import BasicModule from './BasicModule'
 import { logDebug } from '../utils'
-export default class GAModule extends BasicModule {
+export default class MixpanelModule extends BasicModule {
 
   constructor () {
     super(MODULE_MIXPANEL)
@@ -121,6 +121,9 @@ for(h=0;h<k.length;h++)e(d,k[h]);a._i.push([b,c,f])};a.__SV=1.2;b=e.createElemen
   }
 
   reset () {
+    if (this.config.debug) {
+      logDebug('reset')
+    }
     mixpanel.reset();
   }
 

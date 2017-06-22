@@ -36,6 +36,7 @@ let template = `
     <button @click="setUserProperties()">User properties</button>
     <button @click="setSuperProperties()">Super properties</button>
     <button @click="testEcommerce()"> Test Ecommerce </button>
+    <button @click="reset()"> Reset </button>
   </div>
 `
 const app = new Vue({
@@ -62,6 +63,9 @@ const app = new Vue({
     },
     identify () {
       this.$ma.identify({userId: 12345})
+    },
+    reset () {
+      this.$ma.reset()
     },
     setUserProperties () {
       this.$ma.setUserProperties({userId: 'userTest', platform: 'web'})
