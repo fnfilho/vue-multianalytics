@@ -1104,7 +1104,7 @@ module.exports =
 	    value: function trackEvent(_ref2) {
 	      var action = _ref2.action,
 	          _ref2$properties = _ref2.properties,
-	          properties = _ref2$properties === undefined ? null : _ref2$properties,
+	          properties = _ref2$properties === undefined ? {} : _ref2$properties,
 	          _ref2$callback = _ref2.callback,
 	          callback = _ref2$callback === undefined ? null : _ref2$callback;
 
@@ -1112,7 +1112,11 @@ module.exports =
 	        _utils.logDebug.apply(undefined, arguments);
 	      }
 
-	      mixpanel.track(action, properties, callback);
+	      // Mixpanel alters the properties object with it's own properties. To avoid that, we
+	      // need to clone the object
+	      // https://github.com/mixpanel/mixpanel-js/blob/master/src/mixpanel-core.js#L1066
+	      var mixpanelProperties = Object.assign({}, properties);
+	      mixpanel.track(action, mixpanelProperties, callback);
 	    }
 	  }, {
 	    key: 'setAlias',

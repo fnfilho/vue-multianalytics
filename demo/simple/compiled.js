@@ -9972,6 +9972,10 @@
 	        var t = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : [];this.modulesEnabled.forEach(function (n) {
 	          t.indexOf(n.name) === -1 && n.setAlias(e);
 	        });
+	      } }, { key: "reset", value: function value() {
+	        var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : [];this.modulesEnabled.forEach(function (t) {
+	          e.indexOf(t.name) === -1 && t.reset();
+	        });
 	      } }]), e;
 	  }();t.default = o;
 	}, function (e, t, n) {
@@ -10081,7 +10085,7 @@
 	      o = function () {
 	    function e(t) {
 	      var i = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {};n(this, e), this.name = t, this.config = i;
-	    }return i(e, [{ key: "trackView", value: function value() {} }, { key: "trackEvent", value: function value() {} }, { key: "trackException", value: function value() {} }, { key: "trackTiming", value: function value() {} }, { key: "setAlias", value: function value() {} }, { key: "identify", value: function value() {} }, { key: "setUsername", value: function value() {} }, { key: "setUserProperties", value: function value() {} }, { key: "setUserPropertiesOnce", value: function value() {} }, { key: "setSuperProperties", value: function value() {} }, { key: "setSuperPropertiesOnce", value: function value() {} }, { key: "addTransaction", value: function value() {} }, { key: "addItem", value: function value() {} }, { key: "trackTransaction", value: function value() {} }, { key: "clearTransactions", value: function value() {} }]), e;
+	    }return i(e, [{ key: "trackView", value: function value() {} }, { key: "trackEvent", value: function value() {} }, { key: "trackException", value: function value() {} }, { key: "trackTiming", value: function value() {} }, { key: "setAlias", value: function value() {} }, { key: "identify", value: function value() {} }, { key: "setUsername", value: function value() {} }, { key: "setUserProperties", value: function value() {} }, { key: "setUserPropertiesOnce", value: function value() {} }, { key: "setSuperProperties", value: function value() {} }, { key: "setSuperPropertiesOnce", value: function value() {} }, { key: "addTransaction", value: function value() {} }, { key: "addItem", value: function value() {} }, { key: "trackTransaction", value: function value() {} }, { key: "clearTransactions", value: function value() {} }, { key: "reset", value: function value() {} }]), e;
 	  }();t.default = o;
 	}, function (e, t) {
 	  "use strict";
@@ -10149,9 +10153,9 @@
 	      } }, { key: "trackEvent", value: function value(e) {
 	        var t = e.action,
 	            n = e.properties,
-	            i = void 0 === n ? null : n,
+	            i = void 0 === n ? {} : n,
 	            o = e.callback,
-	            r = void 0 === o ? null : o;this.config.debug && f.logDebug.apply(void 0, arguments), mixpanel.track(t, i, r);
+	            r = void 0 === o ? null : o;this.config.debug && f.logDebug.apply(void 0, arguments);var a = Object.assign({}, i);mixpanel.track(t, a, r);
 	      } }, { key: "setAlias", value: function value(e) {
 	        this.config.debug && (0, f.logDebug)(e), mixpanel.alias(e);
 	      } }, { key: "identify", value: function value(e) {
@@ -10166,6 +10170,8 @@
 	        this.config.debug && (0, f.logDebug)(e), mixpanel.register(e);
 	      } }, { key: "setSuperPropertiesOnce", value: function value(e) {
 	        this.config.debug && (0, f.logDebug)(e), mixpanel.register_once(e);
+	      } }, { key: "reset", value: function value() {
+	        mixpanel.reset();
 	      } }]), t;
 	  }(s.default);t.default = d;
 	}, function (e, t, n) {
@@ -10227,7 +10233,7 @@
 	        }
 	      } }, { key: "setUserProperties", value: function value() {
 	        var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {},
-	            t = {};if (e.hasAttribute("userId")) {
+	            t = {};if (e.hasOwnProperty("userId")) {
 	          var n = e.userId;e.delete("userId"), t.userId = n;
 	        }t.options = e, this.identify(t);
 	      } }, { key: "setSuperProperties", value: function value(e) {
@@ -10243,6 +10249,12 @@
 	      } }, { key: "setAlias", value: function value(e) {
 	        try {
 	          analytics.alias(e);
+	        } catch (e) {
+	          if (!(e instanceof ReferenceError)) throw e;
+	        }
+	      } }, { key: "reset", value: function value() {
+	        try {
+	          analytics.reset();
 	        } catch (e) {
 	          if (!(e instanceof ReferenceError)) throw e;
 	        }

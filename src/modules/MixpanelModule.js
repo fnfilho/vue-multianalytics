@@ -55,12 +55,16 @@ for(h=0;h<k.length;h++)e(d,k[h]);a._i.push([b,c,f])};a.__SV=1.2;b=e.createElemen
    * @param {object} properties - An object of properties that are useful.
    * @param {function} callback - if provided, the callback function will be called.
    */
-   trackEvent ({action, properties = null, callback = null}) {
+   trackEvent ({action, properties = {}, callback = null}) {
     if (this.config.debug) {
       logDebug(...arguments)
     }
 
-    mixpanel.track(action, properties, callback)
+    // Mixpanel alters the properties object with it's own properties. To avoid that, we
+    // need to clone the object
+    // https://github.com/mixpanel/mixpanel-js/blob/master/src/mixpanel-core.js#L1066
+    const mixpanelProperties = Object.assign({}, properties)
+    mixpanel.track(action, mixpanelProperties, callback)
 
   }
 
