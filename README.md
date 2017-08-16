@@ -6,7 +6,7 @@ A [VueJS](http://vuejs.org) multianalytics tool
 - [About](#about)
 - [Configuration](#configuration)
 - [Tracking](#tracking)
-  - [ExludedModules](#excludedModules)
+  - [ExcludedModules](#excludedModules)
 - [VueRouter integration](#vuerouter-integration)
 - [Custom plugin](#custom-plugin)
   - [Mixin](#mixin)
