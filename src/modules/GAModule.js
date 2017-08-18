@@ -22,7 +22,8 @@ export default class GAModule extends BasicModule {
           }, i[ r ].l = 1 * new Date();
         a = s.createElement(o),
           m = s.getElementsByTagName(o)[ 0 ];
-        a.async = 1;
+        // a.async = 1;
+        a.setAttribute('defer','');
         a.src = g;
         m.parentNode.insertBefore(a, m)
       })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
@@ -44,6 +45,11 @@ export default class GAModule extends BasicModule {
       // set app name and version
       ga('set', 'appName', initConf.appName)
       ga('set', 'appVersion', initConf.appVersion)
+
+      // ecommerce
+      if (initConf['ecommerce']) {
+        ga('require', 'ecommerce')
+      }
 
   }
 
@@ -152,28 +158,77 @@ export default class GAModule extends BasicModule {
   }
 
 
-  setUsername ({name}) {
-    this.settings.userId = name
+  setUsername (userId) {
+    this.settings.userId = userId
+  }
+
+  // Same as setUsername
+  identify ({userId}) {
+    this.setUsername(userId)
   }
 
   setUserProperties({properties}) {
     // this.setDimensionsAndMetrics(properties)
   }
-  // TODO: Not working right now
 
-  // setDimensionsAndMetrics(properties) {
-  //   if (ga) {
-  //     for (var idx = 1; idx <= 200; idx++) {
-  //       if (properties['dimension' + idx.toString()]) {
-  //         ga('set', 'dimension' + idx.toString(), properties['dimension' + idx.toString()]);
-  //       }
-  //       if (properties['metric' + idx.toString()]) {
-  //         ga('set', 'metric' + idx.toString(), properties['metric' + idx.toString()]);
-  //       }
-  //     }
-  //   }
-  // }
+  /**
+  * Ecommerce transactions.
+  * ecommerce needs to be enabled in the module options (ecommerce = true)
+  * More info at https://developers.google.com/analytics/devguides/collection/analyticsjs/ecommerce
+  * @param {long} id - Transaction ID. Required
+  * @param {string} affiliation -  Affiliation or store name
+  * @param {float} revenue - Grand Total
+  * @param {flat} shipping -  Shipping
+  * @param {float} tax - Tax
+  * @param {string} currency - Currency - https://developers.google.com/analytics/devguides/platform/features/currencies
+  */
+  addTransaction ({id, affiliation = '', revenue = 0, shipping = 0, tax = 0, currency = 'USD'}) {
+    ga('ecommerce:addTransaction', {
+      id,
+      affiliation,
+      revenue,
+      shipping,
+      tax,
+      currency
+    })
+  }
 
+  /**
+  * Ecommerce transactions.
+  * ecommerce needs to be enabled in the module options (ecommerce = true)
+  * More info at https://developers.google.com/analytics/devguides/collection/analyticsjs/ecommerce
+  * @param {long} id - Transaction ID. Required
+  * @param {string} name -  Product name. Required.
+  * @param {string} sku - SKU/code.
+  * @param {string} category -  Category or variation.
+  * @param {float} price - Unit price.
+  * @param {int} quantity - Quantity
+  */
+  addItem ({id, name, sku, category, price = 0, quantity = 1}) {
+    ga('ecommerce:addItem', {
+      id,
+      name,
+      sku,
+      category,
+      price,
+      quantity
+    })
+  }
 
+  /**
+  * Ecommerce transactions.
+  * More info at https://developers.google.com/analytics/devguides/collection/analyticsjs/ecommerce
+  */
+  trackTransaction () {
+    ga('ecommerce:send')
+  }
+
+  /**
+  * Ecommerce transactions.
+  * More info at https://developers.google.com/analytics/devguides/collection/analyticsjs/ecommerce
+  */
+  clearTransactions () {
+    ga('ecommerce:clear')
+  }
 
 }

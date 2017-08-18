@@ -3,10 +3,10 @@ var webpack = require('webpack')
 
 module.exports = {
   entry: [
-    './demo/main.js'
+    './demo/simple/main.js'
   ],
   output: {
-    filename: 'demo/compiled.js'
+    filename: 'demo/simple/compiled.js'
   },
   plugins: [],
   resolve: {

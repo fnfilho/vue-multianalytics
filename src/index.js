@@ -17,7 +17,7 @@ import * as types from './analyticsTypes'
 
 const install = function (Vue, initConf = {}, mixin) {
   // init Google Analytics
-  // We created all the modules that app will use
+  // We create all the modules that app will use
   Vue.modulesEnabled = []
   for (let key in initConf.modules) {
     let module

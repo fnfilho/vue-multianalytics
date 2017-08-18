@@ -28,5 +28,15 @@ export default class BasicModule {
   setSuperPropertiesOnce () { /* Overriden by modules */ }
 
   ecommerceTrackEvent () { /* Overriden by modules */ }
+  
+  addTransaction () { /* Overriden by modules */}
+
+  addItem () { /* Overriden by modules */}
+
+  trackTransaction () { /* Overriden by modules */}
+
+  clearTransactions () { /* Overriden by modules */}
+
+  reset () { /* Overriden by modules */}
 
 }

@@ -11,7 +11,7 @@ export default class SegmentModule extends BasicModule {
 
   init (initConf = {}) {
     // name of gloval variable changed from analytics to segment
-    (function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="4.0.0";
+    (function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.setAttribute('defer','');e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="4.0.0";
     }})();
 
     // Apply default configuration
@@ -37,9 +37,13 @@ export default class SegmentModule extends BasicModule {
    * params object should contain
    * @param {string} viewName
    */
-  trackView({viewName}) {
+  trackView({viewName, properties = {}}) {
+    if (this.config.debug) {
+      logDebug(...arguments)
+    }
     try {
-      analytics.page(viewName)
+      let fullProperties = Object.assign(properties, this.superProperties)
+      analytics.page(viewName, properties)
     } catch (e) {
       if (!(e instanceof ReferenceError)) {
         throw e;
@@ -57,8 +61,11 @@ export default class SegmentModule extends BasicModule {
    * @param {integer} value - A numeric value associated with the event (e.g. 42)
    */
   trackEvent ({category = "Event", action, label = null, value = null, properties = {}, callback = null }) {
+    if (this.config.debug) {
+      logDebug(...arguments)
+    }
     try {
-      let fullProperties = Object.assign(this.superProperties, properties)
+      let fullProperties = Object.assign(properties, this.superProperties)
       analytics.track(action, fullProperties);
     } catch (e) {
       if (!(e instanceof ReferenceError)) {
@@ -68,17 +75,56 @@ export default class SegmentModule extends BasicModule {
   }
 
   /**
+   * Same as identify
    * associate your users and their actions to a recognizable userId
    * https://segment.com/docs/sources/website/analytics.js/#identify
    *
    * @param {any} properties - traits of your user. If you specify a properties.userId, then a userId will be set
    */
-  setUserProperties(properties) {
+  setUserProperties(properties = {}) {
+    if (this.config.debug) {
+      logDebug(properties)
+    }
+    let params = {}
+
+    if (properties.hasOwnProperty('userId')) {
+      let id = properties.userId
+      properties.delete('userId')
+      params.userId = id
+    }
+
+    params.options = properties
+    this.identify(params)
+  }
+
+  /**
+   * Define a property that will be sent across all the events
+   *
+   * @param {any} properties
+   */
+  setSuperProperties (properties) {
+    if (this.config.debug) {
+      logDebug(properties)
+    }
+    this.superProperties = properties
+  }
+
+
+  /**
+   * associate your users and their actions to a recognizable userId
+   * https://segment.com/docs/sources/website/analytics.js/#identify
+   *
+   * @param {any} params - traits of your user. If you specify a params.userId, then a userId will be set
+   */
+  identify (params = {}) {
+    if (this.config.debug) {
+      logDebug(params)
+    }
     try {
-      if (properties.userId) {
-        analytics.identify(properties.userId, properties);
+      if (params.userId) {
+        analytics.identify(params.userId, params.options);
       } else {
-        analytics.identify(properties);
+        analytics.identify(params.options);
       }
     } catch (e) {
       if (!(e instanceof ReferenceError)) {
@@ -88,12 +134,17 @@ export default class SegmentModule extends BasicModule {
   }
 
   /**
-   * Define a property that will be sent across all the events
+   * Same as identify
+   * associate your users and their actions to a recognizable userId
+   * https://segment.com/docs/sources/website/analytics.js/#identify
    *
-   * @param {any} properties
+   * @param {any} name - userId
    */
-  setSuperProperties (properties) {
-    this.superProperties = properties
+  setUsername (userId) {
+    if (this.config.debug) {
+      logDebug(userId)
+    }
+    this.identify({userId})
   }
 
   /**
@@ -105,8 +156,24 @@ export default class SegmentModule extends BasicModule {
   */
 
   setAlias(alias) {
+    if (this.config.debug) {
+      logDebug(alias)
+    }
     try {
       analytics.alias(alias);
+    } catch (e) {
+      if (!(e instanceof ReferenceError)) {
+        throw e;
+      }
+    }
+  }
+
+  reset () {
+    if (this.config.debug) {
+      logDebug('reset')
+    }
+    try {
+      analytics.reset();
     } catch (e) {
       if (!(e instanceof ReferenceError)) {
         throw e;
