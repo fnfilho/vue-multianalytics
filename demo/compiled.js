@@ -82,13 +82,21 @@
 	  debug: true
 	};
 
+	var mParticleConfig = {
+	  token: '3268bf3cb773504ea6e08fa9bf046d78',
+	  config: {},
+	  debug: true,
+	  sandbox: true
+	};
+
 	_vue2.default.use(_vueMultianalytics2.default, {
 	  modules: {
 	    ga: gaConfig,
-	    mixpanel: mixpanelConfig
+	    mixpanel: mixpanelConfig,
+	    mparticle: mParticleConfig
 	  }
 	}, _analyticsMixin2.default);
-	var template = '\n  <div>\n    <div>{{message}}</div>\n    <button @click="trackView()">Track View</button>\n    <button @click="trackEvent()">Track Event</button>\n    <button @click="trackException()">Track Exception</button>\n    <button @click="testMixin()">Test Mixin</button>\n    <button @click="setUserProperties()">User properties</button>\n    <button @click="setSuperProperties()">Super properties</button>\n  </div>\n';
+	var template = '\n  <div>\n    <div>{{message}}</div>\n    <button @click="trackView()">Track View</button>\n    <button @click="trackEvent()">Track Event</button>\n    <button @click="trackException()">Track Exception</button>\n    <button @click="testMixin()">Test Mixin</button>\n    <button @click="setUserProperties()">User properties</button>\n    <button @click="setSuperProperties()">Super properties</button>\n    <button @click="ecommerceTrackEvent()">Commerce track event</button>\n  </div>\n';
 	var app = new _vue2.default({
 	  el: '#app',
 	  template: template,
@@ -101,7 +109,7 @@
 
 	  methods: {
 	    trackEvent: function trackEvent() {
-	      this.$ma.trackEvent({ action: 'test category', category: 'clicks', properties: { interesting: true } });
+	      this.$ma.trackEvent({ action: 'test category', category: 'clicks', properties: { interesting: true }, eventType: 2 });
 	    },
 	    trackView: function trackView() {
 	      this.$ma.trackView({ viewName: 'test view' });
@@ -113,11 +121,19 @@
 	      this.$mam.test();
 	    },
 	    setUserProperties: function setUserProperties() {
-	      this.$ma.setUserProperties({ userId: 'userTest', platform: 'web' });
+	      this.$ma.setUserProperties({ userId: 'userTest', identityType: 3, platform: 'web' });
 	    },
 	    setSuperProperties: function setSuperProperties() {
-	      console.log(this.$mam);
 	      this.$ma.setSuperProperties({ platform: 'web' });
+	    },
+	    ecommerceTrackEvent: function ecommerceTrackEvent() {
+	      var product = {
+	        name: 'product name',
+	        description: 'Product description',
+	        price: 100.56,
+	        quantity: 5
+	      };
+	      this.$ma.ecommerceTrackEvent({ product: product });
 	    }
 	  }
 	});
@@ -9477,26 +9493,29 @@
 	      p = r(f),
 	      d = n(9),
 	      v = r(d),
-	      g = n(6),
-	      y = (o(g), n(4)),
-	      h = o(y),
-	      b = function b(e) {
+	      g = n(10),
+	      y = r(g),
+	      h = n(6),
+	      b = (o(h), n(4)),
+	      m = o(b),
+	      w = function w(e) {
 	    var t = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {},
 	        n = arguments[2];e.modulesEnabled = [];for (var o in t.modules) {
-	      var r = void 0;switch (o) {case h.MODULE_GA:
-	          r = new u.default(), r.init(t.modules[o]);break;case h.MODULE_MIXPANEL:
-	          r = new s.default(), r.init(t.modules[o]);break;case h.MODULE_SEGMENT:
-	          r = new p.default(), r.init(t.modules[o]);break;case h.MODULE_FACEBOOK:
-	          r = new v.default(), r.init(t.modules[o]);}r && e.modulesEnabled.push(r);
-	    }t.routing && t.routing.vueRouter && m(e, t.routing);var i = new a.default(e.modulesEnabled);e.prototype.$multianalytics = e.prototype.$ma = e.ma = i, n && (e.prototype.$multianalyticsm = e.prototype.$mam = e.mam = n(i));
+	      var r = void 0;switch (o) {case m.MODULE_GA:
+	          r = new u.default(), r.init(t.modules[o]);break;case m.MODULE_MIXPANEL:
+	          r = new s.default(), r.init(t.modules[o]);break;case m.MODULE_SEGMENT:
+	          r = new p.default(), r.init(t.modules[o]);break;case m.MODULE_FACEBOOK:
+	          r = new v.default(), r.init(t.modules[o]);break;case m.MODULE_MPARTICLE:
+	          r = new y.default(), r.init(t.modules[o]);}r && e.modulesEnabled.push(r);
+	    }t.routing && t.routing.vueRouter && k(e, t.routing);var i = new a.default(e.modulesEnabled);e.prototype.$multianalytics = e.prototype.$ma = e.ma = i, n && (e.prototype.$multianalyticsm = e.prototype.$mam = e.mam = n(i));
 	  },
-	      m = function m(e, t) {
+	      k = function k(e, t) {
 	    return t.ignoredViews && (t.ignoredViews = t.ignoredViews.map(function (e) {
 	      return e.toLowerCase();
-	    })), t.vueRouter.afterEach(function (n) {
-	      t.ignoredViews && t.ignoredViews.indexOf(n[t.preferredProperty].toLowerCase()) !== -1 || e.analytics.trackView({ viewName: n.meta.analytics || n[preferredProperty] }, t.ignoredModules);
+	    })), t.preferredProperty || (t.preferredProperty = "path"), t.vueRouter.afterEach(function (n) {
+	      t.ignoredViews && t.ignoredViews.indexOf(n[t.preferredProperty].toLowerCase()) !== -1 || e.ma.trackView({ viewName: n.meta.analytics || n[t.preferredProperty] }, t.ignoredModules);
 	    }), t.ignoredViews;
-	  };t.default = { install: b };
+	  };t.default = { install: w };
 	}, function (e, t) {
 	  "use strict";
 	  function n(e, t) {
@@ -9522,6 +9541,11 @@
 	        var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {},
 	            t = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : [];this.modulesEnabled.forEach(function (n) {
 	          t.indexOf(n.name) === -1 && n.trackEvent(e);
+	        });
+	      } }, { key: "ecommerceTrackEvent", value: function value() {
+	        var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {},
+	            t = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : [];this.modulesEnabled.forEach(function (n) {
+	          t.indexOf(n.name) === -1 && n.ecommerceTrackEvent(e);
 	        });
 	      } }, { key: "trackException", value: function value() {
 	        var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {},
@@ -9626,7 +9650,7 @@
 	  }(s.default);t.default = p;
 	}, function (e, t) {
 	  "use strict";
-	  Object.defineProperty(t, "__esModule", { value: !0 });t.MODULE_GA = "ga", t.MODULE_MIXPANEL = "mixpanel", t.MODULE_SEGMENT = "segment", t.MODULE_FACEBOOK = "facebook";
+	  Object.defineProperty(t, "__esModule", { value: !0 });t.MODULE_GA = "ga", t.MODULE_MIXPANEL = "mixpanel", t.MODULE_SEGMENT = "segment", t.MODULE_FACEBOOK = "facebook", t.MODULE_MPARTICLE = "mparticle";
 	}, function (e, t) {
 	  "use strict";
 	  function n(e, t) {
@@ -9643,7 +9667,7 @@
 	      r = function () {
 	    function e(t) {
 	      var o = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {};n(this, e), this.name = t, this.config = o;
-	    }return o(e, [{ key: "trackView", value: function value() {} }, { key: "trackEvent", value: function value() {} }, { key: "trackException", value: function value() {} }, { key: "trackTiming", value: function value() {} }, { key: "setAlias", value: function value() {} }, { key: "identify", value: function value() {} }, { key: "setUsername", value: function value() {} }, { key: "setUserProperties", value: function value() {} }, { key: "setUserPropertiesOnce", value: function value() {} }, { key: "setSuperProperties", value: function value() {} }, { key: "setSuperPropertiesOnce", value: function value() {} }]), e;
+	    }return o(e, [{ key: "trackView", value: function value() {} }, { key: "trackEvent", value: function value() {} }, { key: "trackException", value: function value() {} }, { key: "trackTiming", value: function value() {} }, { key: "setAlias", value: function value() {} }, { key: "identify", value: function value() {} }, { key: "setUsername", value: function value() {} }, { key: "setUserProperties", value: function value() {} }, { key: "setUserPropertiesOnce", value: function value() {} }, { key: "setSuperProperties", value: function value() {} }, { key: "setSuperPropertiesOnce", value: function value() {} }, { key: "ecommerceTrackEvent", value: function value() {} }]), e;
 	  }();t.default = r;
 	}, function (e, t) {
 	  "use strict";
@@ -9839,7 +9863,7 @@
 	        r(e), fbq("track", "PageView");
 	      } }, { key: "trackEvent", value: function value(e) {
 	        var t = e.fb_event,
-	            n = void 0 === t ? "viewContent" : t,
+	            n = void 0 === t ? "ViewContent" : t,
 	            o = e.category,
 	            r = void 0 === o ? "Event" : o,
 	            i = (e.action, e.label),
@@ -9856,6 +9880,82 @@
 	        }var h = { content_name: a, content_category: r, content_ids: s, content_type: d, value: u, currency: g };fbq("track", n, h);
 	      } }]), t;
 	  }(f.default);t.default = d;
+	}, function (e, t, n) {
+	  "use strict";
+	  function o(e) {
+	    return e && e.__esModule ? e : { default: e };
+	  }function r(e, t) {
+	    if (!(e instanceof t)) throw new TypeError("Cannot call a class as a function");
+	  }function i(e, t) {
+	    if (!e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return !t || "object" != (typeof t === "undefined" ? "undefined" : _typeof(t)) && "function" != typeof t ? e : t;
+	  }function a(e, t) {
+	    if ("function" != typeof t && null !== t) throw new TypeError("Super expression must either be null or a function, not " + (typeof t === "undefined" ? "undefined" : _typeof(t)));e.prototype = Object.create(t && t.prototype, { constructor: { value: e, enumerable: !1, writable: !0, configurable: !0 } }), t && (Object.setPrototypeOf ? Object.setPrototypeOf(e, t) : e.__proto__ = t);
+	  }Object.defineProperty(t, "__esModule", { value: !0 });var c = function () {
+	    function e(e, t) {
+	      for (var n = 0; n < t.length; n++) {
+	        var o = t[n];o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, o.key, o);
+	      }
+	    }return function (t, n, o) {
+	      return n && e(t.prototype, n), o && e(t, o), t;
+	    };
+	  }(),
+	      u = n(4),
+	      l = n(5),
+	      s = o(l),
+	      f = n(6),
+	      p = function (e) {
+	    function t() {
+	      r(this, t);var e = i(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, u.MODULE_MPARTICLE));return e.superProperties = {}, e;
+	    }return a(t, e), c(t, [{ key: "init", value: function value() {
+	        var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {},
+	            t = ["token"];t.forEach(function (t) {
+	          if (!e[t]) throw new Error('VueMultianalytics : Please provide a "' + t + '" from the config.');
+	        }), this.config.debug = e.debug, this.config.sandbox = e.sandbox, function (e) {
+	          window.mParticle = window.mParticle || {}, window.mParticle.config = window.mParticle.config || {}, window.mParticle.config.rq = [], window.mParticle.ready = function (e) {
+	            window.mParticle.config.rq.push(e);
+	          };var t = document.createElement("script");t.type = "text/javascript", t.async = !0, t.src = ("https:" == document.location.protocol ? "https://jssdkcdns" : "http://jssdkcdn") + ".mparticle.com/js/v1/" + e + "/mparticle.js";var n = document.getElementsByTagName("script")[0];n.parentNode.insertBefore(t, n);
+	        }(e.token);
+	      } }, { key: "trackView", value: function value(e) {
+	        var t = e.viewName,
+	            n = e.attributes,
+	            o = void 0 === n ? {} : n,
+	            r = e.customFlags,
+	            i = void 0 === r ? {} : r;try {
+	          mParticle.isSandbox = this.config.sandbox, mParticle.isDebug = this.config.debug, mParticle.logPageView(t, o, i);
+	        } catch (e) {
+	          if (!(e instanceof ReferenceError)) throw e;
+	        }
+	      } }, { key: "trackEvent", value: function value(e) {
+	        var t = (e.category, e.action),
+	            n = e.eventType,
+	            o = void 0 === n ? mParticle.EventType.Other : n,
+	            r = (e.label, e.value, e.properties),
+	            i = void 0 === r ? {} : r;e.callback;try {
+	          this.config.debug && f.logDebug.apply(void 0, arguments);var a = Object.assign(this.superProperties, i);mParticle.isSandbox = this.config.sandbox, mParticle.isDebug = this.config.debug, mParticle.logEvent(t, o, a);
+	        } catch (e) {
+	          if (!(e instanceof ReferenceError)) throw e;
+	        }
+	      } }, { key: "ecommerceTrackEvent", value: function value(e) {
+	        var t = e.productActionType,
+	            n = void 0 === t ? mParticle.CommerceEventType.ProductAddToCart : t,
+	            o = e.product,
+	            r = void 0 === o ? {} : o,
+	            i = e.attributes,
+	            a = void 0 === i ? {} : i;try {
+	          this.config.debug && f.logDebug.apply(void 0, arguments);var c = mParticle.eCommerce.createProduct(r.name, r.description, r.price, r.quantity);mParticle.isSandbox = this.config.sandbox, mParticle.isDebug = this.config.debug, mParticle.eCommerce.logProductAction(n, c, a);
+	        } catch (e) {
+	          if (!(e instanceof ReferenceError)) throw e;
+	        }
+	      } }, { key: "setUserProperties", value: function value(e) {
+	        try {
+	          this.config.debug && f.logDebug.apply(void 0, arguments), mParticle.isSandbox = this.config.sandbox, mParticle.isDebug = this.config.debug, e.userId && mParticle.setUserIdentity(e.userId, e.identityType || mParticle.IdentityType.CustomerId);
+	        } catch (e) {
+	          if (!(e instanceof ReferenceError)) throw e;
+	        }
+	      } }, { key: "setSuperProperties", value: function value(e) {
+	        this.superProperties = e;
+	      } }]), t;
+	  }(s.default);t.default = p;
 	}]);
 
 /***/ },

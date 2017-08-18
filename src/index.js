@@ -3,6 +3,7 @@ import GAModule from './modules/GAModule'
 import MixpanelModule from './modules/MixpanelModule'
 import SegmentModule from './modules/SegmentModule'
 import FacebookModule from './modules/FacebookModule'
+import MparticleModule from './modules/MparticleModule'
 import * as Utils from './utils'
 import * as types from './analyticsTypes'
 
@@ -37,6 +38,9 @@ const install = function (Vue, initConf = {}, mixin) {
         module = new FacebookModule()
         module.init(initConf.modules[key])
         break;
+      case types.MODULE_MPARTICLE:
+        module = new MparticleModule()
+        module.init(initConf.modules[key])
       default:
         break;
     }

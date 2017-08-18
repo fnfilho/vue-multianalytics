@@ -45,6 +45,22 @@ export default class AnalyticsPlugin {
   }
 
   /**
+   * Dispatch a tracking analytics event
+   *
+   * params object should contain
+   * @param product
+   * @param productActionType
+   * @param attributes
+   */
+  ecommerceTrackEvent (params = {}, excludedModules = []) {
+    this.modulesEnabled.forEach(module => {
+      if (excludedModules.indexOf(module.name) === -1) {
+        module.ecommerceTrackEvent(params)
+      }
+    })
+  }
+
+  /**
    * Track an exception that occurred in the application.
    *
    * The params object should contain

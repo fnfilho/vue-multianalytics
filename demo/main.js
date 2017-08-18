@@ -18,10 +18,18 @@ let mixpanelConfig = {
   debug: true
 }
 
+let mParticleConfig = {
+  token: '3268bf3cb773504ea6e08fa9bf046d78',
+  config: {},
+  debug: true,
+  sandbox: true
+}
+
 Vue.use(VueMultianalytics, {
   modules: {
     ga: gaConfig,
-    mixpanel: mixpanelConfig
+    mixpanel: mixpanelConfig,
+    mparticle: mParticleConfig
   }
 }, analyticsMixin)
 let template = `
@@ -33,6 +41,7 @@ let template = `
     <button @click="testMixin()">Test Mixin</button>
     <button @click="setUserProperties()">User properties</button>
     <button @click="setSuperProperties()">Super properties</button>
+    <button @click="ecommerceTrackEvent()">Commerce track event</button>
   </div>
 `
 const app = new Vue({
@@ -46,7 +55,7 @@ const app = new Vue({
   },
   methods: {
     trackEvent () {
-      this.$ma.trackEvent({action: 'test category', category: 'clicks', properties: {interesting: true}})
+      this.$ma.trackEvent({action: 'test category', category: 'clicks', properties: {interesting: true}, eventType: 2})
     },
     trackView () {
       this.$ma.trackView({viewName: 'test view'})
@@ -58,11 +67,19 @@ const app = new Vue({
       this.$mam.test()
     },
     setUserProperties () {
-      this.$ma.setUserProperties({userId: 'userTest', platform: 'web'})
+      this.$ma.setUserProperties({userId: 'userTest', identityType: 3, platform: 'web'})
     },
     setSuperProperties () {
-      console.log(this.$mam)
       this.$ma.setSuperProperties({platform: 'web'})
+    },
+    ecommerceTrackEvent () {
+      let product = {
+        name: 'product name',
+        description: 'Product description',
+        price: 100.56,
+        quantity: 5
+      }
+      this.$ma.ecommerceTrackEvent({product})
     }
   }
 })
