@@ -6,7 +6,7 @@ A [VueJS](http://vuejs.org) multianalytics tool
 - [About](#about)
 - [Configuration](#configuration)
 - [Tracking](#tracking)
-  - [ExludedModules](#excludedModules)
+  - [ExcludedModules](#excludedModules)
 - [VueRouter integration](#vuerouter-integration)
 - [Custom plugin](#custom-plugin)
   - [Mixin](#mixin)
@@ -102,7 +102,7 @@ Vue.use(VueMultianalytics, {
   routing: {
     vueRouter: router, //  Pass the router instance to automatically sync with router (optional)
     preferredProperty: 'name', // By default 'path' and related with vueRouter (optional)
-    ingoredViews: ['homepage'], // Views that will not be tracked
+    ignoredViews: ['homepage'], // Views that will not be tracked
     ignoredModules: ['ga'] // Modules that will not send route change events. The event sent will be this.$ma.trackView({viewName: 'homepage'}, ['ga'])
   }
 })
