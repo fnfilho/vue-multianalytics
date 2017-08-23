@@ -1726,15 +1726,15 @@ module.exports =
 	    key: 'trackView',
 	    value: function trackView(_ref) {
 	      var viewName = _ref.viewName,
-	          _ref$attributes = _ref.attributes,
-	          attributes = _ref$attributes === undefined ? {} : _ref$attributes,
+	          _ref$properties = _ref.properties,
+	          properties = _ref$properties === undefined ? {} : _ref$properties,
 	          _ref$customFlags = _ref.customFlags,
 	          customFlags = _ref$customFlags === undefined ? {} : _ref$customFlags;
 
 	      try {
 	        mParticle.isSandbox = this.config.sandbox;
 	        mParticle.isDebug = this.config.debug;
-	        mParticle.logPageView(viewName, attributes, customFlags);
+	        mParticle.logPageView(viewName, properties, customFlags);
 	      } catch (e) {
 	        if (!(e instanceof ReferenceError)) {
 	          throw e;
@@ -1802,17 +1802,21 @@ module.exports =
 	          productActionType = _ref3$productActionTy === undefined ? mParticle.CommerceEventType.ProductAddToCart : _ref3$productActionTy,
 	          _ref3$product = _ref3.product,
 	          product = _ref3$product === undefined ? {} : _ref3$product,
-	          _ref3$attributes = _ref3.attributes,
-	          attributes = _ref3$attributes === undefined ? {} : _ref3$attributes;
+	          _ref3$properties = _ref3.properties,
+	          properties = _ref3$properties === undefined ? {} : _ref3$properties;
 
 	      try {
 	        if (this.config.debug) {
 	          _utils.logDebug.apply(undefined, arguments);
 	        }
-	        var mProduct = mParticle.eCommerce.createProduct(product.name, product.description, product.price, product.quantity);
+	        var mProduct = mParticle.eCommerce.createProduct(product.name, product.sku || performance.now(), product.price, product.quantity);
 	        mParticle.isSandbox = this.config.sandbox;
 	        mParticle.isDebug = this.config.debug;
-	        mParticle.eCommerce.logProductAction(productActionType, mProduct, attributes);
+	        var fullProperties = Object.assign(this.superProperties, properties);
+	        console.log('my productActionType is: ', productActionType);
+	        console.log('my mProduct is: ', mProduct);
+	        console.log('my fullProperties is: ', fullProperties);
+	        mParticle.eCommerce.logProductAction(productActionType, mProduct, fullProperties);
 	      } catch (e) {
 	        if (!(e instanceof ReferenceError)) {
 	          throw e;

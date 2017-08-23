@@ -42,11 +42,11 @@ export default class MparticleModule extends BasicModule {
    * params object should contain
    * @param {string} viewName
    */
-  trackView({viewName, attributes = {}, customFlags = {}}) {
+  trackView({viewName, properties = {}, customFlags = {}}) {
     try {
       mParticle.isSandbox = this.config.sandbox
       mParticle.isDebug = this.config.debug
-      mParticle.logPageView(viewName, attributes, customFlags)
+      mParticle.logPageView(viewName, properties, customFlags)
     } catch (e) {
       if (!(e instanceof ReferenceError)) {
         throw e;
@@ -89,15 +89,16 @@ export default class MparticleModule extends BasicModule {
    * @param {object} product - Product to be tracked
    * @param {object} attributes - object of attributes related to the event
    */
-  ecommerceTrackEvent ({productActionType = mParticle.CommerceEventType.ProductAddToCart, product = {}, attributes = {}}) {
+  ecommerceTrackEvent ({productActionType = mParticle.CommerceEventType.ProductAddToCart, product = {}, properties = {} }) {
     try {
       if (this.config.debug) {
         logDebug(...arguments)
       }
-      let mProduct = mParticle.eCommerce.createProduct(product.name, product.description, product.price, product.quantity);
+      let mProduct = mParticle.eCommerce.createProduct(product.name, product.sku || performance.now(), product.price, product.quantity);
       mParticle.isSandbox = this.config.sandbox
       mParticle.isDebug = this.config.debug
-      mParticle.eCommerce.logProductAction(productActionType, mProduct, attributes)
+      let fullProperties = Object.assign(this.superProperties, properties)
+      mParticle.eCommerce.logProductAction(productActionType, mProduct, fullProperties)
     } catch (e) {
       if (!(e instanceof ReferenceError)) {
         throw e;
