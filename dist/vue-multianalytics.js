@@ -1695,8 +1695,12 @@ module.exports =
 	      mandatoryParams.forEach(function (el) {
 	        if (!initConf[el]) throw new Error('VueMultianalytics : Please provide a "' + el + '" from the config.');
 	      });
-	      this.config.debug = initConf.debug;
-	      this.config.sandbox = initConf.sandbox;
+	      window.mParticle = {
+	        config: {
+	          isDebug: initConf.debug,
+	          isSandbox: initConf.sandbox
+	        }
+	      };
 	      // name of gloval variable changed from analytics to segment
 	      (function (apiKey) {
 	        window.mParticle = window.mParticle || {};
@@ -1732,8 +1736,6 @@ module.exports =
 	          customFlags = _ref$customFlags === undefined ? {} : _ref$customFlags;
 
 	      try {
-	        mParticle.isSandbox = this.config.sandbox;
-	        mParticle.isDebug = this.config.debug;
 	        var fullProperties = Object.assign(this.superProperties, properties);
 	        mParticle.logPageView(viewName, properties, customFlags);
 	      } catch (e) {
@@ -1776,8 +1778,6 @@ module.exports =
 	          _utils.logDebug.apply(undefined, arguments);
 	        }
 	        var fullProperties = Object.assign(this.superProperties, properties);
-	        mParticle.isSandbox = this.config.sandbox;
-	        mParticle.isDebug = this.config.debug;
 	        mParticle.logEvent(action, eventType, fullProperties);
 	      } catch (e) {
 	        if (!(e instanceof ReferenceError)) {
@@ -1811,8 +1811,6 @@ module.exports =
 	          _utils.logDebug.apply(undefined, arguments);
 	        }
 	        var mProduct = mParticle.eCommerce.createProduct(product.name, product.sku || performance.now(), product.price, product.quantity);
-	        mParticle.isSandbox = this.config.sandbox;
-	        mParticle.isDebug = this.config.debug;
 	        var fullProperties = Object.assign(this.superProperties, properties);
 	        mParticle.eCommerce.logProductAction(productActionType, mProduct, fullProperties);
 	      } catch (e) {
@@ -1836,8 +1834,6 @@ module.exports =
 	        if (this.config.debug) {
 	          _utils.logDebug.apply(undefined, arguments);
 	        }
-	        mParticle.isSandbox = this.config.sandbox;
-	        mParticle.isDebug = this.config.debug;
 	        if (properties.userId) {
 	          mParticle.setUserIdentity(properties.userId, properties.identityType || mParticle.IdentityType.CustomerId);
 	        }
