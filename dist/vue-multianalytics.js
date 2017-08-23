@@ -1736,8 +1736,9 @@ module.exports =
 	          customFlags = _ref$customFlags === undefined ? {} : _ref$customFlags;
 
 	      try {
-	        var fullProperties = Object.assign(this.superProperties, properties);
-	        mParticle.logPageView(viewName, properties, customFlags);
+	        var fullProperties = Object.assign(properties, this.superProperties);
+	        console.log('my properties are: ', fullProperties, this.superProperties);
+	        mParticle.logPageView(viewName, fullProperties, customFlags);
 	      } catch (e) {
 	        if (!(e instanceof ReferenceError)) {
 	          throw e;
@@ -1777,7 +1778,8 @@ module.exports =
 	        if (this.config.debug) {
 	          _utils.logDebug.apply(undefined, arguments);
 	        }
-	        var fullProperties = Object.assign(this.superProperties, properties);
+	        var fullProperties = Object.assign(properties, this.superProperties);
+	        console.log('my properties are: ', fullProperties, this.superProperties);
 	        mParticle.logEvent(action, eventType, fullProperties);
 	      } catch (e) {
 	        if (!(e instanceof ReferenceError)) {
@@ -1811,7 +1813,8 @@ module.exports =
 	          _utils.logDebug.apply(undefined, arguments);
 	        }
 	        var mProduct = mParticle.eCommerce.createProduct(product.name, product.sku || performance.now(), product.price, product.quantity);
-	        var fullProperties = Object.assign(this.superProperties, properties);
+	        var fullProperties = Object.assign(properties, this.superProperties);
+	        console.log('my properties are: ', fullProperties, this.superProperties);
 	        mParticle.eCommerce.logProductAction(productActionType, mProduct, fullProperties);
 	      } catch (e) {
 	        if (!(e instanceof ReferenceError)) {

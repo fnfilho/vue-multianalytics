@@ -48,8 +48,9 @@ export default class MparticleModule extends BasicModule {
    */
   trackView({viewName, properties = {}, customFlags = {}}) {
     try {
-      let fullProperties = Object.assign(this.superProperties, properties)
-      mParticle.logPageView(viewName, properties, customFlags)
+      let fullProperties = Object.assign(properties, this.superProperties)
+      console.log('my properties are: ', fullProperties, this.superProperties)
+      mParticle.logPageView(viewName, fullProperties, customFlags)
     } catch (e) {
       if (!(e instanceof ReferenceError)) {
         throw e;
@@ -72,7 +73,8 @@ export default class MparticleModule extends BasicModule {
       if (this.config.debug) {
         logDebug(...arguments)
       }
-      let fullProperties = Object.assign(this.superProperties, properties)
+      let fullProperties = Object.assign(properties, this.superProperties)
+      console.log('my properties are: ', fullProperties, this.superProperties)
       mParticle.logEvent(action, eventType, fullProperties)
     } catch (e) {
       if (!(e instanceof ReferenceError)) {
@@ -96,7 +98,8 @@ export default class MparticleModule extends BasicModule {
         logDebug(...arguments)
       }
       let mProduct = mParticle.eCommerce.createProduct(product.name, product.sku || performance.now(), product.price, product.quantity);
-      let fullProperties = Object.assign(this.superProperties, properties)
+      let fullProperties = Object.assign(properties, this.superProperties)
+      console.log('my properties are: ', fullProperties, this.superProperties)
       mParticle.eCommerce.logProductAction(productActionType, mProduct, fullProperties)
     } catch (e) {
       if (!(e instanceof ReferenceError)) {
