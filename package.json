@@ -1,6 +1,6 @@
 {
   "name": "vue-multianalytics",
-  "version": "1.6.5",
+  "version": "1.6.6",
   "description": "A vue multianalytics tool",
   "main": "./dist/vue-multianalytics.min.js",
   "author": "Glovoapp, Adrian Latorre, Francisco Zurita",
