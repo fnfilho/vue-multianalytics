@@ -1734,6 +1734,7 @@ module.exports =
 	      try {
 	        mParticle.isSandbox = this.config.sandbox;
 	        mParticle.isDebug = this.config.debug;
+	        var fullProperties = Object.assign(this.superProperties, properties);
 	        mParticle.logPageView(viewName, properties, customFlags);
 	      } catch (e) {
 	        if (!(e instanceof ReferenceError)) {
@@ -1813,9 +1814,6 @@ module.exports =
 	        mParticle.isSandbox = this.config.sandbox;
 	        mParticle.isDebug = this.config.debug;
 	        var fullProperties = Object.assign(this.superProperties, properties);
-	        console.log('my productActionType is: ', productActionType);
-	        console.log('my mProduct is: ', mProduct);
-	        console.log('my fullProperties is: ', fullProperties);
 	        mParticle.eCommerce.logProductAction(productActionType, mProduct, fullProperties);
 	      } catch (e) {
 	        if (!(e instanceof ReferenceError)) {

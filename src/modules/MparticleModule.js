@@ -46,6 +46,7 @@ export default class MparticleModule extends BasicModule {
     try {
       mParticle.isSandbox = this.config.sandbox
       mParticle.isDebug = this.config.debug
+      let fullProperties = Object.assign(this.superProperties, properties)
       mParticle.logPageView(viewName, properties, customFlags)
     } catch (e) {
       if (!(e instanceof ReferenceError)) {
