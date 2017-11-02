@@ -1814,7 +1814,9 @@ module.exports =
 	        }
 	        var mProduct = mParticle.eCommerce.createProduct(product.name, product.sku || performance.now(), product.price, product.quantity);
 	        var fullProperties = Object.assign(properties, this.superProperties);
-	        console.log('my properties are: ', fullProperties, this.superProperties);
+	        if (properties.currency) {
+	          mParticle.eCommerce.setCurrencyCode();
+	        }
 	        mParticle.eCommerce.logProductAction(productActionType, mProduct, fullProperties);
 	      } catch (e) {
 	        if (!(e instanceof ReferenceError)) {

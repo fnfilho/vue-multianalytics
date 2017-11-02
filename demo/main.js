@@ -71,7 +71,7 @@ const app = new Vue({
         price: 100.56,
         quantity: 5
       }
-      this.$ma.ecommerceTrackEvent({product})
+      this.$ma.ecommerceTrackEvent({product, properties: {currency: 'USD'}})
     }
   }
 })
