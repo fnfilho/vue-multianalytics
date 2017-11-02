@@ -1714,7 +1714,7 @@ module.exports =
 	        var mp = document.createElement('script');
 	        mp.type = 'text/javascript';
 	        mp.async = true;
-	        mp.src = ('https:' == document.location.protocol ? 'https://jssdkcdns' : 'http://jssdkcdn') + '.mparticle.com/js/v1/' + apiKey + '/mparticle.js';
+	        mp.src = ('https:' == document.location.protocol ? 'https://jssdkcdns' : 'http://jssdkcdn') + '.mparticle.com/js/v2/' + apiKey + '/mparticle.js';
 	        var s = document.getElementsByTagName('script')[0];
 	        s.parentNode.insertBefore(mp, s);
 	      })(initConf.token);
@@ -1739,7 +1739,6 @@ module.exports =
 
 	      try {
 	        var fullProperties = Object.assign(properties, this.superProperties);
-	        console.log('my properties are: ', fullProperties, this.superProperties);
 	        mParticle.logPageView(viewName, fullProperties, customFlags);
 	      } catch (e) {
 	        if (!(e instanceof ReferenceError)) {
@@ -1806,7 +1805,7 @@ module.exports =
 	      var _ref3$productActionTy = _ref3.productActionType,
 	          productActionType = _ref3$productActionTy === undefined ? mParticle.CommerceEventType.ProductAddToCart : _ref3$productActionTy,
 	          _ref3$product = _ref3.product,
-	          product = _ref3$product === undefined ? undefined : _ref3$product,
+	          product = _ref3$product === undefined ? [] : _ref3$product,
 	          _ref3$properties = _ref3.properties,
 	          properties = _ref3$properties === undefined ? {} : _ref3$properties,
 	          _ref3$currency = _ref3.currency,
@@ -1816,11 +1815,13 @@ module.exports =
 	        if (this.config.debug) {
 	          _utils.logDebug.apply(undefined, arguments);
 	        }
+	        var productsToCreate = [];
+	        var mProducts = [];
 
 	        if (product && (typeof product === 'undefined' ? 'undefined' : _typeof(product)) === 'object') {
 	          var ProductsToCreate = Array.isArray(product) ? product : [product];
 
-	          var _mProduct = productsToCreate.forEach(function (productToCreate) {
+	          var _mProducts = productsToCreate.forEach(function (productToCreate) {
 	            return mParticle.eCommerce.createProduct(productToCreate.name, productToCreate.sku || performance.now(), productToCreate.price, productToCreate.quantity);
 	          });
 	        }
@@ -1829,7 +1830,7 @@ module.exports =
 	        if (currency) {
 	          mParticle.eCommerce.setCurrencyCode(currency);
 	        }
-	        mParticle.eCommerce.logProductAction(productActionType, mProduct, fullProperties);
+	        mParticle.eCommerce.logProductAction(productActionType, mProducts, fullProperties);
 	      } catch (e) {
 	        if (!(e instanceof ReferenceError)) {
 	          throw e;

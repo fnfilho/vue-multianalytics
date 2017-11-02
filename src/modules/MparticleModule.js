@@ -91,16 +91,18 @@ export default class MparticleModule extends BasicModule {
    * @param {object} product - Product to be tracked
    * @param {object} attributes - object of attributes related to the event
    */
-  ecommerceTrackEvent ({productActionType = mParticle.CommerceEventType.ProductAddToCart, product = undefined, properties = {}, currency = undefined }) {
+  ecommerceTrackEvent ({productActionType = mParticle.CommerceEventType.ProductAddToCart, product = [], properties = {}, currency = undefined }) {
     try {
       if (this.config.debug) {
         logDebug(...arguments)
       }
+      let productsToCreate = []
+      let mProducts = []
 
       if (product && typeof product === 'object') {
         let ProductsToCreate = Array.isArray(product) ? product : [product]
 
-        let mProduct = productsToCreate.forEach(productToCreate => mParticle.eCommerce.createProduct(
+        let mProducts = productsToCreate.forEach(productToCreate => mParticle.eCommerce.createProduct(
           productToCreate.name,
           productToCreate.sku || performance.now(),
           productToCreate.price,
@@ -112,7 +114,7 @@ export default class MparticleModule extends BasicModule {
       if (currency) {
         mParticle.eCommerce.setCurrencyCode(currency)
       }
-      mParticle.eCommerce.logProductAction(productActionType, mProduct, fullProperties)
+      mParticle.eCommerce.logProductAction(productActionType, mProducts, fullProperties)
     } catch (e) {
       if (!(e instanceof ReferenceError)) {
         throw e;
