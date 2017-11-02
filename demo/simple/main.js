@@ -19,13 +19,6 @@ let mixpanelConfig = {
   debug: true
 }
 
-let mParticleConfig = {
-  token: '3268bf3cb773504ea6e08fa9bf046d78',
-  config: {},
-  debug: true,
-  sandbox: true
-}
-
 Vue.use(VueMultianalytics, {
   modules: {
     ga: gaConfig,
