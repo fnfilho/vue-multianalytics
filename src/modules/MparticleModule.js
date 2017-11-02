@@ -33,7 +33,7 @@ export default class MparticleModule extends BasicModule {
       var mp = document.createElement('script');
       mp.type = 'text/javascript';
       mp.async = true;
-      mp.src = ('https:' == document.location.protocol ? 'https://jssdkcdns' : 'http://jssdkcdn') + '.mparticle.com/js/v1/' + apiKey + '/mparticle.js';
+      mp.src = ('https:' == document.location.protocol ? 'https://jssdkcdns' : 'http://jssdkcdn') + '.mparticle.com/js/v2/' + apiKey + '/mparticle.js';
       var s = document.getElementsByTagName('script')[0];
       s.parentNode.insertBefore(mp, s);
     })(initConf.token);
@@ -49,7 +49,6 @@ export default class MparticleModule extends BasicModule {
   trackView({viewName, properties = {}, customFlags = {}}) {
     try {
       let fullProperties = Object.assign(properties, this.superProperties)
-      console.log('my properties are: ', fullProperties, this.superProperties)
       mParticle.logPageView(viewName, fullProperties, customFlags)
     } catch (e) {
       if (!(e instanceof ReferenceError)) {
