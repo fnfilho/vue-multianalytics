@@ -1654,6 +1654,8 @@ module.exports =
 	  value: true
 	});
 
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _analyticsTypes = __webpack_require__(3);
@@ -1804,7 +1806,7 @@ module.exports =
 	      var _ref3$productActionTy = _ref3.productActionType,
 	          productActionType = _ref3$productActionTy === undefined ? mParticle.CommerceEventType.ProductAddToCart : _ref3$productActionTy,
 	          _ref3$product = _ref3.product,
-	          product = _ref3$product === undefined ? {} : _ref3$product,
+	          product = _ref3$product === undefined ? undefined : _ref3$product,
 	          _ref3$properties = _ref3.properties,
 	          properties = _ref3$properties === undefined ? {} : _ref3$properties,
 	          _ref3$currency = _ref3.currency,
@@ -1814,7 +1816,15 @@ module.exports =
 	        if (this.config.debug) {
 	          _utils.logDebug.apply(undefined, arguments);
 	        }
-	        var mProduct = mParticle.eCommerce.createProduct(product.name, product.sku || performance.now(), product.price, product.quantity);
+
+	        if (product && (typeof product === 'undefined' ? 'undefined' : _typeof(product)) === 'object') {
+	          var ProductsToCreate = Array.isArray(product) ? product : [product];
+
+	          var _mProduct = productsToCreate.forEach(function (productToCreate) {
+	            return mParticle.eCommerce.createProduct(productToCreate.name, productToCreate.sku || performance.now(), productToCreate.price, productToCreate.quantity);
+	          });
+	        }
+
 	        var fullProperties = Object.assign(properties, this.superProperties);
 	        if (currency) {
 	          mParticle.eCommerce.setCurrencyCode(currency);
