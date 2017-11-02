@@ -1806,7 +1806,9 @@ module.exports =
 	          _ref3$product = _ref3.product,
 	          product = _ref3$product === undefined ? {} : _ref3$product,
 	          _ref3$properties = _ref3.properties,
-	          properties = _ref3$properties === undefined ? {} : _ref3$properties;
+	          properties = _ref3$properties === undefined ? {} : _ref3$properties,
+	          _ref3$currency = _ref3.currency,
+	          currency = _ref3$currency === undefined ? undefined : _ref3$currency;
 
 	      try {
 	        if (this.config.debug) {
@@ -1814,8 +1816,8 @@ module.exports =
 	        }
 	        var mProduct = mParticle.eCommerce.createProduct(product.name, product.sku || performance.now(), product.price, product.quantity);
 	        var fullProperties = Object.assign(properties, this.superProperties);
-	        if (properties.currency) {
-	          mParticle.eCommerce.setCurrencyCode(properties.currency);
+	        if (currency) {
+	          mParticle.eCommerce.setCurrencyCode(currency);
 	        }
 	        mParticle.eCommerce.logProductAction(productActionType, mProduct, fullProperties);
 	      } catch (e) {

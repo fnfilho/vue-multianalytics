@@ -92,15 +92,15 @@ export default class MparticleModule extends BasicModule {
    * @param {object} product - Product to be tracked
    * @param {object} attributes - object of attributes related to the event
    */
-  ecommerceTrackEvent ({productActionType = mParticle.CommerceEventType.ProductAddToCart, product = {}, properties = {} }) {
+  ecommerceTrackEvent ({productActionType = mParticle.CommerceEventType.ProductAddToCart, product = {}, properties = {}, currency = undefined }) {
     try {
       if (this.config.debug) {
         logDebug(...arguments)
       }
       let mProduct = mParticle.eCommerce.createProduct(product.name, product.sku || performance.now(), product.price, product.quantity);
       let fullProperties = Object.assign(properties, this.superProperties)
-      if (properties.currency) {
-        mParticle.eCommerce.setCurrencyCode(properties.currency)
+      if (currency) {
+        mParticle.eCommerce.setCurrencyCode(currency)
       }
       mParticle.eCommerce.logProductAction(productActionType, mProduct, fullProperties)
     } catch (e) {
