@@ -1654,8 +1654,6 @@ module.exports =
 	  value: true
 	});
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _analyticsTypes = __webpack_require__(3);
@@ -1714,7 +1712,7 @@ module.exports =
 	        var mp = document.createElement('script');
 	        mp.type = 'text/javascript';
 	        mp.async = true;
-	        mp.src = ('https:' == document.location.protocol ? 'https://jssdkcdns' : 'http://jssdkcdn') + '.mparticle.com/js/v2/' + apiKey + '/mparticle.js';
+	        mp.src = ('https:' == document.location.protocol ? 'https://jssdkcdns' : 'http://jssdkcdn') + '.mparticle.com/js/v1/' + apiKey + '/mparticle.js';
 	        var s = document.getElementsByTagName('script')[0];
 	        s.parentNode.insertBefore(mp, s);
 	      })(initConf.token);
@@ -1815,22 +1813,16 @@ module.exports =
 	        if (this.config.debug) {
 	          _utils.logDebug.apply(undefined, arguments);
 	        }
-	        var productsToCreate = [];
-	        var mProducts = [];
-
-	        if (product && (typeof product === 'undefined' ? 'undefined' : _typeof(product)) === 'object') {
-	          var ProductsToCreate = Array.isArray(product) ? product : [product];
-
-	          var _mProducts = productsToCreate.forEach(function (productToCreate) {
-	            return mParticle.eCommerce.createProduct(productToCreate.name, productToCreate.sku || performance.now(), productToCreate.price, productToCreate.quantity);
-	          });
+	        var mProduct = {};
+	        if (!Array.isArray(product)) {
+	          mProduct = mParticle.eCommerce.createProduct(product.name, product.sku || performance.now(), product.price, product.quantity);
 	        }
 
 	        var fullProperties = Object.assign(properties, this.superProperties);
 	        if (currency) {
 	          mParticle.eCommerce.setCurrencyCode(currency);
 	        }
-	        mParticle.eCommerce.logProductAction(productActionType, mProducts, fullProperties);
+	        mParticle.eCommerce.logProductAction(productActionType, mProduct, fullProperties);
 	      } catch (e) {
 	        if (!(e instanceof ReferenceError)) {
 	          throw e;

@@ -33,7 +33,7 @@ export default class MparticleModule extends BasicModule {
       var mp = document.createElement('script');
       mp.type = 'text/javascript';
       mp.async = true;
-      mp.src = ('https:' == document.location.protocol ? 'https://jssdkcdns' : 'http://jssdkcdn') + '.mparticle.com/js/v2/' + apiKey + '/mparticle.js';
+      mp.src = ('https:' == document.location.protocol ? 'https://jssdkcdns' : 'http://jssdkcdn') + '.mparticle.com/js/v1/' + apiKey + '/mparticle.js';
       var s = document.getElementsByTagName('script')[0];
       s.parentNode.insertBefore(mp, s);
     })(initConf.token);
@@ -96,25 +96,21 @@ export default class MparticleModule extends BasicModule {
       if (this.config.debug) {
         logDebug(...arguments)
       }
-      let productsToCreate = []
-      let mProducts = []
-
-      if (product && typeof product === 'object') {
-        let ProductsToCreate = Array.isArray(product) ? product : [product]
-
-        let mProducts = productsToCreate.forEach(productToCreate => mParticle.eCommerce.createProduct(
-          productToCreate.name,
-          productToCreate.sku || performance.now(),
-          productToCreate.price,
-          productToCreate.quantity
-        ))
+      let mProduct = {}
+      if (!Array.isArray(product)) {
+        mProduct = mParticle.eCommerce.createProduct(
+          product.name,
+          product.sku || performance.now(),
+          product.price,
+          product.quantity
+        )
       }
 
       let fullProperties = Object.assign(properties, this.superProperties)
       if (currency) {
         mParticle.eCommerce.setCurrencyCode(currency)
       }
-      mParticle.eCommerce.logProductAction(productActionType, mProducts, fullProperties)
+      mParticle.eCommerce.logProductAction(productActionType, mProduct, fullProperties)
     } catch (e) {
       if (!(e instanceof ReferenceError)) {
         throw e;
