@@ -73,7 +73,6 @@ export default class MparticleModule extends BasicModule {
         logDebug(...arguments)
       }
       let fullProperties = Object.assign(properties, this.superProperties)
-      console.log('my properties are: ', fullProperties, this.superProperties)
       mParticle.logEvent(action, eventType, fullProperties)
     } catch (e) {
       if (!(e instanceof ReferenceError)) {
@@ -139,12 +138,19 @@ export default class MparticleModule extends BasicModule {
     }
   }
 
+  identify ({userId}) {
+    this.setUserProperties({userId})
+  }
+
   /**
    * Define a property that will be sent across all the events
    *
    * @param {any} properties
    */
-  setSuperProperties (properties) {
+  setSuperProperties (properties = {}) {
+    if (properties.isAuthorized !== undefined) {
+      properties.isAuthorized = properties.isAuthorized ? "true" : "false"
+    }
     this.superProperties = properties
   }
 }

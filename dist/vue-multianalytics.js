@@ -1778,7 +1778,6 @@ module.exports =
 	          _utils.logDebug.apply(undefined, arguments);
 	        }
 	        var fullProperties = Object.assign(properties, this.superProperties);
-	        console.log('my properties are: ', fullProperties, this.superProperties);
 	        mParticle.logEvent(action, eventType, fullProperties);
 	      } catch (e) {
 	        if (!(e instanceof ReferenceError)) {
@@ -1853,6 +1852,13 @@ module.exports =
 	        }
 	      }
 	    }
+	  }, {
+	    key: 'identify',
+	    value: function identify(_ref4) {
+	      var userId = _ref4.userId;
+
+	      this.setUserProperties({ userId: userId });
+	    }
 
 	    /**
 	     * Define a property that will be sent across all the events
@@ -1862,7 +1868,12 @@ module.exports =
 
 	  }, {
 	    key: 'setSuperProperties',
-	    value: function setSuperProperties(properties) {
+	    value: function setSuperProperties() {
+	      var properties = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+	      if (properties.isAuthorized !== undefined) {
+	        properties.isAuthorized = properties.isAuthorized ? "true" : "false";
+	      }
 	      this.superProperties = properties;
 	    }
 	  }]);
