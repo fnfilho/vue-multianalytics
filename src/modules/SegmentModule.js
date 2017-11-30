@@ -89,7 +89,7 @@ export default class SegmentModule extends BasicModule {
 
     if (properties.hasOwnProperty('userId')) {
       let id = properties.userId
-      properties.delete('userId')
+      delete properties.userId
       params.userId = id
     }
 
