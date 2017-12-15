@@ -19,11 +19,17 @@ let mixpanelConfig = {
   debug: true
 }
 
+VueMultianalytics.addCustomModule('myOwnModule', class Hello {
+  constructor() {
+    console.log('intantiated')
+  }
+  init () {console.log('hello')}
+})
+
 Vue.use(VueMultianalytics, {
   modules: {
     ga: gaConfig,
-    mixpanel: mixpanelConfig,
-    mparticle: mParticleConfig
+    mixpanel: mixpanelConfig
   }
 }, analyticsMixin)
 let template = `

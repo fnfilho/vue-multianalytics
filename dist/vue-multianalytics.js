@@ -87,6 +87,8 @@ module.exports =
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var customModules = {};
+
 	/**
 	 * Installation procedure
 	 *
@@ -130,6 +132,15 @@ module.exports =
 	      Vue.modulesEnabled.push(module);
 	    }
 	  }
+
+	  console.log(customModules);
+	  if (Object.keys(customModules).length > 0) {
+	    Object.values(customModules).forEach(function (module, index) {
+	      var moduleInstance = new module();
+	      moduleInstance.init(initConf.modules[Object.keys(customModules)[index]]);
+	      Vue.modulesEnabled.push(moduleInstance);
+	    });
+	  }
 	  // Handle vue-router if defined
 	  if (initConf.routing && initConf.routing.vueRouter) {
 	    initVueRouterGuard(Vue, initConf.routing);
@@ -143,6 +154,10 @@ module.exports =
 	  if (mixin) {
 	    Vue.prototype.$multianalyticsm = Vue.prototype.$mam = Vue.mam = mixin(analyticsPlugin);
 	  }
+	};
+
+	var addCustomModule = function addCustomModule(name, module) {
+	  customModules[name] = module;
 	};
 
 	/**
@@ -177,7 +192,7 @@ module.exports =
 	};
 
 	// Export module
-	exports.default = { install: install };
+	exports.default = { install: install, addCustomModule: addCustomModule };
 
 /***/ }),
 /* 1 */

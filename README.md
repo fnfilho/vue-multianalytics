@@ -18,6 +18,8 @@ A [VueJS](http://vuejs.org) multianalytics tool
   - [Mixpanel](#mixpanel)
   - [Facebook Pixel](#facebook-pixel)
   - [Segment](#segment)
+  - [MParticle](#mparticle)
+- [Custom Modules](#custom-modules)  
 - [Todo](#todo)  
 
 
@@ -429,10 +431,62 @@ debug: true // Whether or not display console logs debugs (optional)
 ```
 Supported Events: `trackView`, `trackEvent`, `setAlias`, `setUserProperties`, `setSuperProperties`
 
+### MParticle
+Name: `mparticle`
+Config:
+```javascript
+token: 'YOUR_TOKEN'
+debug: true // Whether or not display console logs debugs (optional)
+```
+Supported Events: `trackView`, `trackEvent`, `setAlias`, `setUserProperties`, `setSuperProperties`
+
+
+## Custome Modules
+
+You can now add your own custom modules simply by calling
+`VueMultianalytics.addCustomModule(name, Module)`
+
+Example:
+```javascript
+// OwnModule.js
+class OwnModule extend BasicModule {
+  init() {
+    // ...
+  }
+
+  trackView ({viewName}) {
+    if (this.config.debug) {
+      logDebug(viewName)
+    }
+    myowntrack("Page Viewed", { "page": viewName })
+  }
+
+  // ..  
+}
+```
+
+```javascript
+// main.js
+import Vue from 'vue'
+import VueMultianalytics from 'vue-multianalytics'
+import OwnModule from 'OwnModule.js'
+
+VueMultianalytics.addCustomModule('ownModule', OwnModule)
+// or VueMultianalytics.use('owenit', OwenItModule)
+
+Vue.use(VueMultianalytics, {
+  modules: {
+   ownModule: { /* module config */ }
+  }
+})
+```
+Thanks [@anteriovieira](https://github.com/anteriovieira)  for the suggestion
+
 ## Todo
 - ~~Demo~~ 👍
 - ~~Further integration with mixpanel~~ 👍
 - ~~Ecommerce support~~ 👍
+- ~~Own module~~ 👍
 - New events: ~~registerSuperproperties~~, ~~alias~~, timedEvents
-- New modules: ~~segment~~, appboy, kissmetrics?
+- New modules: ~~segment~~, ~~mparticle~~ appboy, kissmetrics?
 - Tests

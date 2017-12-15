@@ -7,6 +7,8 @@ import MparticleModule from './modules/MparticleModule'
 import * as Utils from './utils'
 import * as types from './analyticsTypes'
 
+const customModules = {}
+
 /**
  * Installation procedure
  *
@@ -48,6 +50,14 @@ const install = function (Vue, initConf = {}, mixin) {
       Vue.modulesEnabled.push(module)
     }
   }
+
+  if (Object.keys(customModules).length > 0) {
+    Object.values(customModules).forEach((module, index) => {
+      let moduleInstance = new module()
+      moduleInstance.init(initConf.modules[Object.keys(customModules)[index]])
+      Vue.modulesEnabled.push(moduleInstance)
+    })
+  }
   // Handle vue-router if defined
   if (initConf.routing && initConf.routing.vueRouter) {
     initVueRouterGuard(Vue, initConf.routing)
@@ -63,6 +73,10 @@ const install = function (Vue, initConf = {}, mixin) {
     Vue.prototype.$multianalyticsm =  Vue.prototype.$mam = Vue.mam =  mixin(analyticsPlugin)
   }
 
+}
+
+const addCustomModule = function (name, module) {
+  customModules[name] = module
 }
 
 /**
@@ -96,4 +110,4 @@ const initVueRouterGuard = function (Vue, routing) {
 }
 
 // Export module
-export default { install }
+export default { install, addCustomModule }
