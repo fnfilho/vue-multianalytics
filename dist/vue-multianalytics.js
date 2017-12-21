@@ -133,7 +133,6 @@ module.exports =
 	    }
 	  }
 
-	  console.log(customModules);
 	  if (Object.keys(customModules).length > 0) {
 	    Object.values(customModules).forEach(function (module, index) {
 	      var moduleInstance = new module();
