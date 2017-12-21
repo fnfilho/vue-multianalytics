@@ -11428,7 +11428,7 @@
 	          r = new d.default(), r.init(t.modules[o]);break;case b.MODULE_FACEBOOK:
 	          r = new v.default(), r.init(t.modules[o]);break;case b.MODULE_MPARTICLE:
 	          r = new y.default(), r.init(t.modules[o]);}r && e.modulesEnabled.push(r);
-	    }console.log(k), Object.keys(k).length > 0 && Object.values(k).forEach(function (n, o) {
+	    }Object.keys(k).length > 0 && Object.values(k).forEach(function (n, o) {
 	      var r = new n();r.init(t.modules[Object.keys(k)[o]]), e.modulesEnabled.push(r);
 	    }), t.routing && t.routing.vueRouter && _(e, t.routing);var i = new a.default(e.modulesEnabled);e.prototype.$multianalytics = e.prototype.$ma = e.ma = i, n && (e.prototype.$multianalyticsm = e.prototype.$mam = e.mam = n(i));
 	  },
