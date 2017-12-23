@@ -449,7 +449,7 @@ You can now add your own custom modules simply by calling
 Example:
 ```javascript
 // OwnModule.js
-class OwnModule extend BasicModule {
+class OwnModule extends BasicModule {
   init() {
     // ...
   }
