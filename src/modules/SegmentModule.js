@@ -25,9 +25,7 @@ export default class SegmentModule extends BasicModule {
 
     // init
     analytics.load(initConf.token)
-    if(this.config.debug) {
-      analytics.debug()
-    }
+    analytics.debug(Boolean(this.config.debug))
   }
 
   /**
