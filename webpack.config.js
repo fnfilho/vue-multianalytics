@@ -30,6 +30,7 @@ module.exports = {
         query: {
           presets: [ 'env', 'stage-2' ]
         },
+        plugins: ["transform-object-assign"],
         exclude: /node_modules/
       }
     ]
