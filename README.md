@@ -441,7 +441,7 @@ debug: true // Whether or not display console logs debugs (optional)
 Supported Events: `trackView`, `trackEvent`, `setAlias`, `setUserProperties`, `setSuperProperties`
 
 
-## Custome Modules
+## Custom Modules
 
 You can now add your own custom modules simply by calling
 `VueMultianalytics.addCustomModule(name, Module)`
