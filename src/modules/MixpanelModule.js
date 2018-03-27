@@ -41,6 +41,7 @@ for(h=0;h<k.length;h++)e(d,k[h]);a._i.push([b,c,f])};a.__SV=1.2;b=e.createElemen
    * @param viewName
    */
   trackView ({viewName}) {
+    if (!mixpanel.track) return
     if (this.config.debug) {
       logDebug(viewName)
     }
@@ -56,6 +57,7 @@ for(h=0;h<k.length;h++)e(d,k[h]);a._i.push([b,c,f])};a.__SV=1.2;b=e.createElemen
    * @param {function} callback - if provided, the callback function will be called.
    */
    trackEvent ({action, properties = {}, callback = null}) {
+    if (!mixpanel.track) return
     if (this.config.debug) {
       logDebug(...arguments)
     }
@@ -69,6 +71,7 @@ for(h=0;h<k.length;h++)e(d,k[h]);a._i.push([b,c,f])};a.__SV=1.2;b=e.createElemen
   }
 
   setAlias (alias) {
+    if (!mixpanel.alias) return
     if (this.config.debug) {
       logDebug(alias)
     }
@@ -76,6 +79,7 @@ for(h=0;h<k.length;h++)e(d,k[h]);a._i.push([b,c,f])};a.__SV=1.2;b=e.createElemen
   }
 
   identify ({userId}) {
+    if (!mixpanel.identify) return
     if (this.config.debug) {
       logDebug(userId)
     }
@@ -86,6 +90,7 @@ for(h=0;h<k.length;h++)e(d,k[h]);a._i.push([b,c,f])};a.__SV=1.2;b=e.createElemen
   }
 
   setUsername (userId) {
+    if (!mixpanel.identity) return
     if (this.config.debug) {
       logDebug(userId)
     }
@@ -93,6 +98,7 @@ for(h=0;h<k.length;h++)e(d,k[h]);a._i.push([b,c,f])};a.__SV=1.2;b=e.createElemen
   }
 
   setUserProperties (properties = {}) {
+    if (!mixpanel.people) return
     if (this.config.debug) {
       logDebug(properties)
     }
@@ -100,6 +106,7 @@ for(h=0;h<k.length;h++)e(d,k[h]);a._i.push([b,c,f])};a.__SV=1.2;b=e.createElemen
   }
 
   setUserPropertiesOnce (properties) {
+    if (!mixpanel.people) return
     if (this.config.debug) {
       logDebug(properties)
     }
@@ -107,6 +114,7 @@ for(h=0;h<k.length;h++)e(d,k[h]);a._i.push([b,c,f])};a.__SV=1.2;b=e.createElemen
   }
 
   setSuperProperties (properties) {
+    if (!mixpanel.register) return
     if (this.config.debug) {
       logDebug(properties)
     }
@@ -114,6 +122,7 @@ for(h=0;h<k.length;h++)e(d,k[h]);a._i.push([b,c,f])};a.__SV=1.2;b=e.createElemen
   }
 
   setSuperPropertiesOnce (properties) {
+    if (!mixpanel.register_once) return
     if (this.config.debug) {
       logDebug(properties)
     }
@@ -121,6 +130,7 @@ for(h=0;h<k.length;h++)e(d,k[h]);a._i.push([b,c,f])};a.__SV=1.2;b=e.createElemen
   }
 
   reset () {
+    if (!mixpanel.reset) return
     if (this.config.debug) {
       logDebug('reset')
     }

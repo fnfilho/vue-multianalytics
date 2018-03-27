@@ -1131,6 +1131,7 @@ module.exports =
 	    value: function trackView(_ref) {
 	      var viewName = _ref.viewName;
 
+	      if (!mixpanel.track) return;
 	      if (this.config.debug) {
 	        (0, _utils.logDebug)(viewName);
 	      }
@@ -1155,6 +1156,7 @@ module.exports =
 	          _ref2$callback = _ref2.callback,
 	          callback = _ref2$callback === undefined ? null : _ref2$callback;
 
+	      if (!mixpanel.track) return;
 	      if (this.config.debug) {
 	        _utils.logDebug.apply(undefined, arguments);
 	      }
@@ -1168,6 +1170,7 @@ module.exports =
 	  }, {
 	    key: 'setAlias',
 	    value: function setAlias(alias) {
+	      if (!mixpanel.alias) return;
 	      if (this.config.debug) {
 	        (0, _utils.logDebug)(alias);
 	      }
@@ -1178,6 +1181,7 @@ module.exports =
 	    value: function identify(_ref3) {
 	      var userId = _ref3.userId;
 
+	      if (!mixpanel.identify) return;
 	      if (this.config.debug) {
 	        (0, _utils.logDebug)(userId);
 	      }
@@ -1189,6 +1193,7 @@ module.exports =
 	  }, {
 	    key: 'setUsername',
 	    value: function setUsername(userId) {
+	      if (!mixpanel.identity) return;
 	      if (this.config.debug) {
 	        (0, _utils.logDebug)(userId);
 	      }
@@ -1199,6 +1204,7 @@ module.exports =
 	    value: function setUserProperties() {
 	      var properties = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
+	      if (!mixpanel.people) return;
 	      if (this.config.debug) {
 	        (0, _utils.logDebug)(properties);
 	      }
@@ -1207,6 +1213,7 @@ module.exports =
 	  }, {
 	    key: 'setUserPropertiesOnce',
 	    value: function setUserPropertiesOnce(properties) {
+	      if (!mixpanel.people) return;
 	      if (this.config.debug) {
 	        (0, _utils.logDebug)(properties);
 	      }
@@ -1215,6 +1222,7 @@ module.exports =
 	  }, {
 	    key: 'setSuperProperties',
 	    value: function setSuperProperties(properties) {
+	      if (!mixpanel.register) return;
 	      if (this.config.debug) {
 	        (0, _utils.logDebug)(properties);
 	      }
@@ -1223,6 +1231,7 @@ module.exports =
 	  }, {
 	    key: 'setSuperPropertiesOnce',
 	    value: function setSuperPropertiesOnce(properties) {
+	      if (!mixpanel.register_once) return;
 	      if (this.config.debug) {
 	        (0, _utils.logDebug)(properties);
 	      }
@@ -1231,6 +1240,7 @@ module.exports =
 	  }, {
 	    key: 'reset',
 	    value: function reset() {
+	      if (!mixpanel.reset) return;
 	      if (this.config.debug) {
 	        (0, _utils.logDebug)('reset');
 	      }
@@ -1332,6 +1342,7 @@ module.exports =
 	          _ref$properties = _ref.properties,
 	          properties = _ref$properties === undefined ? {} : _ref$properties;
 
+	      if (!analytics.page) return;
 	      if (this.config.debug) {
 	        _utils.logDebug.apply(undefined, arguments);
 	      }
@@ -1370,6 +1381,7 @@ module.exports =
 	          _ref2$callback = _ref2.callback,
 	          callback = _ref2$callback === undefined ? null : _ref2$callback;
 
+	      if (!analytics.track) return;
 	      if (this.config.debug) {
 	        _utils.logDebug.apply(undefined, arguments);
 	      }
@@ -1438,6 +1450,7 @@ module.exports =
 	    value: function identify() {
 	      var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
+	      if (!analytics.identify) return;
 	      if (this.config.debug) {
 	        (0, _utils.logDebug)(params);
 	      }
@@ -1482,6 +1495,7 @@ module.exports =
 	  }, {
 	    key: 'setAlias',
 	    value: function setAlias(alias) {
+	      if (!analytics.alias) return;
 	      if (this.config.debug) {
 	        (0, _utils.logDebug)(alias);
 	      }
@@ -1496,6 +1510,7 @@ module.exports =
 	  }, {
 	    key: 'reset',
 	    value: function reset() {
+	      if (!analytics.reset) return;
 	      if (this.config.debug) {
 	        (0, _utils.logDebug)('reset');
 	      }
@@ -1747,6 +1762,7 @@ module.exports =
 	          _ref$customFlags = _ref.customFlags,
 	          customFlags = _ref$customFlags === undefined ? {} : _ref$customFlags;
 
+	      if (!mParticle.logPageView) return;
 	      try {
 	        var fullProperties = Object.assign(properties, this.superProperties);
 	        mParticle.logPageView(viewName, fullProperties, customFlags);
@@ -1785,6 +1801,7 @@ module.exports =
 	          _ref2$callback = _ref2.callback,
 	          callback = _ref2$callback === undefined ? null : _ref2$callback;
 
+	      if (!mParticle.logEvent) return;
 	      try {
 	        if (this.config.debug) {
 	          _utils.logDebug.apply(undefined, arguments);
@@ -1820,6 +1837,7 @@ module.exports =
 	          _ref3$currency = _ref3.currency,
 	          currency = _ref3$currency === undefined ? undefined : _ref3$currency;
 
+	      if (!mParticle.eCommerce) return;
 	      try {
 	        if (this.config.debug) {
 	          _utils.logDebug.apply(undefined, arguments);
@@ -1851,6 +1869,7 @@ module.exports =
 	  }, {
 	    key: 'setUserProperties',
 	    value: function setUserProperties(properties) {
+	      if (!mParticle.setUserIdentity) return;
 	      try {
 	        if (this.config.debug) {
 	          _utils.logDebug.apply(undefined, arguments);

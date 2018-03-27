@@ -47,6 +47,7 @@ export default class MparticleModule extends BasicModule {
    * @param {string} viewName
    */
   trackView({viewName, properties = {}, customFlags = {}}) {
+    if (!mParticle.logPageView) return
     try {
       let fullProperties = Object.assign(properties, this.superProperties)
       mParticle.logPageView(viewName, fullProperties, customFlags)
@@ -68,6 +69,7 @@ export default class MparticleModule extends BasicModule {
    * @param {integer} value - A numeric value associated with the event (e.g. 42)
    */
   trackEvent ({category = "Event", action, eventType = mParticle.EventType.Other, label = null, value = null, properties = {}, callback = null }) {
+    if (!mParticle.logEvent) return
     try {
       if (this.config.debug) {
         logDebug(...arguments)
@@ -91,6 +93,7 @@ export default class MparticleModule extends BasicModule {
    * @param {object} attributes - object of attributes related to the event
    */
   ecommerceTrackEvent ({productActionType = mParticle.CommerceEventType.ProductAddToCart, product = [], properties = {}, currency = undefined }) {
+    if (!mParticle.eCommerce) return
     try {
       if (this.config.debug) {
         logDebug(...arguments)
@@ -124,6 +127,7 @@ export default class MparticleModule extends BasicModule {
    * @param {any} properties - traits of your user. If you specify a properties.userId, then a userId will be set
    */
   setUserProperties(properties) {
+    if (!mParticle.setUserIdentity) return
     try {
       if (this.config.debug) {
         logDebug(...arguments)

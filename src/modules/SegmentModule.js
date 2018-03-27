@@ -36,6 +36,7 @@ export default class SegmentModule extends BasicModule {
    * @param {string} viewName
    */
   trackView({viewName, properties = {}}) {
+    if (!analytics.page) return
     if (this.config.debug) {
       logDebug(...arguments)
     }
@@ -59,6 +60,7 @@ export default class SegmentModule extends BasicModule {
    * @param {integer} value - A numeric value associated with the event (e.g. 42)
    */
   trackEvent ({category = "Event", action, label = null, value = null, properties = {}, callback = null }) {
+    if (!analytics.track) return
     if (this.config.debug) {
       logDebug(...arguments)
     }
@@ -115,6 +117,7 @@ export default class SegmentModule extends BasicModule {
    * @param {any} params - traits of your user. If you specify a params.userId, then a userId will be set
    */
   identify (params = {}) {
+    if (!analytics.identify) return
     if (this.config.debug) {
       logDebug(params)
     }
@@ -154,6 +157,7 @@ export default class SegmentModule extends BasicModule {
   */
 
   setAlias(alias) {
+    if (!analytics.alias) return
     if (this.config.debug) {
       logDebug(alias)
     }
@@ -167,6 +171,7 @@ export default class SegmentModule extends BasicModule {
   }
 
   reset () {
+    if (!analytics.reset) return
     if (this.config.debug) {
       logDebug('reset')
     }
