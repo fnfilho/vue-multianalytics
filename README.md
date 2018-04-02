@@ -363,6 +363,17 @@ this.$ma.setUserProperties({userId: '12345', name: 'John'})
 this.$ma.setUserPropertiesOnce({userId: '12345', name: 'John'})  
 ```
 
+### incrementUserProperties(properties)
+```javascript
+/**
+  * Increment some user properties
+  *
+  * @param properties
+  */
+
+this.$ma.incrementUserProperties({loginCount: 1, pagesPrinted: 5})
+```
+
 ### setSuperProperties(properties)
 ```javascript
 /**
