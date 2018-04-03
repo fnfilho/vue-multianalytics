@@ -422,7 +422,7 @@ token: 'YOUR_TOKEN'
 config: {} // Initial mixpanel config
 debug: true // Whether or not display console logs debugs (optional)
 ```
-Supported Events: `trackView`, `trackEvent`, `setAlias`, `setUsername`, `setUserProperties`, `setSuperPropertiesOnce`, `setSuperProperties`, `setSuperPropertiesOnce`
+Supported Events: `trackView`, `trackEvent`, `setAlias`, `setUsername`, `setUserProperties`, `setUserPropertiesOnce`, `incrementUserProperties`, `setSuperPropertiesOnce`, `setSuperProperties`, `setSuperPropertiesOnce`
 
 ### Facebook Pixel
 Name: `facebook`
