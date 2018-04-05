@@ -23,6 +23,8 @@ export default class BasicModule {
 
   setUserPropertiesOnce () { /* Overriden by modules */ }
 
+  incrementUserProperties () { /* Overriden by modules */ }
+
   setSuperProperties () { /* Overriden by modules */ }
 
   setSuperPropertiesOnce () { /* Overriden by modules */ }
