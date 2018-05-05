@@ -501,3 +501,7 @@ Thanks [@anteriovieira](https://github.com/anteriovieira)  for the suggestion
 - New events: ~~registerSuperproperties~~, ~~alias~~, timedEvents
 - New modules: ~~segment~~, ~~mparticle~~ appboy, kissmetrics?
 - Tests
+
+## License
+
+[MIT](https://github.com/Glovo/vue-multianalytics/blob/master/LICENSE)
