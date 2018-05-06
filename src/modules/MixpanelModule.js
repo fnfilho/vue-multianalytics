@@ -113,6 +113,14 @@ for(h=0;h<k.length;h++)e(d,k[h]);a._i.push([b,c,f])};a.__SV=1.2;b=e.createElemen
      mixpanel.people.set_once(properties)
   }
 
+  incrementUserProperties (properties) {
+    if (!mixpanel.people) return
+    if (this.config.debug) {
+      logDebug(properties)
+    }
+    mixpanel.people.increment(properties)
+  }
+
   setSuperProperties (properties) {
     if (!mixpanel.register) return
     if (this.config.debug) {

@@ -1073,6 +1073,9 @@ module.exports =
 	    key: "setUserPropertiesOnce",
 	    value: function setUserPropertiesOnce() {/* Overriden by modules */}
 	  }, {
+	    key: "incrementUserProperties",
+	    value: function incrementUserProperties() {/* Overriden by modules */}
+	  }, {
 	    key: "setSuperProperties",
 	    value: function setSuperProperties() {/* Overriden by modules */}
 	  }, {
@@ -1320,6 +1323,15 @@ module.exports =
 	        (0, _utils.logDebug)(properties);
 	      }
 	      mixpanel.people.set_once(properties);
+	    }
+	  }, {
+	    key: 'incrementUserProperties',
+	    value: function incrementUserProperties(properties) {
+	      if (!mixpanel.people) return;
+	      if (this.config.debug) {
+	        (0, _utils.logDebug)(properties);
+	      }
+	      mixpanel.people.increment(properties);
 	    }
 	  }, {
 	    key: 'setSuperProperties',
