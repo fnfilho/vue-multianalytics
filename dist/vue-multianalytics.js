@@ -205,6 +205,8 @@ module.exports =
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+	function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	/**
@@ -332,14 +334,14 @@ module.exports =
 	    }
 
 	    /**
-	    * Ecommerce transactions.
-	    * @param {long} id - Transaction ID. Required
-	    * @param {string} affiliation -  Affiliation or store name
-	    * @param {float} revenue - Grand Total
-	    * @param {flat} shipping -  Shipping
-	    * @param {float} tax - Tax
-	    * @param {string} currency - Currency - https://developers.google.com/analytics/devguides/platform/features/currencies
-	    */
+	     * Ecommerce transactions.
+	     * @param {long} id - Transaction ID. Required
+	     * @param {string} affiliation -  Affiliation or store name
+	     * @param {float} revenue - Grand Total
+	     * @param {flat} shipping -  Shipping
+	     * @param {float} tax - Tax
+	     * @param {string} currency - Currency - https://developers.google.com/analytics/devguides/platform/features/currencies
+	     */
 
 	  }, {
 	    key: "addTransaction",
@@ -355,14 +357,14 @@ module.exports =
 	    }
 
 	    /**
-	    * Ecommerce transactions.
-	    * @param {long} id - Transaction ID. Required
-	    * @param {string} name -  Product name. Required.
-	    * @param {string} sku - SKU/code.
-	    * @param {string} category -  Category or variation.
-	    * @param {float} price - Unit price.
-	    * @param {int} quantity - Quantity
-	    */
+	     * Ecommerce transactions.
+	     * @param {long} id - Transaction ID. Required
+	     * @param {string} name -  Product name. Required.
+	     * @param {string} sku - SKU/code.
+	     * @param {string} category -  Category or variation.
+	     * @param {float} price - Unit price.
+	     * @param {int} quantity - Quantity
+	     */
 
 	  }, {
 	    key: "addItem",
@@ -378,8 +380,8 @@ module.exports =
 	    }
 
 	    /**
-	    * Ecommerce track a transaction.
-	    */
+	     * Ecommerce track a transaction.
+	     */
 
 	  }, {
 	    key: "trackTransaction",
@@ -394,8 +396,8 @@ module.exports =
 	    }
 
 	    /**
-	    * Ecommerce clear a transaction.
-	    */
+	     * Ecommerce clear a transaction.
+	     */
 
 	  }, {
 	    key: "clearTransactions",
@@ -435,16 +437,41 @@ module.exports =
 
 	  }, {
 	    key: "setUserProperties",
-	    value: function setUserProperties() {
-	      var properties = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-	      var excludedModules = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+	    value: function () {
+	      var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+	        var properties = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+	        var excludedModules = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+	        var modulesToExecute, response;
+	        return regeneratorRuntime.wrap(function _callee$(_context) {
+	          while (1) {
+	            switch (_context.prev = _context.next) {
+	              case 0:
+	                modulesToExecute = this.modulesEnabled.filter(function (moduleToCheck) {
+	                  return excludedModules.indexOf(moduleToCheck.name) === -1;
+	                });
+	                _context.next = 3;
+	                return Promise.all(modulesToExecute.map(function (module) {
+	                  return module.setUserProperties(properties);
+	                }));
 
-	      this.modulesEnabled.forEach(function (module) {
-	        if (excludedModules.indexOf(module.name) === -1) {
-	          module.setUserProperties(properties);
-	        }
-	      });
-	    }
+	              case 3:
+	                response = _context.sent;
+	                return _context.abrupt("return", response);
+
+	              case 5:
+	              case "end":
+	                return _context.stop();
+	            }
+	          }
+	        }, _callee, this);
+	      }));
+
+	      function setUserProperties() {
+	        return _ref.apply(this, arguments);
+	      }
+
+	      return setUserProperties;
+	    }()
 
 	    /**
 	     * Set some user properties once.
@@ -454,16 +481,41 @@ module.exports =
 
 	  }, {
 	    key: "setUserPropertiesOnce",
-	    value: function setUserPropertiesOnce() {
-	      var properties = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-	      var excludedModules = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+	    value: function () {
+	      var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+	        var properties = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+	        var excludedModules = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+	        var modulesToExecute, response;
+	        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+	          while (1) {
+	            switch (_context2.prev = _context2.next) {
+	              case 0:
+	                modulesToExecute = this.modulesEnabled.filter(function (moduleToCheck) {
+	                  return excludedModules.indexOf(moduleToCheck.name) === -1;
+	                });
+	                _context2.next = 3;
+	                return Promise.all(modulesToExecute.map(function (module) {
+	                  return module.setUserPropertiesOnce(properties);
+	                }));
 
-	      this.modulesEnabled.forEach(function (module) {
-	        if (excludedModules.indexOf(module.name) === -1) {
-	          module.setUserPropertiesOnce(properties);
-	        }
-	      });
-	    }
+	              case 3:
+	                response = _context2.sent;
+	                return _context2.abrupt("return", response);
+
+	              case 5:
+	              case "end":
+	                return _context2.stop();
+	            }
+	          }
+	        }, _callee2, this);
+	      }));
+
+	      function setUserPropertiesOnce() {
+	        return _ref2.apply(this, arguments);
+	      }
+
+	      return setUserPropertiesOnce;
+	    }()
 
 	    /**
 	     * Set some user properties once.
@@ -512,16 +564,41 @@ module.exports =
 
 	  }, {
 	    key: "identify",
-	    value: function identify() {
-	      var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-	      var excludedModules = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+	    value: function () {
+	      var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+	        var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+	        var excludedModules = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+	        var modulesToExecute, response;
+	        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+	          while (1) {
+	            switch (_context3.prev = _context3.next) {
+	              case 0:
+	                modulesToExecute = this.modulesEnabled.filter(function (moduleToCheck) {
+	                  return excludedModules.indexOf(moduleToCheck.name) === -1;
+	                });
+	                _context3.next = 3;
+	                return Promise.all(modulesToExecute.map(function (module) {
+	                  return module.identify(params);
+	                }));
 
-	      this.modulesEnabled.forEach(function (module) {
-	        if (excludedModules.indexOf(module.name) === -1) {
-	          module.identify(params);
-	        }
-	      });
-	    }
+	              case 3:
+	                response = _context3.sent;
+	                return _context3.abrupt("return", response);
+
+	              case 5:
+	              case "end":
+	                return _context3.stop();
+	            }
+	          }
+	        }, _callee3, this);
+	      }));
+
+	      function identify() {
+	        return _ref3.apply(this, arguments);
+	      }
+
+	      return identify;
+	    }()
 
 	    /**
 	     * Set an alias for the current instance
@@ -548,15 +625,40 @@ module.exports =
 
 	  }, {
 	    key: "reset",
-	    value: function reset() {
-	      var excludedModules = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+	    value: function () {
+	      var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+	        var excludedModules = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+	        var modulesToExecute, response;
+	        return regeneratorRuntime.wrap(function _callee4$(_context4) {
+	          while (1) {
+	            switch (_context4.prev = _context4.next) {
+	              case 0:
+	                modulesToExecute = this.modulesEnabled.filter(function (moduleToCheck) {
+	                  return excludedModules.indexOf(moduleToCheck.name) === -1;
+	                });
+	                _context4.next = 3;
+	                return Promise.all(modulesToExecute.map(function (module) {
+	                  return module.reset();
+	                }));
 
-	      this.modulesEnabled.forEach(function (module) {
-	        if (excludedModules.indexOf(module.name) === -1) {
-	          module.reset();
-	        }
-	      });
-	    }
+	              case 3:
+	                response = _context4.sent;
+	                return _context4.abrupt("return", response);
+
+	              case 5:
+	              case "end":
+	                return _context4.stop();
+	            }
+	          }
+	        }, _callee4, this);
+	      }));
+
+	      function reset() {
+	        return _ref4.apply(this, arguments);
+	      }
+
+	      return reset;
+	    }()
 	  }]);
 
 	  return AnalyticsPlugin;
@@ -1708,6 +1810,7 @@ module.exports =
 	    var _this = _possibleConstructorReturn(this, (MparticleModule.__proto__ || Object.getPrototypeOf(MparticleModule)).call(this, _analyticsTypes.MODULE_MPARTICLE));
 
 	    _this.superProperties = {};
+	    _this.config;
 	    return _this;
 	  }
 
@@ -1718,29 +1821,47 @@ module.exports =
 
 	      // Apply default configuration
 	      // initConf = { ...pluginConfig, ...initConf }
-	      var mandatoryParams = ['token'];
+	      this.config = initConf;
+	      var mandatoryParams = ["token"];
 	      mandatoryParams.forEach(function (el) {
 	        if (!initConf[el]) throw new Error('VueMultianalytics : Please provide a "' + el + '" from the config.');
 	      });
-	      window.mParticle = {
-	        config: {
-	          isDebug: initConf.debug,
-	          isSandbox: initConf.sandbox
-	        }
-	      };
+	      window.mParticle = { config: { isDevelopmentMode: initConf.debug } };
+
 	      // name of gloval variable changed from analytics to segment
 	      (function (apiKey) {
 	        window.mParticle = window.mParticle || {};
+	        window.mParticle.eCommerce = { Cart: {} };
+	        window.mParticle.Identity = {};
 	        window.mParticle.config = window.mParticle.config || {};
 	        window.mParticle.config.rq = [];
 	        window.mParticle.ready = function (f) {
 	          window.mParticle.config.rq.push(f);
 	        };
-	        var mp = document.createElement('script');
-	        mp.type = 'text/javascript';
+
+	        function a(o, t) {
+	          return function () {
+	            t && (o = t + "." + o);
+	            var e = Array.prototype.slice.call(arguments);
+	            e.unshift(o), window.mParticle.config.rq.push(e);
+	          };
+	        }
+	        var x = ["endSession", "logError", "logEvent", "logForm", "logLink", "logPageView", "setSessionAttribute", "setAppName", "setAppVersion", "setOptOut", "setPosition", "startNewSession", "startTrackingLocation", "stopTrackingLocation"],
+	            y = ["setCurrencyCode", "logCheckout"],
+	            z = ["login", "logout", "modify"];
+	        x.forEach(function (o) {
+	          window.mParticle[o] = a(o);
+	        }), y.forEach(function (o) {
+	          window.mParticle.eCommerce[o] = a(o, "eCommerce");
+	        }), z.forEach(function (o) {
+	          window.mParticle.Identity[o] = a(o, "Identity");
+	        });
+
+	        var mp = document.createElement("script");
+	        mp.type = "text/javascript";
 	        mp.async = true;
-	        mp.src = ('https:' == document.location.protocol ? 'https://jssdkcdns' : 'http://jssdkcdn') + '.mparticle.com/js/v1/' + apiKey + '/mparticle.js';
-	        var s = document.getElementsByTagName('script')[0];
+	        mp.src = ("https:" == document.location.protocol ? "https://jssdkcdns" : "http://jssdkcdn") + ".mparticle.com/js/v2/" + apiKey + "/mparticle.js";
+	        var s = document.getElementsByTagName("script")[0];
 	        s.parentNode.insertBefore(mp, s);
 	      })(initConf.token);
 	    }
@@ -1867,28 +1988,36 @@ module.exports =
 	     */
 
 	  }, {
-	    key: 'setUserProperties',
-	    value: function setUserProperties(properties) {
-	      if (!mParticle.setUserIdentity) return;
-	      try {
-	        if (this.config.debug) {
-	          _utils.logDebug.apply(undefined, arguments);
-	        }
-	        if (properties.userId) {
-	          mParticle.setUserIdentity(properties.userId, properties.identityType || mParticle.IdentityType.CustomerId);
-	        }
-	      } catch (e) {
-	        if (!(e instanceof ReferenceError)) {
-	          throw e;
-	        }
-	      }
+	    key: 'identify',
+	    value: function identify(userParams) {
+	      return new Promise(function (resolve, reject) {
+	        var identityRequest = { userIdentities: userParams };
+	        mParticle.Identity.login(identityRequest, function (result) {
+	          if (result.httpCode === 200) resolve(result);else reject(result);
+	        });
+	      });
 	    }
 	  }, {
-	    key: 'identify',
-	    value: function identify(_ref4) {
-	      var userId = _ref4.userId;
-
-	      this.setUserProperties({ userId: userId });
+	    key: 'reset',
+	    value: function reset() {
+	      return new Promise(function (resolve, reject) {
+	        mParticle.Identity.logout({}, function (result) {
+	          if (result.httpCode === 200) {
+	            console.log(result);
+	            resolve(result);
+	          } else reject(result);
+	        });
+	      });
+	    }
+	  }, {
+	    key: 'setUserProperties',
+	    value: function setUserProperties(userParams) {
+	      return new Promise(function (resolve, reject) {
+	        var identityRequest = { userIdentities: userParams };
+	        mParticle.Identity.modify(identityRequest, function (result) {
+	          if (result.httpCode === 200) resolve(result);else reject(result);
+	        });
+	      });
 	    }
 
 	    /**
