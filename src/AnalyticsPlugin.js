@@ -180,12 +180,12 @@ export default class AnalyticsPlugin {
    *
    * @param {any} properties - The user properties once
    */
-  setUserPropertiesOnce (properties = {}, excludedModules = []) {
-    this.modulesEnabled.forEach(module => {
-      if (excludedModules.indexOf(module.name) === -1) {
-        module.setUserPropertiesOnce(properties)
-      }
-    })
+  async setUserPropertiesOnce (properties = {}, excludedModules = []) {
+    const modulesToExecute = this.modulesEnabled.filter(moduleToCheck => excludedModules.indexOf(moduleToCheck.name) === -1)
+    const response = await Promise.all(modulesToExecute.map(module => {
+      return module.setUserPropertiesOnce(properties)
+    }))
+    return response
   }
 
   /**
@@ -220,12 +220,12 @@ export default class AnalyticsPlugin {
    * @param {string} userId - The unique ID of the user
    * @param {object} options - Options to add
    */
-  identify (params = {}, excludedModules = []) {
-    this.modulesEnabled.forEach(module => {
-      if (excludedModules.indexOf(module.name) === -1) {
-        module.identify(params)
-      }
-    })
+  async identify (params = {}, excludedModules = []) {
+    const modulesToExecute = this.modulesEnabled.filter(moduleToCheck => excludedModules.indexOf(moduleToCheck.name) === -1)
+    const response = await Promise.all(modulesToExecute.map(module => {
+      return module.identify(params)
+    }))
+    return response
   }
 
 
@@ -246,11 +246,11 @@ export default class AnalyticsPlugin {
    * Resets the id & clears cache
    *
    */
-  reset (excludedModules = []) {
-    this.modulesEnabled.forEach(module => {
-      if (excludedModules.indexOf(module.name) === -1) {
-        module.reset()
-      }
-    })
+  async reset (excludedModules = []) {
+    const modulesToExecute = this.modulesEnabled.filter(moduleToCheck => excludedModules.indexOf(moduleToCheck.name) === -1)
+    const response = await Promise.all(modulesToExecute.map(module => {
+      return module.reset()
+    }))
+    return response
   }
 }
