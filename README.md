@@ -19,6 +19,7 @@ A [VueJS](http://vuejs.org) multianalytics tool
   - [Facebook Pixel](#facebook-pixel)
   - [Segment](#segment)
   - [MParticle](#mparticle)
+  - [Amplitude](#amplitude)
 - [Custom Modules](#custom-modules)  
 - [Todo](#todo)  
 
@@ -450,6 +451,16 @@ token: 'YOUR_TOKEN'
 debug: true // Whether or not display console logs debugs (optional)
 ```
 Supported Events: `trackView`, `trackEvent`, `setAlias`, `setUserProperties`, `setSuperProperties`
+
+### Amplitude
+Name: `amplitude`
+Config:
+```javascript
+token: 'YOUR_TOKEN'
+config: {} // Initial amplitude config
+debug: true // Whether or not display console logs debugs (optional)
+```
+Supported Events: `trackView`, `trackEvent`, `setUsername`
 
 
 ## Custom Modules

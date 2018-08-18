@@ -75,6 +75,10 @@ module.exports =
 
 	var _MparticleModule2 = _interopRequireDefault(_MparticleModule);
 
+	var _AmplitudeModule = __webpack_require__(10);
+
+	var _AmplitudeModule2 = _interopRequireDefault(_AmplitudeModule);
+
 	var _utils = __webpack_require__(5);
 
 	var Utils = _interopRequireWildcard(_utils);
@@ -124,6 +128,9 @@ module.exports =
 	        break;
 	      case types.MODULE_MPARTICLE:
 	        module = new _MparticleModule2.default();
+	        module.init(initConf.modules[key]);
+	      case types.MODULE_AMPLITUDE:
+	        module = new _AmplitudeModule2.default();
 	        module.init(initConf.modules[key]);
 	      default:
 	        break;
@@ -1020,6 +1027,7 @@ module.exports =
 	var MODULE_SEGMENT = exports.MODULE_SEGMENT = 'segment';
 	var MODULE_FACEBOOK = exports.MODULE_FACEBOOK = 'facebook';
 	var MODULE_MPARTICLE = exports.MODULE_MPARTICLE = 'mparticle';
+	var MODULE_AMPLITUDE = exports.MODULE_AMPLITUDE = 'amplitude';
 
 /***/ }),
 /* 4 */
@@ -2054,6 +2062,237 @@ module.exports =
 	}(_BasicModule3.default);
 
 	exports.default = MparticleModule;
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _analyticsTypes = __webpack_require__(3);
+
+	var _BasicModule2 = __webpack_require__(4);
+
+	var _BasicModule3 = _interopRequireDefault(_BasicModule2);
+
+	var _utils = __webpack_require__(5);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var AmplitudeModule = function (_BasicModule) {
+	  _inherits(AmplitudeModule, _BasicModule);
+
+	  function AmplitudeModule() {
+	    _classCallCheck(this, AmplitudeModule);
+
+	    return _possibleConstructorReturn(this, (AmplitudeModule.__proto__ || Object.getPrototypeOf(AmplitudeModule)).call(this, _analyticsTypes.MODULE_AMPLITUDE));
+	  }
+
+	  _createClass(AmplitudeModule, [{
+	    key: 'init',
+	    value: function init() {
+	      var initConf = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+	      // Load the analytics snippet
+	      (function (e, t) {
+	        var n = e.amplitude || { _q: [], _iq: {} };var r = t.createElement("script");r.type = "text/javascript";r.async = true;r.src = "https://cdn.amplitude.com/libs/amplitude-4.4.0-min.gz.js";r.onload = function () {
+	          if (e.amplitude.runQueuedFunctions) {
+	            e.amplitude.runQueuedFunctions();
+	          } else {
+	            console.log("[Amplitude] Error: could not load SDK");
+	          }
+	        };var i = t.getElementsByTagName("script")[0];i.parentNode.insertBefore(r, i);function s(e, t) {
+	          e.prototype[t] = function () {
+	            this._q.push([t].concat(Array.prototype.slice.call(arguments, 0)));return this;
+	          };
+	        }
+	        var o = function o() {
+	          this._q = [];return this;
+	        };var a = ["add", "append", "clearAll", "prepend", "set", "setOnce", "unset"];for (var u = 0; u < a.length; u++) {
+	          s(o, a[u]);
+	        }n.Identify = o;var c = function c() {
+	          this._q = [];return this;
+	        };var l = ["setProductId", "setQuantity", "setPrice", "setRevenueType", "setEventProperties"];for (var p = 0; p < l.length; p++) {
+	          s(c, l[p]);
+	        }n.Revenue = c;var d = ["init", "logEvent", "logRevenue", "setUserId", "setUserProperties", "setOptOut", "setVersionName", "setDomain", "setDeviceId", "setGlobalUserProperties", "identify", "clearUserProperties", "setGroup", "logRevenueV2", "regenerateDeviceId", "logEventWithTimestamp", "logEventWithGroups", "setSessionId", "resetSessionId"];function v(e) {
+	          function t(t) {
+	            e[t] = function () {
+	              e._q.push([t].concat(Array.prototype.slice.call(arguments, 0)));
+	            };
+	          }
+	          for (var n = 0; n < d.length; n++) {
+	            t(d[n]);
+	          }
+	        }v(n);n.getInstance = function (e) {
+	          e = (!e || e.length === 0 ? "$default_instance" : e).toLowerCase();if (!n._iq.hasOwnProperty(e)) {
+	            n._iq[e] = { _q: [] };v(n._iq[e]);
+	          }return n._iq[e];
+	        };e.amplitude = n;
+	      })(window, document);
+
+	      // Apply default configuration
+	      // initConf = { ...pluginConfig, ...initConf }
+	      var mandatoryParams = ['token'];
+	      mandatoryParams.forEach(function (el) {
+	        if (!initConf[el]) throw new Error('VueMultianalytics : Please provide a "' + el + '" from the config.');
+	      });
+
+	      this.config.debug = initConf.debug;
+
+	      // init
+	      amplitude.getInstance().init(initConf.token);
+	    }
+
+	    // Methods
+
+	    /**
+	     * Dispatch a view analytics event
+	     *
+	     * params object should contain
+	     * @param viewName
+	     */
+
+	  }, {
+	    key: 'trackView',
+	    value: function trackView(_ref) {
+	      var viewName = _ref.viewName;
+	    }
+	    // if (!mixpanel.track) return
+	    // if (this.config.debug) {
+	    //   logDebug(viewName)
+	    // }
+	    // mixpanel.track("Page Viewed", { "page": viewName })
+
+
+	    /**
+	     * Dispatch a tracking analytics event
+	     *
+	     * params object should contain
+	     * @param {string} action - Name of the event you are sending.
+	     * @param {object} properties - An object of properties that are useful.
+	     * @param {function} callback - if provided, the callback function will be called.
+	     */
+
+	  }, {
+	    key: 'trackEvent',
+	    value: function trackEvent(_ref2) {
+	      var action = _ref2.action,
+	          _ref2$properties = _ref2.properties,
+	          properties = _ref2$properties === undefined ? {} : _ref2$properties,
+	          _ref2$callback = _ref2.callback,
+	          callback = _ref2$callback === undefined ? null : _ref2$callback;
+
+	      if (this.config.debug) {
+	        _utils.logDebug.apply(undefined, arguments);
+	      }
+
+	      amplitude.getInstance().logEvent(action, properties);
+	    }
+	  }, {
+	    key: 'setAlias',
+	    value: function setAlias(alias) {
+	      // if (!mixpanel.alias) return
+	      // if (this.config.debug) {
+	      //   logDebug(alias)
+	      // }
+	      // mixpanel.alias(alias)
+	    }
+	  }, {
+	    key: 'identify',
+	    value: function identify(_ref3) {
+	      var userId = _ref3.userId;
+
+	      if (this.config.debug) {
+	        (0, _utils.logDebug)(userId);
+	      }
+	      if (!userId) {
+	        return;
+	      }
+
+	      amplitude.getInstance().setUserId(userId);
+	    }
+	  }, {
+	    key: 'setUsername',
+	    value: function setUsername(userId) {
+	      if (this.config.debug) {
+	        (0, _utils.logDebug)(userId);
+	      }
+	      amplitude.getInstance().setUserId(userId);
+	    }
+	  }, {
+	    key: 'setUserProperties',
+	    value: function setUserProperties() {
+	      // if (!mixpanel.people) return
+	      // if (this.config.debug) {
+	      //   logDebug(properties)
+	      // }
+	      // mixpanel.people.set(properties)
+
+	      var properties = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+	    }
+	  }, {
+	    key: 'setUserPropertiesOnce',
+	    value: function setUserPropertiesOnce(properties) {
+	      // if (!mixpanel.people) return
+	      // if (this.config.debug) {
+	      //   logDebug(properties)
+	      // }
+	      //  mixpanel.people.set_once(properties)
+	    }
+	  }, {
+	    key: 'incrementUserProperties',
+	    value: function incrementUserProperties(properties) {
+	      // if (!mixpanel.people) return
+	      // if (this.config.debug) {
+	      //   logDebug(properties)
+	      // }
+	      // mixpanel.people.increment(properties)
+	    }
+	  }, {
+	    key: 'setSuperProperties',
+	    value: function setSuperProperties(properties) {
+	      // if (!mixpanel.register) return
+	      // if (this.config.debug) {
+	      //   logDebug(properties)
+	      // }
+	      //  mixpanel.register(properties)
+	    }
+	  }, {
+	    key: 'setSuperPropertiesOnce',
+	    value: function setSuperPropertiesOnce(properties) {
+	      // if (!mixpanel.register_once) return
+	      // if (this.config.debug) {
+	      //   logDebug(properties)
+	      // }
+	      // mixpanel.register_once(properties)
+	    }
+	  }, {
+	    key: 'reset',
+	    value: function reset() {
+	      // if (!mixpanel.reset) return
+	      // if (this.config.debug) {
+	      //   logDebug('reset')
+	      // }
+	      // mixpanel.reset();
+	    }
+	  }]);
+
+	  return AmplitudeModule;
+	}(_BasicModule3.default);
+
+	exports.default = AmplitudeModule;
 
 /***/ })
 /******/ ]);

@@ -4,6 +4,7 @@ import MixpanelModule from './modules/MixpanelModule'
 import SegmentModule from './modules/SegmentModule'
 import FacebookModule from './modules/FacebookModule'
 import MparticleModule from './modules/MparticleModule'
+import AplitudeModule from './modules/AmplitudeModule'
 import * as Utils from './utils'
 import * as types from './analyticsTypes'
 
@@ -42,6 +43,9 @@ const install = function (Vue, initConf = {}, mixin) {
         break;
       case types.MODULE_MPARTICLE:
         module = new MparticleModule()
+        module.init(initConf.modules[key])
+      case types.MODULE_AMPLITUDE:
+        module = new AplitudeModule()
         module.init(initConf.modules[key])
       default:
         break;
