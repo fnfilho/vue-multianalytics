@@ -79,6 +79,10 @@ module.exports =
 
 	var _AmplitudeModule2 = _interopRequireDefault(_AmplitudeModule);
 
+	var _FullstoryModule = __webpack_require__(11);
+
+	var _FullstoryModule2 = _interopRequireDefault(_FullstoryModule);
+
 	var _utils = __webpack_require__(5);
 
 	var Utils = _interopRequireWildcard(_utils);
@@ -131,6 +135,9 @@ module.exports =
 	        module.init(initConf.modules[key]);
 	      case types.MODULE_AMPLITUDE:
 	        module = new _AmplitudeModule2.default();
+	        module.init(initConf.modules[key]);
+	      case types.MODULE_AMPLITUDE:
+	        module = new _FullstoryModule2.default();
 	        module.init(initConf.modules[key]);
 	      default:
 	        break;
@@ -1028,6 +1035,7 @@ module.exports =
 	var MODULE_FACEBOOK = exports.MODULE_FACEBOOK = 'facebook';
 	var MODULE_MPARTICLE = exports.MODULE_MPARTICLE = 'mparticle';
 	var MODULE_AMPLITUDE = exports.MODULE_AMPLITUDE = 'amplitude';
+	var MODULE_FULLSTORY = exports.MODULE_FULLSTORY = 'fullstory';
 
 /***/ }),
 /* 4 */
@@ -2293,6 +2301,154 @@ module.exports =
 	}(_BasicModule3.default);
 
 	exports.default = AmplitudeModule;
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _analyticsTypes = __webpack_require__(3);
+
+	var _BasicModule2 = __webpack_require__(4);
+
+	var _BasicModule3 = _interopRequireDefault(_BasicModule2);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var FullStoryModule = function (_BasicModule) {
+	  _inherits(FullStoryModule, _BasicModule);
+
+	  function FullStoryModule() {
+	    _classCallCheck(this, FullStoryModule);
+
+	    return _possibleConstructorReturn(this, (FullStoryModule.__proto__ || Object.getPrototypeOf(FullStoryModule)).call(this, _analyticsTypes.MODULE_FULLSTORY));
+	  }
+
+	  _createClass(FullStoryModule, [{
+	    key: 'init',
+	    value: function init() {
+	      var initConf = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+	      window['_fs_debug'] = false;
+	      window['_fs_host'] = 'fullstory.com';
+	      window['_fs_org'] = 'MP3A5';
+	      window['_fs_namespace'] = 'fullstory';
+	      (function (m, n, e, t, l, o, g, y) {
+	        if (e in m) {
+	          if (m.console && m.console.log) {
+	            m.console.log('FullStory namespace conflict. Please set window["_fs_namespace"].');
+	          }return;
+	        }
+	        g = m[e] = function (a, b, s) {
+	          g.q ? g.q.push([a, b, s]) : g._api(a, b, s);
+	        };g.q = [];
+	        o = n.createElement(t);o.async = 1;o.crossOrigin = 'anonymous';o.src = 'https://' + _fs_host + '/s/fs.js';
+	        y = n.getElementsByTagName(t)[0];y.parentNode.insertBefore(o, y);
+	        g.identify = function (i, v, s) {
+	          g(l, { uid: i }, s);if (v) g(l, v, s);
+	        };g.setUserVars = function (v, s) {
+	          g(l, v, s);
+	        };g.event = function (i, v, s) {
+	          g('event', { n: i, p: v }, s);
+	        };
+	        g.shutdown = function () {
+	          g("rec", !1);
+	        };g.restart = function () {
+	          g("rec", !0);
+	        };
+	        g.log = function (a, b) {
+	          g("log", [a, b]);
+	        };
+	        g.consent = function (a) {
+	          g("consent", !arguments.length || a);
+	        };
+	        g.identifyAccount = function (i, v) {
+	          o = 'account';v = v || {};v.acctId = i;g(o, v);
+	        };
+	        g.clearUserCookie = function () {};
+	      })(window, document, window['_fs_namespace'], 'script', 'user');
+	    }
+	  }, {
+	    key: 'trackView',
+	    value: function trackView() {/* Overriden by modules */}
+	  }, {
+	    key: 'trackEvent',
+	    value: function trackEvent() {/* Overriden by modules */}
+	  }, {
+	    key: 'trackException',
+	    value: function trackException() {/* Overriden by modules */}
+	  }, {
+	    key: 'trackTiming',
+	    value: function trackTiming() {/* Overriden by modules */}
+	  }, {
+	    key: 'setAlias',
+	    value: function setAlias() {/* Overriden by modules */}
+	  }, {
+	    key: 'identify',
+	    value: function identify(_ref) {
+	      var userId = _ref.userId,
+	          options = _ref.options;
+
+	      fullstory.identify(userId, {
+	        displayName: options.name,
+	        email: options.email
+	      });
+	    }
+	  }, {
+	    key: 'setUsername',
+	    value: function setUsername() {/* Overriden by modules */}
+	  }, {
+	    key: 'setUserProperties',
+	    value: function setUserProperties() {/* Overriden by modules */}
+	  }, {
+	    key: 'setUserPropertiesOnce',
+	    value: function setUserPropertiesOnce() {/* Overriden by modules */}
+	  }, {
+	    key: 'incrementUserProperties',
+	    value: function incrementUserProperties() {/* Overriden by modules */}
+	  }, {
+	    key: 'setSuperProperties',
+	    value: function setSuperProperties() {/* Overriden by modules */}
+	  }, {
+	    key: 'setSuperPropertiesOnce',
+	    value: function setSuperPropertiesOnce() {/* Overriden by modules */}
+	  }, {
+	    key: 'ecommerceTrackEvent',
+	    value: function ecommerceTrackEvent() {/* Overriden by modules */}
+	  }, {
+	    key: 'addTransaction',
+	    value: function addTransaction() {/* Overriden by modules */}
+	  }, {
+	    key: 'addItem',
+	    value: function addItem() {/* Overriden by modules */}
+	  }, {
+	    key: 'trackTransaction',
+	    value: function trackTransaction() {/* Overriden by modules */}
+	  }, {
+	    key: 'clearTransactions',
+	    value: function clearTransactions() {/* Overriden by modules */}
+	  }, {
+	    key: 'reset',
+	    value: function reset() {/* Overriden by modules */}
+	  }]);
+
+	  return FullStoryModule;
+	}(_BasicModule3.default);
+
+	exports.default = FullStoryModule;
 
 /***/ })
 /******/ ]);
