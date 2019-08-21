@@ -45,12 +45,15 @@ const install = function (Vue, initConf = {}, mixin) {
       case types.MODULE_MPARTICLE:
         module = new MparticleModule()
         module.init(initConf.modules[key])
+        break;
       case types.MODULE_AMPLITUDE:
         module = new AplitudeModule()
         module.init(initConf.modules[key])
-      case types.MODULE_AMPLITUDE:
+        break;
+      case types.MODULE_FULLSTORY:
         module = new FullstoryModule()
         module.init(initConf.modules[key])
+        break;
       default:
         break;
     }
