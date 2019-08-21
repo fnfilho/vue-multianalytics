@@ -133,12 +133,15 @@ module.exports =
 	      case types.MODULE_MPARTICLE:
 	        module = new _MparticleModule2.default();
 	        module.init(initConf.modules[key]);
+	        break;
 	      case types.MODULE_AMPLITUDE:
 	        module = new _AmplitudeModule2.default();
 	        module.init(initConf.modules[key]);
-	      case types.MODULE_AMPLITUDE:
+	        break;
+	      case types.MODULE_FULLSTORY:
 	        module = new _FullstoryModule2.default();
 	        module.init(initConf.modules[key]);
+	        break;
 	      default:
 	        break;
 	    }
