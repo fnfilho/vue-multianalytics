@@ -8,9 +8,16 @@ export default class FullStoryModule extends BasicModule {
   }
 
   init (initConf = {}) {
+    // Apply default configuration
+    // initConf = { ...pluginConfig, ...initConf }
+    const mandatoryParams = [ 'token' ];
+    mandatoryParams.forEach(el => {
+      if (!initConf[ el ]) throw new Error(`VueAnalytics : Please provide a "${el}" from the config.`)
+    })
+
     window['_fs_debug'] = false;
     window['_fs_host'] = 'fullstory.com';
-    window['_fs_org'] = 'MP3A5';
+    window['_fs_org'] = initConf.token;
     window['_fs_namespace'] = 'fullstory';
     (function(m,n,e,t,l,o,g,y){
         if (e in m) {if(m.console && m.console.log) { m.console.log('FullStory namespace conflict. Please set window["_fs_namespace"].');} return;}
