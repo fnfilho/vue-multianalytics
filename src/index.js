@@ -6,6 +6,7 @@ import FacebookModule from './modules/FacebookModule'
 import MparticleModule from './modules/MparticleModule'
 import AplitudeModule from './modules/AmplitudeModule'
 import FullstoryModule from './modules/FullstoryModule'
+import HubspotModule from './modules/HubspotModule'
 import * as Utils from './utils'
 import * as types from './analyticsTypes'
 
@@ -52,6 +53,10 @@ const install = function (Vue, initConf = {}, mixin) {
         break;
       case types.MODULE_FULLSTORY:
         module = new FullstoryModule()
+        module.init(initConf.modules[key])
+        break;
+      case types.MODULE_HUBSPOT:
+        module = new HubspotModule()
         module.init(initConf.modules[key])
         break;
       default:
