@@ -33,10 +33,10 @@ export default class HubspotModule extends BasicModule {
   
     setAlias () { /* Overriden by modules */ }
   
-    identify ({ userId, options }) { 
-      _hsq.identify(userId, {
+    identify ({ options }) { 
+      _hsq.push(["identify", {
         email: options.email
-      })
+      }]);
     }
   
     setUsername () { /* Overriden by modules */ }
