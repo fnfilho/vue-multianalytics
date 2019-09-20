@@ -34,6 +34,7 @@ export default class HubspotModule extends BasicModule {
     setAlias () { /* Overriden by modules */ }
   
     identify ({ options }) { 
+      var _hsq = window._hsq = window._hsq || [];
       _hsq.push(["identify", {
         email: options.email
       }]);

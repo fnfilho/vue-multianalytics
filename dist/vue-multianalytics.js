@@ -2539,7 +2539,14 @@ module.exports =
 	    value: function setAlias() {/* Overriden by modules */}
 	  }, {
 	    key: 'identify',
-	    value: function identify() {/* Overriden by modules */}
+	    value: function identify(_ref) {
+	      var options = _ref.options;
+
+	      var _hsq = window._hsq = window._hsq || [];
+	      _hsq.push(["identify", {
+	        email: options.email
+	      }]);
+	    }
 	  }, {
 	    key: 'setUsername',
 	    value: function setUsername() {/* Overriden by modules */}
