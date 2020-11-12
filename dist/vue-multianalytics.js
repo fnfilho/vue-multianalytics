@@ -91,6 +91,10 @@ module.exports =
 
 	var _PersonizelyModule2 = _interopRequireDefault(_PersonizelyModule);
 
+	var _MarketHeroModule = __webpack_require__(14);
+
+	var _MarketHeroModule2 = _interopRequireDefault(_MarketHeroModule);
+
 	var _utils = __webpack_require__(5);
 
 	var Utils = _interopRequireWildcard(_utils);
@@ -156,6 +160,10 @@ module.exports =
 	        break;
 	      case types.MODULE_PERSONIZELY:
 	        module = new _PersonizelyModule2.default();
+	        module.init(initConf.modules[key]);
+	        break;
+	      case types.MODULE_MARKET_HERO:
+	        module = new _MarketHeroModule2.default();
 	        module.init(initConf.modules[key]);
 	        break;
 	      default:
@@ -1057,6 +1065,7 @@ module.exports =
 	var MODULE_FULLSTORY = exports.MODULE_FULLSTORY = 'fullstory';
 	var MODULE_HUBSPOT = exports.MODULE_HUBSPOT = 'hubspot';
 	var MODULE_PERSONIZELY = exports.MODULE_PERSONIZELY = 'personizely';
+	var MODULE_MARKET_HERO = exports.MODULE_MARKET_HERO = 'markeyhero';
 
 /***/ }),
 /* 4 */
@@ -2653,6 +2662,66 @@ module.exports =
 	      (function () {
 	        var e = document.createElement("script");
 	        e.src = 'https://static.personizely.net/' + initConf.token + '.js';
+	        e.type = "text/javascript";
+	        e.async = true;
+
+	        var n = document.getElementsByTagName("script")[0];
+	        n.parentNode.insertBefore(e, n);
+	      })();
+
+	      this.config.debug = initConf.debug;
+	    }
+	  }]);
+
+	  return PersonizelyModule;
+	}(_BasicModule3.default);
+
+	exports.default = PersonizelyModule;
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _analyticsTypes = __webpack_require__(3);
+
+	var _BasicModule2 = __webpack_require__(4);
+
+	var _BasicModule3 = _interopRequireDefault(_BasicModule2);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var PersonizelyModule = function (_BasicModule) {
+	  _inherits(PersonizelyModule, _BasicModule);
+
+	  function PersonizelyModule() {
+	    _classCallCheck(this, PersonizelyModule);
+
+	    return _possibleConstructorReturn(this, (PersonizelyModule.__proto__ || Object.getPrototypeOf(PersonizelyModule)).call(this, _analyticsTypes.MODULE_MARKET_HERO));
+	  }
+
+	  _createClass(PersonizelyModule, [{
+	    key: 'init',
+	    value: function init() {
+	      var initConf = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+	      // Load Market Hero
+	      (function () {
+	        var e = document.createElement("script");
+	        e.src = 'https://176906.tracking.markethero.io/v1/lst/universal-script?ph=c9d23b7724050e2e2d267890a0e0da92a1dd4fc9c4ea7a4b4ea62fcc9f473d78&tag=!hyros%22;head.appendChild(script)';
 	        e.type = "text/javascript";
 	        e.async = true;
 
